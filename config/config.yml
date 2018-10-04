@@ -1,0 +1,9 @@
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        host:     127.0.0.1
+        port:     null
+        dbname:   "atypikhouse"
+        user:     "root"
+        password: ""

@@ -1,0 +1,22 @@
+commandes
+
+Créer un projet symfony :
+composer create-project symfony/website-skeleton my-project
+
+composer require symfony/web-server-bundle --dev
+
+Run le projet :
+php bin\console server:run
+
+Synchro BDD
+php bin/console doctrine:mapping:import App\\Entity annotation --path=src/Entity
+
+Instalation pour connexion base de données
+composer require symfony/orm-pack
+composer require symfony/maker-bundle --dev
+
+Validation formulaires
+composer require symfony/validator
+
+package securité
+composer require symfony/security-bundle
