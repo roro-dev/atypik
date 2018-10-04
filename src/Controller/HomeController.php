@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-use App\Logement;
+use App\Entity\Logement;
 
 class HomeController extends AbstractController
 {
@@ -23,8 +23,10 @@ class HomeController extends AbstractController
         ]);
     }
 
-    public function inscription() {
-
+    public function inscription(AuthenticationUtils $authenticationUtils) {
+      return $this->render('home/inscription.html.twig', array(
+        'error' => ''
+      ));
     }
 
     public function login(AuthenticationUtils $authenticationUtils) {

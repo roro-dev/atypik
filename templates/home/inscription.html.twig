@@ -1,0 +1,25 @@
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
+<form action="{{ path('inscription_path') }}" method="post">
+    <label for="nom">Nom :</label>
+    <input type="text" id="nom" name="nom" >
+    <br>
+    <label for="prenom">Prénom : </label>
+    <input type="text" id="prenom" name="prenom" >
+    <br>
+    <label for="email">Email : </label>
+    <input type="email" id="email" name="email" >
+    <br>
+    <label for="telephone">Téléphone :</label>
+    <input type="text" id="telephone" name="telephone" >
+
+    {#
+        If you want to control the URL the user
+        is redirected to on success (more details below)
+        <input type="hidden" name="_target_path" value="/account" />
+    #}
+
+    <button type="submit">S'inscrire</button>
+</form>

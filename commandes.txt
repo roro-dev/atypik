@@ -20,3 +20,21 @@ composer require symfony/validator
 
 package securité
 composer require symfony/security-bundle
+
+Créer un projet symfony :
+composer create-project symfony/framework-standard-edition mon_projet
+
+Run le projet :
+php bin\console server:run
+
+Ajouter Bundle de workflow :
+composer require symfony/workflow
+
+Créer une entity :
+php bin\console doctrine:generate:entity
+
+Créer le controller (apres avoir créer l'entity)
+php bin\console doctrine:generate:crud
+
+Ajouter getter/setter:
+php bin\console doctrine:generate:entities AppBundle:Entity
