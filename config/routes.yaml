@@ -1,0 +1,19 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+app_bo_liste_user:
+    path: /bo/utilisateur/liste
+    controller: App\Controller\BoUtilisateurController::liste
+
+home:
+  path: /
+  controller: App\Controller\HomeController::index
+
+login_path:
+  path: /login
+  controller: App\Controller\HomeController::login
+
+inscription_path:
+  path: /inscription
+  controller: App\Controller\HomeController::inscription

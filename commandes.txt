@@ -1,0 +1,40 @@
+commandes
+
+Créer un projet symfony :
+composer create-project symfony/website-skeleton my-project
+
+composer require symfony/web-server-bundle --dev
+
+Run le projet :
+php bin\console server:run
+
+Synchro BDD
+php bin/console doctrine:mapping:import App\\Entity annotation --path=src/Entity
+
+Instalation pour connexion base de données
+composer require symfony/orm-pack
+composer require symfony/maker-bundle --dev
+
+Validation formulaires
+composer require symfony/validator
+
+package securité
+composer require symfony/security-bundle
+
+Créer un projet symfony :
+composer create-project symfony/framework-standard-edition mon_projet
+
+Run le projet :
+php bin\console server:run
+
+Ajouter Bundle de workflow :
+composer require symfony/workflow
+
+Créer une entity :
+php bin\console doctrine:generate:entity
+
+Créer le controller (apres avoir créer l'entity)
+php bin\console doctrine:generate:crud
+
+Ajouter getter/setter:
+php bin\console doctrine:generate:entities AppBundle:Entity
