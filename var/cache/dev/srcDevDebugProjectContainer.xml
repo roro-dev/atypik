@@ -392,11 +392,19 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
+    <service id="App\Repository\PayerRepository" class="App\Repository\PayerRepository" public="false" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="App\Repository\RolesUtilisateurRepository" class="App\Repository\RolesUtilisateurRepository" public="false" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\TypeLogementRepository" class="App\Repository\TypeLogementRepository" public="false" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\TypePaiementRepository" class="App\Repository\TypePaiementRepository" public="false" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -2637,7 +2645,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory" public="false">
-      <argument type="service" id=".service_locator.MvNfT8q"/>
+      <argument type="service" id=".service_locator.1Rjx2ET"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -4151,10 +4159,14 @@
     <service id=".abstract.instanceof.App\Repository\CommentaireRepository" class="App\Repository\CommentaireRepository" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\LogementRepository" class="App\Repository\LogementRepository" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\LogementRepository" class="App\Repository\LogementRepository" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\PayerRepository" class="App\Repository\PayerRepository" public="false" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\PayerRepository" class="App\Repository\PayerRepository" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\RolesUtilisateurRepository" class="App\Repository\RolesUtilisateurRepository" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\RolesUtilisateurRepository" class="App\Repository\RolesUtilisateurRepository" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TypeLogementRepository" class="App\Repository\TypeLogementRepository" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\TypeLogementRepository" class="App\Repository\TypeLogementRepository" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TypePaiementRepository" class="App\Repository\TypePaiementRepository" public="false" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\TypePaiementRepository" class="App\Repository\TypePaiementRepository" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UtilisateurRepository" class="App\Repository\UtilisateurRepository" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\UtilisateurRepository" class="App\Repository\UtilisateurRepository" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="maker.auto_command.make_auth" class="Symfony\Bundle\MakerBundle\Command\MakerCommand" public="false">
@@ -4370,13 +4382,15 @@
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="service" id="form.type.form"/>
       </argument>
     </service>
-    <service id=".service_locator.MvNfT8q" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.1Rjx2ET" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\CommentaireRepository" type="service" id="App\Repository\CommentaireRepository"/>
         <argument key="App\Repository\LogementRepository" type="service" id="App\Repository\LogementRepository"/>
+        <argument key="App\Repository\PayerRepository" type="service" id="App\Repository\PayerRepository"/>
         <argument key="App\Repository\RolesUtilisateurRepository" type="service" id="App\Repository\RolesUtilisateurRepository"/>
         <argument key="App\Repository\TypeLogementRepository" type="service" id="App\Repository\TypeLogementRepository"/>
+        <argument key="App\Repository\TypePaiementRepository" type="service" id="App\Repository\TypePaiementRepository"/>
         <argument key="App\Repository\UtilisateurRepository" type="service" id="App\Repository\UtilisateurRepository"/>
       </argument>
     </service>

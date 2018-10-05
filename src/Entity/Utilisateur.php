@@ -54,9 +54,15 @@ class Utilisateur
      */
     private $commentaires;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Payer", mappedBy="id_utilisateur", orphanRemoval=true)
+     */
+    private $paiements;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
+        $this->paiements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -161,6 +167,37 @@ class Utilisateur
             // set the owning side to null (unless already changed)
             if ($commentaire->getIdUtilisateur() === $this) {
                 $commentaire->setIdUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Payer[]
+     */
+    public function getPaiements(): Collection
+    {
+        return $this->paiements;
+    }
+
+    public function addPaiement(Payer $paiement): self
+    {
+        if (!$this->paiements->contains($paiement)) {
+            $this->paiements[] = $paiement;
+            $paiement->setIdUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removePaiement(Payer $paiement): self
+    {
+        if ($this->paiements->contains($paiement)) {
+            $this->paiements->removeElement($paiement);
+            // set the owning side to null (unless already changed)
+            if ($paiement->getIdUtilisateur() === $this) {
+                $paiement->setIdUtilisateur(null);
             }
         }
 

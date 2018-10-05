@@ -51,6 +51,8 @@ $a->setRepositoryFactory(new \Doctrine\Bundle\DoctrineBundle\Repository\Containe
     return ($this->privates['App\Repository\RolesUtilisateurRepository'] ?? $this->load('getRolesUtilisateurRepositoryService.php'));
 }, 'App\\Repository\\TypeLogementRepository' => function () {
     return ($this->privates['App\Repository\TypeLogementRepository'] ?? $this->load('getTypeLogementRepositoryService.php'));
+}, 'App\\Repository\\TypePaiementRepository' => function () {
+    return ($this->privates['App\Repository\TypePaiementRepository'] ?? $this->load('getTypePaiementRepositoryService.php'));
 }, 'App\\Repository\\UtilisateurRepository' => function () {
     return ($this->privates['App\Repository\UtilisateurRepository'] ?? $this->load('getUtilisateurRepositoryService.php'));
 }))));
