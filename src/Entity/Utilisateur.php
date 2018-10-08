@@ -64,11 +64,17 @@ class Utilisateur
      */
     private $reservations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Ville", mappedBy="id_utilisateur")
+     */
+    private $villes;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
         $this->paiements = new ArrayCollection();
         $this->reservations = new ArrayCollection();
+        $this->villes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -235,6 +241,37 @@ class Utilisateur
             // set the owning side to null (unless already changed)
             if ($reservation->getIdUtilisateur() === $this) {
                 $reservation->setIdUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Ville[]
+     */
+    public function getVilles(): Collection
+    {
+        return $this->villes;
+    }
+
+    public function addVille(Ville $ville): self
+    {
+        if (!$this->villes->contains($ville)) {
+            $this->villes[] = $ville;
+            $ville->setIdUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVille(Ville $ville): self
+    {
+        if ($this->villes->contains($ville)) {
+            $this->villes->removeElement($ville);
+            // set the owning side to null (unless already changed)
+            if ($ville->getIdUtilisateur() === $this) {
+                $ville->setIdUtilisateur(null);
             }
         }
 
