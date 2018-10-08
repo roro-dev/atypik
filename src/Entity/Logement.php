@@ -63,12 +63,24 @@ class Logement
      * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="id_logement", orphanRemoval=true)
      */
     private $commentaires;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ActviteLogement", mappedBy="id_logement")
+     */
+    private $actviteLogements;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Photo", mappedBy="id_logement")
+     */
+    private $photos;
     
 
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->actviteLogements = new ArrayCollection();
+        $this->photos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -216,6 +228,68 @@ class Logement
             // set the owning side to null (unless already changed)
             if ($commentaire->getIdLogement() === $this) {
                 $commentaire->setIdLogement(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ActviteLogement[]
+     */
+    public function getActviteLogements(): Collection
+    {
+        return $this->actviteLogements;
+    }
+
+    public function addActviteLogement(ActviteLogement $actviteLogement): self
+    {
+        if (!$this->actviteLogements->contains($actviteLogement)) {
+            $this->actviteLogements[] = $actviteLogement;
+            $actviteLogement->setIdLogement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActviteLogement(ActviteLogement $actviteLogement): self
+    {
+        if ($this->actviteLogements->contains($actviteLogement)) {
+            $this->actviteLogements->removeElement($actviteLogement);
+            // set the owning side to null (unless already changed)
+            if ($actviteLogement->getIdLogement() === $this) {
+                $actviteLogement->setIdLogement(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Photo[]
+     */
+    public function getPhotos(): Collection
+    {
+        return $this->photos;
+    }
+
+    public function addPhoto(Photo $photo): self
+    {
+        if (!$this->photos->contains($photo)) {
+            $this->photos[] = $photo;
+            $photo->setIdLogement($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(Photo $photo): self
+    {
+        if ($this->photos->contains($photo)) {
+            $this->photos->removeElement($photo);
+            // set the owning side to null (unless already changed)
+            if ($photo->getIdLogement() === $this) {
+                $photo->setIdLogement(null);
             }
         }
 
