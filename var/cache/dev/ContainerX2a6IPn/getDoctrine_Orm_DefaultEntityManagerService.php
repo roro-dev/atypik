@@ -45,10 +45,14 @@ $a->setQuoteStrategy(new \Doctrine\ORM\Mapping\DefaultQuoteStrategy());
 $a->setEntityListenerResolver(new \Doctrine\Bundle\DoctrineBundle\Mapping\ContainerAwareEntityListenerResolver($this));
 $a->setRepositoryFactory(new \Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory(new \Symfony\Component\DependencyInjection\ServiceLocator(array('App\\Repository\\CommentaireRepository' => function () {
     return ($this->privates['App\Repository\CommentaireRepository'] ?? $this->load('getCommentaireRepositoryService.php'));
+}, 'App\\Repository\\CommenterRepository' => function () {
+    return ($this->privates['App\Repository\CommenterRepository'] ?? $this->load('getCommenterRepositoryService.php'));
 }, 'App\\Repository\\LogementRepository' => function () {
     return ($this->privates['App\Repository\LogementRepository'] ?? $this->load('getLogementRepositoryService.php'));
 }, 'App\\Repository\\PayerRepository' => function () {
     return ($this->privates['App\Repository\PayerRepository'] ?? $this->load('getPayerRepositoryService.php'));
+}, 'App\\Repository\\ReservationRepository' => function () {
+    return ($this->privates['App\Repository\ReservationRepository'] ?? $this->load('getReservationRepositoryService.php'));
 }, 'App\\Repository\\RolesUtilisateurRepository' => function () {
     return ($this->privates['App\Repository\RolesUtilisateurRepository'] ?? $this->load('getRolesUtilisateurRepositoryService.php'));
 }, 'App\\Repository\\TypeLogementRepository' => function () {

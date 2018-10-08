@@ -59,10 +59,16 @@ class Utilisateur
      */
     private $paiements;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="id_utilisateur")
+     */
+    private $reservations;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
         $this->paiements = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -198,6 +204,37 @@ class Utilisateur
             // set the owning side to null (unless already changed)
             if ($paiement->getIdUtilisateur() === $this) {
                 $paiement->setIdUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setIdUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->contains($reservation)) {
+            $this->reservations->removeElement($reservation);
+            // set the owning side to null (unless already changed)
+            if ($reservation->getIdUtilisateur() === $this) {
+                $reservation->setIdUtilisateur(null);
             }
         }
 
