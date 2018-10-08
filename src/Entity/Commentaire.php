@@ -45,13 +45,20 @@ class Commentaire
     private $id_utilisateur;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Commenter", mappedBy="id_logement")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Logement", inversedBy="commentaires")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $commentaires;
+    private $id_logement;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date_commentaire;
 
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
+        $this->test = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -119,34 +126,27 @@ class Commentaire
         return $this;
     }
 
-    /**
-     * @return Collection|Commenter[]
-     */
-    public function getCommentaires(): Collection
+    public function getIdLogement(): ?Logement
     {
-        return $this->commentaires;
+        return $this->id_logement;
     }
 
-    public function addCommentaire(Commenter $commentaire): self
+    public function setIdLogement(?Logement $id_logement): self
     {
-        if (!$this->commentaires->contains($commentaire)) {
-            $this->commentaires[] = $commentaire;
-            $commentaire->setIdLogement($this);
-        }
+        $this->id_logement = $id_logement;
 
         return $this;
     }
 
-    public function removeCommentaire(Commenter $commentaire): self
+    public function getDateCommentaire(): ?\DateTimeInterface
     {
-        if ($this->commentaires->contains($commentaire)) {
-            $this->commentaires->removeElement($commentaire);
-            // set the owning side to null (unless already changed)
-            if ($commentaire->getIdLogement() === $this) {
-                $commentaire->setIdLogement(null);
-            }
-        }
+        return $this->date_commentaire;
+    }
+
+    public function setDateCommentaire(\DateTimeInterface $date_commentaire): self
+    {
+        $this->date_commentaire = $date_commentaire;
 
         return $this;
-    }
+    }    
 }
