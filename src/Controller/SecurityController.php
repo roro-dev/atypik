@@ -5,20 +5,22 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use App\Entity\Utilisateur;
-use App\Entity\RolesUtilisateur;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use App\Security\LoginFormAuthenticator;
+use App\Entity\Utilisateur;
+use App\Entity\RolesUtilisateur;
 use App\Form\UtilisateurType;
 
 class SecurityController extends AbstractController
 {
 
-	public function login(AuthenticationUtils $authenticationUtils)
-	{
-	    // get the login error if there is one
+	/**
+     * @Route("/login", name="login_route")
+     */
+    public function login(AuthenticationUtils $authenticationUtils) {
 	    $error = $authenticationUtils->getLastAuthenticationError();
-	    // last username entered by the user
 	    $lastUsername = $authenticationUtils->getLastUsername();
 
 	    return $this->render('security/login.html.twig', array(
@@ -30,7 +32,7 @@ class SecurityController extends AbstractController
 	/**
      * @Route("/register", name="user_registration")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function register(LoginFormAuthenticator $authenticator, GuardAuthenticatorHandler $guardHandler, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $user = new Utilisateur();
         $form = $this->createForm(UtilisateurType::class, $user);
@@ -44,8 +46,9 @@ class SecurityController extends AbstractController
                 $user->setPassword($password);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
-                $entityManager->flush();
-                return $this->redirectToRoute(home_route);
+                $entityManager->flush();                
+                $this->addFlash('success', 'Votre compte à bien été enregistré.');
+                return $this->redirectToRoute('home_route');
             } else {
                 die((string) $form->getErrors());
             }

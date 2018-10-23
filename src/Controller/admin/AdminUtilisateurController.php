@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Controller\bo;
+namespace App\Controller\admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Utilisateur;
 
-class BoUtilisateurController extends AbstractController
+class AdminUtilisateurController extends AbstractController
 {
     public function liste()
     {

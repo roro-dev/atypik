@@ -5,11 +5,3 @@
 home_route:
   path: /
   controller: App\Controller\HomeController::index
-
-login_route:
-  path: /login
-  controller: App\Controller\SecurityController::login
-
-logout_route:
-  path: /logout
-  controller: App\Controller\SecurityController::logout
