@@ -6,19 +6,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Entity\Utilisateur;
+use App\Entity\RolesUtilisateur;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Form\UtilisateurType;
 
 class SecurityController extends AbstractController
 {
 
 	public function login(AuthenticationUtils $authenticationUtils)
-	{	
-		$repository = $this->getDoctrine()->getRepository(Utilisateur::class);
-		$users = $repository->findAll();
+	{
 	    // get the login error if there is one
 	    $error = $authenticationUtils->getLastAuthenticationError();
-
 	    // last username entered by the user
 	    $lastUsername = $authenticationUtils->getLastUsername();
 
@@ -33,31 +32,27 @@ class SecurityController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-        // 1) build the form
         $user = new Utilisateur();
         $form = $this->createForm(UtilisateurType::class, $user);
-
-        // 2) handle the submit (will only happen on POST)
+        $repository = $this->getDoctrine()->getRepository(RolesUtilisateur::class);
+		$role = $repository->findOneBy(['id' => 1]);
+        $user->setIdRole($role);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            // 3) Encode the password (you could also do this via Doctrine listener)
-            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-            $user->setPassword($password);
-
-            // 4) save the User!
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            // ... do any other work - like sending them an email, etc
-            // maybe set a "flash" success message for the user
-
-            return $this->redirectToRoute('/');
+        if ($form->isSubmitted()) {
+            if($form->isValid()) {
+                $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+                $user->setPassword($password);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+                return $this->redirectToRoute(home_route);
+            } else {
+                die((string) $form->getErrors());
+            }
         }
 
         return $this->render(
-            'registration/register.html.twig',
+            'security/register.html.twig',
             array('form' => $form->createView())
         );
     }

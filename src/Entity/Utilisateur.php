@@ -45,11 +45,6 @@ class Utilisateur implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     */
-    private $password;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $telephone;
@@ -79,6 +74,17 @@ class Utilisateur implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Ville", mappedBy="id_utilisateur")
      */
     private $villes;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $password;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
 
     public function __construct()
     {
@@ -291,16 +297,42 @@ class Utilisateur implements UserInterface
 
     public function getRoles()
     {
-        return array('ROLE_USER');
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
     }
-
-    public function getPassword()
-    {
-    }
+    
     public function getSalt()
     {
     }
     public function eraseCredentials()
     {
+    }
+
+    public function getUsername() {}
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
     }
 }
