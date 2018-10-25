@@ -50,13 +50,15 @@ class SecurityController extends AbstractController
                 $this->addFlash('success', 'Votre compte à bien été enregistré.');
                 return $this->redirectToRoute('home_route');
             } else {
-                die((string) $form->getErrors());
+                $error = $form->getErrors();
             }
         }
 
         return $this->render(
             'security/register.html.twig',
-            array('form' => $form->createView())
+            array(
+                'form'  => $form->createView()
+            )
         );
     }
 }

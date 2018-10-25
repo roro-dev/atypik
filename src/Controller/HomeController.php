@@ -17,7 +17,7 @@ class HomeController extends AbstractController
         $repoLogement = $this->getDoctrine()->getRepository(RolesUtilisateur::class);
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
-            'logements' => $repoLogement->findAll()
+            'logements' => $this->get('security.context')->getToken()->getUser()
         ]);
     }
 }
