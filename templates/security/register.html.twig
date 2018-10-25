@@ -3,6 +3,11 @@
 {% block title %}Log in!{% endblock %}
     
 {% block body %}
+{% for flash_message in app.session.flashBag.get('error') %}
+    <div class="alert alert-success">
+        {{ flash_message }}
+    </div>
+{% endfor %}
     {{ form_start(form) }}
         {{ form_row(form.nom) }}
         {{ form_row(form.prenom) }}

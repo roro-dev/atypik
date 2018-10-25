@@ -36,21 +36,23 @@ class SecurityController extends AbstractController
     {
         $user = new Utilisateur();
         $form = $this->createForm(UtilisateurType::class, $user);
-        $repository = $this->getDoctrine()->getRepository(RolesUtilisateur::class);
-		$role = $repository->findOneBy(['id' => 1]);
-        $user->setIdRole($role);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             if($form->isValid()) {
+                $repository = $this->getDoctrine()->getRepository(RolesUtilisateur::class);
+                $role = $repository->findOneBy(['id' => 1]);
+                $user->setIdRole($role);
                 $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
                 $user->setPassword($password);
+                $user->setTokenUser = bin2hex(random_bytes(5));
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
-                $entityManager->flush();                
-                $this->addFlash('success', 'Votre compte à bien été enregistré.');
+                $entityManager->flush();
+                $this->addFlash('success', 'Votre compte à bien été crée. Vous allez recevoir un mail pour valider votre compte.');
                 return $this->redirectToRoute('home_route');
             } else {
-                $error = $form->getErrors();
+                $this->addFlash('error', 'La création de compte a connu certains problèmes.');
+                //$error = $form->getErrors();
             }
         }
 

@@ -86,8 +86,18 @@ class Utilisateur implements UserInterface
      */
     private $plainPassword;
 
-    public function __construct()
-    {
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $valideUser;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $tokenUser;
+
+    public function __construct() {
+        $this->valideUser = 0;
         $this->commentaires = new ArrayCollection();
         $this->paiements = new ArrayCollection();
         $this->reservations = new ArrayCollection();
@@ -331,6 +341,30 @@ class Utilisateur implements UserInterface
     public function setPlainPassword(string $plainPassword): self
     {
         $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    public function getValideUser(): ?bool
+    {
+        return $this->valideUser;
+    }
+
+    public function setValideUser(bool $valideUser): self
+    {
+        $this->valideUser = $valideUser;
+
+        return $this;
+    }
+
+    public function getTokenUser(): ?string
+    {
+        return $this->tokenUser;
+    }
+
+    public function setTokenUser(string $tokenUser): self
+    {
+        $this->tokenUser = $tokenUser;
 
         return $this;
     }
