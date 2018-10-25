@@ -63,4 +63,29 @@ class SecurityController extends AbstractController
             )
         );
     }
+
+    /**
+     * @Route("/test", name="test_mail")
+     */
+    public function test(\Swift_Mailer $mailer)
+    {
+    $message = (new \Swift_Message('Hello Email'))
+        ->setFrom('send@example.com')
+        ->setTo('stefanerodrigues75010@examgmail.com')
+        ->setBody('Test vous etes inscrit')
+        /*
+         * If you also want to include a plaintext version of the message
+        ->addPart(
+            $this->renderView(
+                'emails/registration.txt.twig',
+                array('name' => $name)
+            ),
+            'text/plain'
+        )
+        */
+    ;
+
+    $mailer->send($message);
+    return $this->render('home/index.html.twig');
+}
 }
