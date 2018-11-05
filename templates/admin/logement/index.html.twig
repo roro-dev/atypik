@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Logement index{% endblock %}
+{% block title %}Liste des logements{% endblock %}
 
 {% block body %}
-    <h1>Logement index</h1>
+    <h1>Liste des logements</h1>
 
     <table class="table">
         <thead>
@@ -15,7 +15,7 @@
                 <th>NbLits</th>
                 <th>NbSalledeBain</th>
                 <th>Prix</th>
-                <th>actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -29,13 +29,13 @@
                 <td>{{ logement.nbSalledeBain }}</td>
                 <td>{{ logement.prix }}</td>
                 <td>
-                    <a href="{{ path('logement_show', {'id': logement.id}) }}">show</a>
-                    <a href="{{ path('logement_edit', {'id': logement.id}) }}">edit</a>
+                    <a href="{{ path('utilisateur_edit', {'id': logement.id_proprietaire}) }}">Voir proprio</a>
+                    <a href="{{ path('logement_edit', {'id': logement.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8">Aucun résultat</td>
             </tr>
         {% endfor %}
         </tbody>

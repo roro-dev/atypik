@@ -13,14 +13,14 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/logement")
  */
-class LogementController extends AbstractController
+class AdminLogementController extends AbstractController
 {
     /**
      * @Route("/", name="logement_index", methods="GET")
      */
     public function index(LogementRepository $logementRepository): Response
     {
-        return $this->render('logement/index.html.twig', ['logements' => $logementRepository->findAll()]);
+        return $this->render('admin/logement/index.html.twig', ['logements' => $logementRepository->findAll()]);
     }
 
     /**

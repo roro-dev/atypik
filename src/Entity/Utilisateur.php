@@ -96,12 +96,18 @@ class Utilisateur implements UserInterface
      */
     private $tokenUser;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Logement", mappedBy="id_proprietaire")
+     */
+    private $logements;
+
     public function __construct() {
         $this->valideUser = 0;
         $this->commentaires = new ArrayCollection();
         $this->paiements = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->villes = new ArrayCollection();
+        $this->logements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -365,6 +371,37 @@ class Utilisateur implements UserInterface
     public function setTokenUser(string $tokenUser): self
     {
         $this->tokenUser = $tokenUser;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Logement[]
+     */
+    public function getLogements(): Collection
+    {
+        return $this->logements;
+    }
+
+    public function addLogement(Logement $logement): self
+    {
+        if (!$this->logements->contains($logement)) {
+            $this->logements[] = $logement;
+            $logement->setIdProprietaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLogement(Logement $logement): self
+    {
+        if ($this->logements->contains($logement)) {
+            $this->logements->removeElement($logement);
+            // set the owning side to null (unless already changed)
+            if ($logement->getIdProprietaire() === $this) {
+                $logement->setIdProprietaire(null);
+            }
+        }
 
         return $this;
     }

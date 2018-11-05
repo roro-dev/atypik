@@ -73,6 +73,12 @@ class Logement
      * @ORM\OneToMany(targetEntity="App\Entity\Photo", mappedBy="id_logement")
      */
     private $photos;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="logements")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $id_proprietaire;
     
 
     public function __construct()
@@ -292,6 +298,18 @@ class Logement
                 $photo->setIdLogement(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIdProprietaire(): ?Utilisateur
+    {
+        return $this->id_proprietaire;
+    }
+
+    public function setIdProprietaire(?Utilisateur $id_proprietaire): self
+    {
+        $this->id_proprietaire = $id_proprietaire;
 
         return $this;
     }
