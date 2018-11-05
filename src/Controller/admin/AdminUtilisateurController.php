@@ -55,7 +55,7 @@ class AdminUtilisateurController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="utilisateur_edit", methods="GET|POST")
+     * @Route("/edit/{id}", name="utilisateur_edit", methods="GET|POST")
      */
     public function edit(Request $request, Utilisateur $utilisateur): Response
     {
