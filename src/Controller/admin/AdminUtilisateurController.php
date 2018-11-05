@@ -29,7 +29,7 @@ class AdminUtilisateurController extends AbstractController
     public function new(Request $request): Response
     {
         $utilisateur = new Utilisateur();
-        $form = $this->createForm(Utilisateur1Type::class, $utilisateur);
+        $form = $this->createForm(UtilisateurType::class, $utilisateur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
