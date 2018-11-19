@@ -1,26 +1,30 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-bo.html.twig' %}
 
 {% block title %}Liste des logements{% endblock %}
 
 {% block body %}
-    <h1>Liste des logements</h1>
-
+    <div class="container">
+        <div class="row">
+            <h1>Liste des logements</h1>
+        </div>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Description</th>
+                <th rowspan="2">Id</th>
+                <th rowspan="2">Nom</th>
+                <th rowspan="2">Description</th>
+                <th colspan="3">Paramètres</th>                
+                <th rowspan="2">Prix</th>
+                <th rowspan="2"></th>
+            </tr>
+            <tr>
                 <th>NbVoyageur</th>
                 <th>NbLits</th>
                 <th>NbSalledeBain</th>
-                <th>Prix</th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for logement in logements %}
-        {{ dump(logement) }}
             <tr>
                 <td>{{ logement.id }}</td>
                 <td>{{ logement.nom }}</td>
@@ -43,4 +47,5 @@
     </table>
 
     <a href="{{ path('logement_new') }}">Create new</a>
+    </div>
 {% endblock %}
