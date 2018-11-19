@@ -51,11 +51,8 @@ header{
 	height: 250px;
 }
 
-#formulaire{
-	padding: 0px 0px 0px 0px;
-	background-image:url(imageFormRecherche.png);
+#formulaire img{
 	height: 600px;
-	background-color: red;
 	width: 100%;
 	background-repeat: repeat-y;
 }
@@ -66,3 +63,4 @@ footer{
 	background-color: #C4C4C4;
 	width: 100%;
 }
+
