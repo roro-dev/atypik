@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\UtilisateurRepository;
+use App\Entity\Utilisateur;
 
 /**
  * @Route("/admin/logement")
@@ -20,7 +22,7 @@ class AdminLogementController extends AbstractController
      */
     public function index(LogementRepository $logementRepository): Response
     {
-        return $this->render('admin/logement/index.html.twig', ['logements' => $logementRepository->findAll()]);
+        return $this->render('admin/logement/logement-index.html.twig', ['logements' => $logementRepository->findAll()]);
     }
 
     /**
@@ -29,18 +31,23 @@ class AdminLogementController extends AbstractController
     public function new(Request $request): Response
     {
         $logement = new Logement();
+        $repo = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneBy(['id' => 1]);
+        $logement->setIdProprietaire($repo);
         $form = $this->createForm(LogementType::class, $logement);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($logement);
-            $em->flush();
-
-            return $this->redirectToRoute('logement_index');
+        if ($form->isSubmitted()) {
+            if($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($logement);
+                $em->flush();                
+                $this->addFlash('success', 'Logement crée avec succès.');
+                return $this->redirectToRoute('logement_index');
+            } else {                
+                $this->addFlash('error', 'La création du logement a rencontré un problème.');
+            }
         }
 
-        return $this->render('admin/logement/new.html.twig', [
+        return $this->render('admin/logement/logement-new.html.twig', [
             'logement' => $logement,
             'form' => $form->createView(),
         ]);
@@ -51,7 +58,7 @@ class AdminLogementController extends AbstractController
      */
     public function show(Logement $logement): Response
     {
-        return $this->render('admin/logement/show.html.twig', ['logement' => $logement]);
+        return $this->render('admin/logement/logement-show.html.twig', ['logement' => $logement]);
     }
 
     /**
@@ -68,7 +75,7 @@ class AdminLogementController extends AbstractController
             return $this->redirectToRoute('logement_edit', ['id' => $logement->getId()]);
         }
 
-        return $this->render('admin/logement/edit.html.twig', [
+        return $this->render('admin/logement/logement-edit.html.twig', [
             'logement' => $logement,
             'form' => $form->createView(),
         ]);
