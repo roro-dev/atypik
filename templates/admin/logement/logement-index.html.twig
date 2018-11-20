@@ -14,15 +14,9 @@
                         <th rowspan="2">Id</th>
                         <th rowspan="2">Nom</th>
                         <th rowspan="2">Description</th>
-                        <th rowspan="2">Type</th>
-                        <th colspan="3">Paramètres</th>                
+                        <th rowspan="2">Type</th>             
                         <th rowspan="2">Prix</th>
                         <th rowspan="2"></th>
-                    </tr>
-                    <tr>
-                        <th>NbVoyageur</th>
-                        <th>NbLits</th>
-                        <th>NbSalledeBain</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,9 +26,6 @@
                         <td>{{ logement.nom }}</td>
                         <td>{{ logement.description }}</td>
                         <td>{{ logement.getIdType().getType() }}</td>
-                        <td>{{ logement.nbVoyageur }}</td>
-                        <td>{{ logement.nbLits }}</td>
-                        <td>{{ logement.nbSalledeBain }}</td>
                         <td>{{ logement.prix }} €</td>
                         <td>
                             <a href="{{ path('utilisateur_edit', {'id': logement.getIdProprietaire().getId()}) }}" class="btn btn-primary" title="Voir le propriétaire du logement">V</a>
