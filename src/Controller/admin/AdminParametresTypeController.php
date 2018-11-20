@@ -17,14 +17,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminParametresTypeController extends AbstractController
 {
     /**
-     * @Route("/", name="parametres_type_index", methods="GET")
+     * @Route("/{type}", name="parametres_type_index", methods="GET|POST")
      */
-    public function index(ParametresTypeRepository $repoParams, string $type = null): Response {
+    public function index($type = null): Response {
         $data = array('types' => $this->getDoctrine()->getRepository(TypeLogement::class)->findAll(), 'typeSelect' => $type);
         if(!empty($type)) {
-            $data['params'] = $repoParams->findBy(array('type_id' => $type));
+            $data['params'] = $this->getDoctrine()->getRepository(ParametresType::class)->findBy(array('type' => $type));
         } else {
-            $data['params'] = $repoParams->findAll();
+            $data['params'] = $this->getDoctrine()->getRepository(ParametresType::class)->findAll();
         }
         return $this->render(
             'admin/parametres-type/parametres-type-index.html.twig',
@@ -66,19 +66,21 @@ class AdminParametresTypeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="parametres_type_edit", methods="GET|POST")
+     * @Route("/edit/{id}", name="parametres_type_edit", methods="GET|POST")
      */
     public function edit(Request $request, ParametresType $parametresType): Response
     {
-        $form = $this->createForm(ParametresType::class, $parametresType);
+        $form = $this->createForm(ParametresTypeType::class, $parametresType);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('parametres_type_edit', ['id' => $parametresType->getId()]);
+        if ($form->isSubmitted()) {
+            if($form->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
+                $this->addFlash('success', 'Paramètre modifié avec succès !');
+                return $this->redirectToRoute('parametres_type_index');
+            } else {
+                $this->addFlash('error', 'Une erreur est survenue.');
+            }
         }
-
         return $this->render('admin/parametres-type/parametres-type-edit.html.twig', [
             'parametres_type' => $parametresType,
             'form' => $form->createView(),
@@ -86,7 +88,7 @@ class AdminParametresTypeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="parametres_type_delete", methods="DELETE")
+     * @Route("/delete/{id}", name="parametres_type_delete", methods="DELETE")
      */
     public function delete(Request $request, ParametresType $parametresType): Response
     {
