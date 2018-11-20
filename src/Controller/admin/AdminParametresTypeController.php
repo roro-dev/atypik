@@ -4,6 +4,7 @@ namespace App\Controller\admin;
 
 use App\Entity\ParametresType;
 use App\Entity\TypeLogement;
+use App\Form\ParametresTypeType;
 use App\Repository\ParametresTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,17 +38,19 @@ class AdminParametresTypeController extends AbstractController
     public function new(Request $request): Response
     {
         $parametresType = new ParametresType();
-        $form = $this->createForm(ParametresType::class, $parametresType);
+        $form = $this->createForm(ParametresTypeType::class, $parametresType);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($parametresType);
-            $em->flush();
-
-            return $this->redirectToRoute('parametres_type_index');
+        if ($form->isSubmitted()){
+            if($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($parametresType);
+                $em->flush();
+                $this->addFlash('success', 'Paramètre crée avec succès !');
+                return $this->redirectToRoute('parametres_type_index');
+            } else {
+                $this->addFlash('error', 'Une erreur est survenue.');
+            }
         }
-
         return $this->render('admin/parametres-type/parametres-type-new.html.twig', [
             'parametres_type' => $parametresType,
             'form' => $form->createView(),

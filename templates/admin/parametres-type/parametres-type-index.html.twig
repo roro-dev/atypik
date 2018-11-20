@@ -4,6 +4,11 @@
 
 {% block body %}
     <h3>Paramètres par type de logement</h3>
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
     <div class="row my-2 mx-auto">
         <a href="{{ path('parametres_type_new') }}" class="btn btn-primary">Ajouter un paramètre</a>
     </div>
