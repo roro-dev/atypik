@@ -58,7 +58,7 @@ class AdminParametresTypeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="parametres_type_show", methods="GET")
+     * @Route("/show/{id}", name="parametres_type_show", methods="GET")
      */
     public function show(ParametresType $parametresType): Response
     {
@@ -76,14 +76,14 @@ class AdminParametresTypeController extends AbstractController
             if($form->isValid()) {
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('success', 'Paramètre modifié avec succès !');
-                return $this->redirectToRoute('parametres_type_index');
+                return $this->redirectToRoute('parametres_type_index', array('type' => $parametresType->getType()->getId()));
             } else {
                 $this->addFlash('error', 'Une erreur est survenue.');
             }
         }
         return $this->render('admin/parametres-type/parametres-type-edit.html.twig', [
             'parametres_type' => $parametresType,
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ]);
     }
 

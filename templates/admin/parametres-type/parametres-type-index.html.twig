@@ -9,19 +9,19 @@
             {{ flash_message }}
         </div>
     {% endfor %}
-    <div class="row my-2 mx-auto">
-        <a href="{{ path('parametres_type_new') }}" class="btn btn-primary">Ajouter un paramètre</a>
-    </div>
-    <div class="row mx-auto">
-        <form method="get" action="">
-            <select class="form-control" name="type">
+    <div class="row">
+        <div class="mx-auto col">
+            <select class="form-control" name="type" onchange="location = '/admin/parametres-type/' + this.value;">
                 <option value="" disabled {{ typeSelect is empty ? 'selected' : '' }}>Sélectionnez un type de logement</option>
                 {% for type in types %}
-                    <option value="{{ type.id }}" onclick="console.log('{{ type.id }}')" {{ typeSelect == type.id ? 'selected' : '' }}>{{ type.type }}</option>
+                    <option value="{{ type.id }}" onclick="" {{ typeSelect == type.id ? 'selected' : '' }}>{{ type.type }}</option>
                 {% endfor %}
             </select>
-        </form>
-    </div>
+            </div>
+        <div class="mx-auto col">
+            <a href="{{ path('parametres_type_new') }}" class="btn btn-primary">Ajouter un paramètre</a>
+        </div>
+    </div>    
     <div class="row mx-auto my-2"> 
         {% if typeSelect %}        
             <table class="table">
