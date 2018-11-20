@@ -31,21 +31,6 @@ class LogementType extends AbstractType
                     'class' => 'form-control'
                 )
             ))
-            ->add('nbVoyageur', NumberType::class, array(
-                'attr' => array(
-                    'class' => 'form-control'
-                )
-            ))
-            ->add('nbLits', NumberType::class, array(
-                'attr' => array(
-                    'class' => 'form-control'
-                )
-            ))
-            ->add('nbSalledeBain', NumberType::class, array(
-                'attr' => array(
-                    'class' => 'form-control'
-                )
-            ))
             ->add('prix', NumberType::class, array(
                 'attr' => array(
                     'class' => 'form-control'

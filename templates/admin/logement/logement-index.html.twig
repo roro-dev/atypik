@@ -39,7 +39,7 @@
                         <td>
                             <a href="{{ path('utilisateur_edit', {'id': logement.getIdProprietaire().getId()}) }}" class="btn btn-primary" title="Voir le propriétaire du logement">V</a>
                             <a href="{{ path('logement_edit', {'id': logement.id}) }}" class="btn btn-success" title="Modifier le logement">M</a>
-                            <a href="{{ path('utilisateur_edit', {'id': logement.getIdProprietaire().getId()}) }}" class="btn btn-danger" title="Supprimer le logement">S</a>
+                            <a href="{{ path('logement_delete', {'id': logement.id}) }}" class="btn btn-danger" title="Supprimer le logement">S</a>
                         </td>
                     </tr>
                 {% else %}
