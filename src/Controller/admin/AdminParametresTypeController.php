@@ -19,7 +19,7 @@ class AdminParametresTypeController extends AbstractController
      * @Route("/", name="parametres_type_index", methods="GET")
      */
     public function index(ParametresTypeRepository $repoParams, string $type = null): Response {
-        $data = array('type' => $this->getDoctrine()->getRepository(TypeLogement::class)->findAll());
+        $data = array('types' => $this->getDoctrine()->getRepository(TypeLogement::class)->findAll(), 'typeSelect' => $type);
         if(!empty($type)) {
             $data['params'] = $repoParams->findBy(array('type_id' => $type));
         } else {

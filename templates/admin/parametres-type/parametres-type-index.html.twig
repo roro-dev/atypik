@@ -4,37 +4,41 @@
 
 {% block body %}
     <h3>Paramètres par type de logement</h3>
-    <div class="row">
+    <div class="row my-2 mx-auto">
+        <a href="{{ path('parametres_type_new') }}" class="btn btn-primary">Ajouter un paramètre</a>
+    </div>
+    <div class="row mx-auto">
         <select class="form-control">
             {% for type in types %}
-                <option value="{{ type.id }}">{{ type.type }}</option>
+                <option value="{{ type.id }}" onclick="location.href='{{ path('parametres_type_index', {'type': type.id}) }}';">{{ type.type }}</option>
             {% endfor %}
         </select>
-        <br><br>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Nom</th>
-                    <th>actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for parametres_type in parametres_types %}
-                <tr>
-                    <td>{{ parametres_type.id }}</td>
-                    <td>{{ parametres_type.nom }}</td>
-                    <td>
-                        <a href="{{ path('parametres_type_show', {'id': parametres_type.id}) }}">show</a>
-                        <a href="{{ path('parametres_type_edit', {'id': parametres_type.id}) }}">edit</a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="3">no records found</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+    </div>
+    <div class="row mx-auto my-2"> 
+        {% if typeSelect %}        
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for p in params %}
+                    <tr>
+                        <td>{{ p.nom }}</td>
+                        <td>
+                            <a href="{{ path('parametres_type_edit', {'id': p.id}) }}" class="btn btn-success">M</a>
+                            <a href="{{ path('parametres_type_show', {'id': p.id}) }}" class="btn btn-danger">S</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">Aucun paramètres</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
     </div>
 {% endblock %}
