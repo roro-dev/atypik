@@ -70,8 +70,8 @@ class SecurityController extends AbstractController
     public function test(\Swift_Mailer $mailer)
     {
         $message = (new \Swift_Message('Hello Email'))
-            ->setFrom('send@example.com')
-            ->setTo('stefanerodrigues75010@examgmail.com')
+            ->setFrom('stefanedr.dev@gmail.com')
+            ->setTo('stefanerodrigues75010@gmail.com')
             ->setBody('Test vous etes inscrit')
             /*
             * If you also want to include a plaintext version of the message
@@ -85,7 +85,13 @@ class SecurityController extends AbstractController
             */
         ;
 
-        $mailer->send($message);
+        $result = $mailer->send($message);
+        if($result) {
+            echo 'mail good';
+        } else {
+            echo 'error mail';
+        }
+        die;
         return $this->render('home/index.html.twig');
     }
 
