@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Utilisateur;
 
 /**
  * @Route("/admin/parametres-type")
@@ -17,9 +18,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminParametresTypeController extends AbstractController
 {
     /**
-     * @Route("/{type}", name="parametres_type_index", methods="GET|POST")
+     * @Route("/liste/{type}", name="parametres_type_index", methods="GET|POST")
      */
-    public function index($type = null): Response {
+    public function liste($type = null): Response {
         $data = array('types' => $this->getDoctrine()->getRepository(TypeLogement::class)->findAll(), 'typeSelect' => $type);
         if(!empty($type)) {
             $data['params'] = $this->getDoctrine()->getRepository(ParametresType::class)->findBy(array('type' => $type));
@@ -88,16 +89,23 @@ class AdminParametresTypeController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="parametres_type_delete", methods="DELETE")
+     * @Route("/{id}", name="parametres_type_delete", methods="DELETE")
      */
     public function delete(Request $request, ParametresType $parametresType): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$parametresType->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($parametresType);
-            $em->flush();
-        }
+        var_dump($parametresType->getId());
+        /*$em = $this->getDoctrine()->getManager();
+        $em->remove($parametresType);
+        $em->flush();
 
-        return $this->redirectToRoute('parametres_type_index');
+        return $this->redirectToRoute('parametres_type_index');*/
+    }
+
+    /**
+     * Permet d'envoyer des alertes aux proprios
+     */
+    private function alerteProprio($_idParam) {
+        $proprios = $this->getDoctrine()->getRepository(Utilisateur::class)->findByParametre($_idParam);
+        var_dump($proprios);
     }
 }

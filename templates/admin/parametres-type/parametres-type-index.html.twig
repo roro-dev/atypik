@@ -37,7 +37,7 @@
                         <td>{{ p.nom }}</td>
                         <td>
                             <a href="{{ path('parametres_type_edit', {'id': p.id}) }}" class="btn btn-success">M</a>
-                            <a href="{{ path('parametres_type_show', {'id': p.id}) }}" class="btn btn-danger">S</a>
+                            <a href="{{ path('parametres_type_delete', {'id': p.id}) }}" class="btn btn-danger">S</a>
                         </td>
                     </tr>
                 {% else %}
