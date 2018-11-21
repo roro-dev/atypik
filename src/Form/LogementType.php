@@ -15,6 +15,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Proxies\__CG__\App\Entity\TypeLogement;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use App\Entity\Utilisateur;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 
 class LogementType extends AbstractType
 {
@@ -31,15 +32,17 @@ class LogementType extends AbstractType
                     'class' => 'form-control'
                 )
             ))
-            ->add('prix', NumberType::class, array(
+            ->add('prix', MoneyType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
-                )
+                ),
+                'label' => 'Prix (en euros)'
             ))
             ->add('id_type', EntityType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
                 ),
+                'label' => 'Type de logement',
                 'class' => TypeLogement::class,
                 'choice_label' => 'type'
             ))
@@ -47,6 +50,7 @@ class LogementType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control'
                 ),
+                'label' => 'Propriétaire du logement',
                 'class' => Utilisateur::class
             ))
         ;

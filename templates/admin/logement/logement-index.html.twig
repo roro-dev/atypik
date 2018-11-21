@@ -3,15 +3,21 @@
 {% block title %}Logements > Liste{% endblock %}
 
 {% block body %}
-        <div class="row">
-            <h3>Liste des logements</h3>
+    <h3>Liste des logements</h3>
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ flash_message }}
         </div>
-        <div class="row">
-            <a href="{{ path('logement_new') }}" class="btn btn-success">Ajouter un logement</a>
+    {% endfor %}
+    <div class="row">
+        <div class="mx-auto col">
+            <a href="{{ path('logement_new') }}" class="btn btn-primary">Ajouter un logement</a>
+        </div>
+    </div>
+    <div class="row mx-auto my-2">
             <table class="table">
                 <thead>
                     <tr>
-                        <th rowspan="2">Id</th>
                         <th rowspan="2">Nom</th>
                         <th rowspan="2">Description</th>
                         <th rowspan="2">Type</th>             
@@ -22,7 +28,6 @@
                 <tbody>
                 {% for logement in logements %}
                     <tr>
-                        <td>{{ logement.id }}</td>
                         <td>{{ logement.nom }}</td>
                         <td>{{ logement.description }}</td>
                         <td>{{ logement.getIdType().getType() }}</td>

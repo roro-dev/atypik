@@ -18,9 +18,9 @@ use App\Entity\Utilisateur;
 class AdminLogementController extends AbstractController
 {
     /**
-     * @Route("/", name="logement_index", methods="GET")
+     * @Route("/", name="logement_liste", methods="GET")
      */
-    public function index(LogementRepository $logementRepository): Response
+    public function liste(LogementRepository $logementRepository): Response
     {
         return $this->render('admin/logement/logement-index.html.twig', ['logements' => $logementRepository->findAll()]);
     }
