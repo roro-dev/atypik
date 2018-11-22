@@ -1,6 +1,7 @@
 /vendor/
 /var/
 /.vscode/
+/.env
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
 npm-debug.log
