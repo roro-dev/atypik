@@ -10,6 +10,7 @@ $(document).ready(function() {
                     params = JSON.parse(response);
                     $.each(params, function(k, v){
                         console.log(v.nom);
+                        $('#parametres').empty();
                         $('#parametres').append('<label>'+v.nom+'</label>');
                         $('#parametres').append('<input class="form-control" type="text" name="param-'+ (k+1) +'">');
                     })
