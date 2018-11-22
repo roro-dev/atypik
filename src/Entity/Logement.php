@@ -31,21 +31,6 @@ class Logement
     /**
      * @ORM\Column(type="integer")
      */
-    private $nbVoyageur;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $nbLits;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $nbSalledeBain;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
     private $prix;
 
     /**
@@ -73,6 +58,17 @@ class Logement
      * @ORM\OneToMany(targetEntity="App\Entity\Photo", mappedBy="id_logement")
      */
     private $photos;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="logements")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $id_proprietaire;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ParametresLogement", mappedBy="logement")
+     */
+    private $parametresLogement;
     
 
     public function __construct()
@@ -81,6 +77,7 @@ class Logement
         $this->commentaires = new ArrayCollection();
         $this->actviteLogements = new ArrayCollection();
         $this->photos = new ArrayCollection();
+        $this->parametresLogement = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -108,42 +105,6 @@ class Logement
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getNbVoyageur(): ?int
-    {
-        return $this->nbVoyageur;
-    }
-
-    public function setNbVoyageur(int $nbVoyageur): self
-    {
-        $this->nbVoyageur = $nbVoyageur;
-
-        return $this;
-    }
-
-    public function getNbLits(): ?int
-    {
-        return $this->nbLits;
-    }
-
-    public function setNbLits(int $nbLits): self
-    {
-        $this->nbLits = $nbLits;
-
-        return $this;
-    }
-
-    public function getNbSalledeBain(): ?int
-    {
-        return $this->nbSalledeBain;
-    }
-
-    public function setNbSalledeBain(int $nbSalledeBain): self
-    {
-        $this->nbSalledeBain = $nbSalledeBain;
 
         return $this;
     }
@@ -290,6 +251,49 @@ class Logement
             // set the owning side to null (unless already changed)
             if ($photo->getIdLogement() === $this) {
                 $photo->setIdLogement(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getIdProprietaire(): ?Utilisateur
+    {
+        return $this->id_proprietaire;
+    }
+
+    public function setIdProprietaire(?Utilisateur $id_proprietaire): self
+    {
+        $this->id_proprietaire = $id_proprietaire;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ParametresLogement[]
+     */
+    public function getParametresLogement(): Collection
+    {
+        return $this->parametresLogement;
+    }
+
+    public function addParametresLogement(ParametresLogement $parametresLogement): self
+    {
+        if (!$this->parametresLogement->contains($parametresLogement)) {
+            $this->parametresLogement[] = $parametresLogement;
+            $parametresLogement->setLogement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParametresLogement(ParametresLogement $parametresLogement): self
+    {
+        if ($this->parametresLogement->contains($parametresLogement)) {
+            $this->parametresLogement->removeElement($parametresLogement);
+            // set the owning side to null (unless already changed)
+            if ($parametresLogement->getLogement() === $this) {
+                $parametresLogement->setLogement(null);
             }
         }
 

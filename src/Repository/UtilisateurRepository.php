@@ -19,6 +19,19 @@ class UtilisateurRepository extends ServiceEntityRepository
         parent::__construct($registry, Utilisateur::class);
     }
 
+    public function findByParametre($_param) {
+        $conn = $this->getEntityManager()->getConnection();
+        $query = 'SELECT u.email 
+            FROM utilisateur u 
+            LEFT JOIN logement l ON l.id_proprietaire_id = u.id 
+            LEFT JOIN parametres_type pt ON pt.type_id = l.id_type_id 
+            WHERE pt.id = :param 
+            GROUP BY u.id';
+        $stmt = $conn->prepare($query);
+        $stmt->execute(['param' => $_param]);
+        return $stmt->fetchAll();
+    }
+
 //    /**
 //     * @return Utilisateur[] Returns an array of Utilisateur objects
 //     */

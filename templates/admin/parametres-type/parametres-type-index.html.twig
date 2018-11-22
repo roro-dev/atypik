@@ -1,0 +1,52 @@
+{% extends 'base-bo.html.twig' %}
+
+{% block title %}Paramètres > Liste {% endblock %}
+
+{% block body %}
+    <h3>Paramètres par type de logement</h3>
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+    <div class="row">
+        <div class="mx-auto col">
+            <select class="form-control" name="type" onchange="location = '/admin/parametres-type/' + this.value;">
+                <option value="" disabled {{ typeSelect is empty ? 'selected' : '' }}>Sélectionnez un type de logement</option>
+                {% for type in types %}
+                    <option value="{{ type.id }}" onclick="" {{ typeSelect == type.id ? 'selected' : '' }}>{{ type.type }}</option>
+                {% endfor %}
+            </select>
+            </div>
+        <div class="mx-auto col">
+            <a href="{{ path('parametres_type_new') }}" class="btn btn-primary">Ajouter un paramètre</a>
+        </div>
+    </div>    
+    <div class="row mx-auto my-2"> 
+        {% if typeSelect %}        
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Paramètre</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for p in params %}
+                    <tr>
+                        <td>{{ p.nom }}</td>
+                        <td>
+                            <a href="{{ path('parametres_type_edit', {'id': p.id}) }}" class="btn btn-success">M</a>
+                            <a href="{{ path('parametres_type_delete', {'id': p.id}) }}" class="btn btn-danger">S</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">Aucun paramètres</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

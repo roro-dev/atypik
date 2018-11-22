@@ -28,9 +28,15 @@ class TypeLogement
      */
     private $logements;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ParametresType", mappedBy="type")
+     */
+    private $parametresType;
+
     public function __construct()
     {
         $this->logements = new ArrayCollection();
+        $this->parametresType = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,6 +81,37 @@ class TypeLogement
             // set the owning side to null (unless already changed)
             if ($logement->getIdType() === $this) {
                 $logement->setIdType(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ParametresType[]
+     */
+    public function getParametresType(): Collection
+    {
+        return $this->parametresType;
+    }
+
+    public function addParametresType(ParametresType $parametresType): self
+    {
+        if (!$this->parametresType->contains($parametresType)) {
+            $this->parametresType[] = $parametresType;
+            $parametresType->setType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParametresType(ParametresType $parametresType): self
+    {
+        if ($this->parametresType->contains($parametresType)) {
+            $this->parametresType->removeElement($parametresType);
+            // set the owning side to null (unless already changed)
+            if ($parametresType->getType() === $this) {
+                $parametresType->setType(null);
             }
         }
 

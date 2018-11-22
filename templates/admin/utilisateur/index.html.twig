@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateur index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <h1>Liste des utilisateurs</h1>
+        </div>
+        <div class="row">
+            <a class="btn btn-success" href="{{ path('utilisateur_new') }}">Create new</a>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Adresse</th>
+                    <th>Email</th>
+                    <th>Telephone</th>
+                    <th>Compte Validé</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for utilisateur in utilisateurs %}
+                <tr>
+                    <td>{{ utilisateur.id }}</td>
+                    <td>{{ utilisateur.nom }}</td>
+                    <td>{{ utilisateur.prenom }}</td>
+                    <td>{{ utilisateur.adresse }}</td>
+                    <td>{{ utilisateur.email }}</td>
+                    <td>{{ utilisateur.telephone }}</td>
+                    <td>{{ utilisateur.valideUser ? 'Oui' : 'Non' }}</td>
+                    <td>
+                        <a href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}"><span class="glyphicon glyphicon-edit"></span></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="10">Aucun résultat</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        
+    </div>
+{% endblock %}

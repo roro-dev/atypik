@@ -1,0 +1,23 @@
+{% extends 'base-bo.html.twig' %}
+
+{% block title %}Paramètre > Création{% endblock %}
+
+{% block body %}
+    {% for flash_message in app.session.flashBag.get('error') %}
+        <div class="alert alert-error">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+    <div class="row mx-auto my-2">
+        <a href="{{ path('parametres_type_index') }}">Retour</a>
+    </div>
+    <h3>Créer un nouveau paramètre</h3>
+    <div class="row">
+        <div class="col">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button class="btn btn-success my-2">{{ button_label|default('Enregister') }}</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

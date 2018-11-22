@@ -1,0 +1,23 @@
+{% extends 'base-bo.html.twig' %}
+
+{% block title %}Logements > Création{% endblock %}
+
+{% block body %}
+    <div class="row mx-auto my-2">
+        <a href="{{ path('logement_liste') }}">Retour</a>
+    </div>
+    <h1>Création d'un logement</h1>
+    {% for flash_message in app.session.flashBag.get('error') %}
+        <div class="alert alert-error">
+            {{ flash_message }}
+        </div>
+    {% endfor %}   
+    <br>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div id="parametres">
+        </div>
+        <br>
+        <button class="btn btn-success">Mettre à jour</button>
+    {{ form_end(form) }}
+{% endblock %}

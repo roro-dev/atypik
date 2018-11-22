@@ -44,7 +44,7 @@ class SecurityController extends AbstractController
                 $user->setIdRole($role);
                 $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
                 $user->setPassword($password);
-                $user->setTokenUser = bin2hex(random_bytes(5));
+                $user->setTokenUser(bin2hex(random_bytes(5)));
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
@@ -62,5 +62,56 @@ class SecurityController extends AbstractController
                 'form'  => $form->createView()
             )
         );
+    }
+
+    /**
+     * @Route("/test", name="test_mail")
+     */
+    public function test(\Swift_Mailer $mailer)
+    {
+        $message = (new \Swift_Message('Hello Email'))
+            ->setFrom('stefanedr.dev@gmail.com')
+            ->setTo('stefanerodrigues75010@gmail.com')
+            ->setBody('Test vous etes inscrit')
+            /*
+            * If you also want to include a plaintext version of the message
+            ->addPart(
+                $this->renderView(
+                    'emails/registration.txt.twig',
+                    array('name' => $name)
+                ),
+                'text/plain'
+            )
+            */
+        ;
+
+        $result = $mailer->send($message);
+        if($result) {
+            echo 'mail good';
+        } else {
+            echo 'error mail';
+        }
+        die;
+        return $this->render('home/index.html.twig');
+    }
+
+    /**
+     * @Route("/validation/{token}", name="validate_user")
+     * Fonction pour valider un compte d'utilisateur via un token
+     */
+    public function validerUser(String $token) {        
+        $repo = $this->getDoctrine()->getRepository(Utilisateur::class);
+        $user = $repo->findOneBy(['tokenUser' => $token]);
+        if(!empty($user)) {
+            $user->setValideUser(1);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $this->addFlash('success', 'Votre compte a été validé. Vous pouvez vous connecter.');
+            return $this->render('security/login.html.twig');
+        } else {
+            $this->addFlash('error', 'La validation du compte a connu certains problèmes ...');
+            return $this->render('home/index.html.twig');
+        }        
     }
 }

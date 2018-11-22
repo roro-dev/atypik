@@ -1,8 +1,12 @@
 {
     "devDependencies": {
         "@symfony/webpack-encore": "^0.22.0",
+<<<<<<< HEAD
         "node-sass": "^4.10.0",
         "sass-loader": "^7.0.1",
+=======
+        "jquery": "^3.3.1",
+>>>>>>> gestion_logements
         "webpack-notifier": "^1.6.0"
     },
     "license": "UNLICENSED",
@@ -11,7 +15,11 @@
         "dev-server": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch",
+<<<<<<< HEAD
         "build": "encore production --progress",
         "encore": "encore"
+=======
+        "build": "encore production --progress"
+>>>>>>> gestion_logements
     }
 }
