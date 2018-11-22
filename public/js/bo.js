@@ -7,13 +7,7 @@ $(document).ready(function() {
                 data: {'type': $(this).val()},
                 method: 'post',
                 success: function(response) {
-                    params = JSON.parse(response);
-                    $.each(params, function(k, v){
-                        console.log(v.nom);
-                        $('#parametres').empty();
-                        $('#parametres').append('<label>'+v.nom+'</label>');
-                        $('#parametres').append('<input class="form-control" type="text" name="param-'+ (k+1) +'">');
-                    })
+                    showParams(JSON.parse(response), '#parametres');
                 }, 
                 error: function() {
                     alert('Une erreur est survenue. Veuillez contactez l\'administrateur du site.');
@@ -23,3 +17,18 @@ $(document).ready(function() {
     }
 
 })
+
+/**
+ * Permet d'afficher les paramètres pour un logement
+ * @param {array} tab 
+ * @param {string} container 
+ */
+function showParams(tab, container) {
+    if(tab.length > 0) {
+        $(container).empty();
+        $.each(tab, function(k, v){
+            $(container).append('<label>'+v.nom+'</label>');
+            $(container).append('<input class="form-control" type="text" name="params[]">');
+        });
+    }
+}

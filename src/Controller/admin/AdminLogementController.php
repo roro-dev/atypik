@@ -30,6 +30,7 @@ class AdminLogementController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        var_dump($request->request->get('params[]'));die;
         $logement = new Logement();
         $repo = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneBy(['id' => 1]);
         $logement->setIdProprietaire($repo);
