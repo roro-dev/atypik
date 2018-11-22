@@ -19,6 +19,27 @@ class ParametresTypeRepository extends ServiceEntityRepository
         parent::__construct($registry, ParametresType::class);
     }
 
+    /**
+     * Permet de récupérer tous les paramètres pour un type donné
+     * @author  Roro Dev
+     * @param   int     $_param
+     * @return  array   
+     */
+    public function findByType($_type) {
+        $result = array();
+        if(!empty($_type)) {
+            $conn = $this->getEntityManager()->getConnection();
+            $query = 'SELECT p.nom 
+                FROM parametres_type p
+                WHERE p.type_id = :type 
+                GROUP BY p.id';
+            $stmt = $conn->prepare($query);
+            $stmt->execute(['type' => $_type]);
+            $result = $stmt->fetchAll();
+        }        
+        return $result;
+    }
+
 //    /**
 //     * @return ParametresType[] Returns an array of ParametresType objects
 //     */

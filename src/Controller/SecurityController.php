@@ -112,8 +112,6 @@ class SecurityController extends AbstractController
         } else {
             $this->addFlash('error', 'La validation du compte a connu certains problèmes ...');
             return $this->render('home/index.html.twig');
-        }
-        
+        }        
     }
-
 }

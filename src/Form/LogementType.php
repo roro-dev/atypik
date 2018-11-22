@@ -22,6 +22,14 @@ class LogementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('id_type', EntityType::class, array(
+                'attr' => array(
+                    'class' => 'form-control'
+                ),
+                'label' => 'Type de logement',
+                'class' => TypeLogement::class,
+                'choice_label' => 'type'
+            ))
             ->add('nom', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
@@ -37,14 +45,6 @@ class LogementType extends AbstractType
                     'class' => 'form-control'
                 ),
                 'label' => 'Prix (en euros)'
-            ))
-            ->add('id_type', EntityType::class, array(
-                'attr' => array(
-                    'class' => 'form-control'
-                ),
-                'label' => 'Type de logement',
-                'class' => TypeLogement::class,
-                'choice_label' => 'type'
             ))
             ->add('id_proprietaire', EntityType::class, array(
                 'attr' => array(

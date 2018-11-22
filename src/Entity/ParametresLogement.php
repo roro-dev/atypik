@@ -28,6 +28,11 @@ class ParametresLogement
      */
     private $logement;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $valeur;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -53,6 +58,18 @@ class ParametresLogement
     public function setLogement(?Logement $logement): self
     {
         $this->logement = $logement;
+
+        return $this;
+    }
+
+    public function getValeur(): ?string
+    {
+        return $this->valeur;
+    }
+
+    public function setValeur(string $valeur): self
+    {
+        $this->valeur = $valeur;
 
         return $this;
     }
