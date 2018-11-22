@@ -29,7 +29,7 @@ class ParametresTypeRepository extends ServiceEntityRepository
         $result = array();
         if(!empty($_type)) {
             $conn = $this->getEntityManager()->getConnection();
-            $query = 'SELECT p.nom 
+            $query = 'SELECT p.*
                 FROM parametres_type p
                 WHERE p.type_id = :type 
                 GROUP BY p.id';

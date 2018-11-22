@@ -7,6 +7,7 @@ $(document).ready(function() {
                 data: {'type': $(this).val()},
                 method: 'post',
                 success: function(response) {
+                    console.log(response);
                     showParams(JSON.parse(response), '#parametres');
                 }, 
                 error: function() {
@@ -28,7 +29,7 @@ function showParams(tab, container) {
         $(container).empty();
         $.each(tab, function(k, v){
             $(container).append('<label>'+v.nom+'</label>');
-            $(container).append('<input class="form-control" type="text" name="params[]">');
+            $(container).append('<input class="form-control" type="text" name="params[' + v.id + ']">');
         });
     }
 }
