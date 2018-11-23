@@ -1,0 +1,80 @@
+header{
+	background-color: #FFFFFF;
+	height: 60px;
+}
+
+#logo{
+	margin-left: 15px;
+	display: inline-block;
+	float: left;
+	margin-right: 30px;
+	margin-top: 10px;
+}
+
+#title a{
+	display: inline-block;
+	float: left;
+	margin-top: 15px;
+	text-transform: uppercase;
+	text-decoration:none; 
+	color: black;
+	font-weight: bold;
+}
+
+#btnInscrire{
+	float: right;
+	margin-top: 15px;
+	margin-right: 50px;
+}
+
+#btnConnecter{
+	float: right;
+	margin-top: 15px;
+}
+
+.btn-success{
+	height: 30px;
+}
+
+.btn-success p{
+	margin-top: -5px;
+}
+
+.btn-primary p{
+	margin-top: -5px;
+}
+
+.btn-primary{
+	height: 30px;
+	margin-right: 30px;
+}
+
+.card-img-top
+{
+	height: 250px;
+}
+
+#formulaire img{
+	height: 600px;
+	width: 100%;
+	background-repeat: repeat-y;
+	
+}
+
+#formulaire form{
+	position: absolute;
+	float: right;
+	z-index: 2;
+}
+
+#formulaire .form-control{
+	width: 500px;
+	color: orangered;
+}
+footer{
+	margin-top:100px;
+	height: 250px;
+	background-color: #C4C4C4;
+	width: 100%;
+}
+

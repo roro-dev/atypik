@@ -4,45 +4,71 @@
 
 {% block body %}
 <header>
-    <img id ="logo" src="{{ asset('build/assets/img/logo.png') }}">
-    <div id="title"><a href="index.html">Atypik House</a></div>
+    <img id ="logo" src="/img/logo.png">
+    <div id="title"><a href="index.html">Atypik'House</a></div>
     <button id="btnInscrire" type="button" class="btn btn-success"><p>S'inscrire</p></button>
     <button id="btnConnecter" class="btn btn-primary"><p>Se connecter</p></button>
 </header>
-<div class="card-deck">
-  <div class="card">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-    </div>
-    <div class="card-footer">
-      <small class="text-muted">Last updated 3 mins ago</small>
-    </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
   </div>
-  <div class="card">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-    </div>
-    <div class="card-footer">
-      <small class="text-muted">Last updated 3 mins ago</small>
-    </div>
-  </div>
-  <div class="card">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-    </div>
-    <div class="card-footer">
-      <small class="text-muted">Last updated 3 mins ago</small>
-    </div>
-  </div>
-</div>
+</nav>
 <div id="formulaire">
-  <img src="{{ asset('build/assets/img/imageFormRecherche.png') }}">
+  <form>
+    <div class="form-group">
+      <select class="form-control" id="exampleFormControlSelect1">
+        <option>Type de logement</option>
+        <option>Yourte</option>
+        <option>Bulle</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <select class="form-control" id="exampleFormControlSelect1">
+        <option>Lieu</option>
+        <option>Bordeaux</option>
+        <option>Lyon</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <select class="form-control" id="exampleFormControlSelect1">
+        <option>Voyageurs</option>
+        <option>1</option>
+        <option>2</option>
+      </select>
+    </div>
+  </form>
+  <img src="/img/imageFormRecherche.png">
 </div>
   <br/>
 <div class="container">
@@ -55,7 +81,7 @@
     </div>
     <div class="card-deck">
       <div class="card">
-        <img class="card-img-top" src="{{ asset('build/assets/img/cabane.jpg') }}" alt="Card image cap">
+        <img class="card-img-top" src="/img/cabane.jpg" alt="Card image cap">
         <div class="card-body">
           <h4 class="card-title ">Cabane dans le ciel</h4>
           <h5 class="card-title">LIMOGES - 122€ /nuit </h5>
@@ -63,7 +89,7 @@
         </div>
       </div>
       <div class="card">
-        <img class="card-img-top" src="{{ asset('build/assets/img/yourte.jpg') }}" alt="Card image cap">
+        <img class="card-img-top" src="/img/yourte.jpg" alt="Card image cap">
         <div class="card-body">
           <h4 class="card-title">Yourte</h4>
           <h5 class="card-title">BRETAGNE - 100€ /nuit </h5>
@@ -71,7 +97,7 @@
         </div>
       </div>
       <div class="card">
-        <img class="card-img-top" src="{{ asset('build/assets/img/bulle.jpg') }}" alt="Card image cap">
+        <img class="card-img-top" src="/img/bulle.jpg" alt="Card image cap">
         <div class="card-body">
           <h4 class="card-title">Bulle et la bête</h4>
           <h5 class="card-title">PARIS - 115€ /nuit </h5>
@@ -82,7 +108,7 @@
     </br></br>
     <div class="card-deck">
       <div class="card">
-        <img class="card-img-top" src="{{ asset('build/assets/img/cabane.jpg') }}" alt="Card image cap">
+        <img class="card-img-top" src="/img/cabane.jpg" alt="Card image cap">
         <div class="card-body">
           <h4 class="card-title ">Cabane dans le ciel</h4>
           <h5 class="card-title">LIMOGES - 122€ /nuit </h5>
@@ -90,7 +116,7 @@
         </div>
       </div>
       <div class="card">
-        <img class="card-img-top" src="{{ asset('build/assets/img/yourte.jpg') }}" alt="Card image cap">
+        <img class="card-img-top" src="/img/yourte.jpg" alt="Card image cap">
         <div class="card-body">
           <h4 class="card-title">Yourte</h4>
           <h5 class="card-title">BRETAGNE - 100€ /nuit </h5>
@@ -98,7 +124,7 @@
         </div>
       </div>
       <div class="card">
-        <img class="card-img-top" src="{{ asset('build/assets/img/bulle.jpg') }}" alt="Card image cap">
+        <img class="card-img-top" src="/img/bulle.jpg" alt="Card image cap">
         <div class="card-body">
           <h4 class="card-title">Bulle et la bête</h4>
           <h5 class="card-title">PARIS - 115€ /nuit </h5>
@@ -109,7 +135,7 @@
     </br></br>
     <div class="card-deck">
       <div class="card">
-        <img class="card-img-top" src="{{ asset('build/assets/img/cabane.jpg') }}" alt="Card image cap">
+        <img class="card-img-top" src="/img/cabane.jpg" alt="Card image cap">
         <div class="card-body">
           <h4 class="card-title ">Cabane dans le ciel</h4>
           <h5 class="card-title">LIMOGES - 122€ /nuit </h5>
@@ -117,7 +143,7 @@
         </div>
       </div>
       <div class="card">
-        <img class="card-img-top" src="{{ asset('build/assets/img/yourte.jpg') }}" alt="Card image cap">
+        <img class="card-img-top" src="/img/yourte.jpg" alt="Card image cap">
         <div class="card-body">
           <h4 class="card-title">Yourte</h4>
           <h5 class="card-title">BRETAGNE - 100€ /nuit </h5>
@@ -125,7 +151,7 @@
         </div>
       </div>
       <div class="card">
-        <img class="card-img-top" src="{{ asset('build/assets/img/bulle.jpg') }}" alt="Card image cap">
+        <img class="card-img-top" src="/img/bulle.jpg" alt="Card image cap">
         <div class="card-body">
           <h4 class="card-title">Bulle et la bête</h4>
           <h5 class="card-title">PARIS - 115€ /nuit </h5>
@@ -134,5 +160,6 @@
       </div>
     </div>
 </div>
+
 {% endblock %}
 
