@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit TypeLogement{% endblock %}
+
+{% block body %}
+    <h1>Edit TypeLogement</h1>
+
+    {{ include('type_logement/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('type_logement_index') }}">back to list</a>
+
+    {{ include('type_logement/_delete_form.html.twig') }}
+{% endblock %}
