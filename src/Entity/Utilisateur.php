@@ -280,37 +280,6 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Ville[]
-     */
-    public function getVilles(): Collection
-    {
-        return $this->villes;
-    }
-
-    public function addVille(Ville $ville): self
-    {
-        if (!$this->villes->contains($ville)) {
-            $this->villes[] = $ville;
-            $ville->setIdUtilisateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeVille(Ville $ville): self
-    {
-        if ($this->villes->contains($ville)) {
-            $this->villes->removeElement($ville);
-            // set the owning side to null (unless already changed)
-            if ($ville->getIdUtilisateur() === $this) {
-                $ville->setIdUtilisateur(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getRoles()
     {
         $roles = array();

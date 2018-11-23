@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,10 +29,14 @@ class Ville
     private $taxe;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="villes")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToMany(targetEntity="App\Entity\Logement", mappedBy="ville")
      */
-    private $id_utilisateur;
+    private $logements;
+
+    public function __construct()
+    {
+        $this->logements = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -61,14 +67,33 @@ class Ville
         return $this;
     }
 
-    public function getIdUtilisateur(): ?Utilisateur
+    /**
+     * @return Collection|Logement[]
+     */
+    public function getlogements(): Collection
     {
-        return $this->id_utilisateur;
+        return $this->logements;
     }
 
-    public function setIdUtilisateur(?Utilisateur $id_utilisateur): self
+    public function addLogement(Logement $logement): self
     {
-        $this->id_utilisateur = $id_utilisateur;
+        if (!$this->logements->contains($logement)) {
+            $this->logements[] = $logement;
+            $logement->setVille($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLogement(Logement $logement): self
+    {
+        if ($this->logements->contains($logement)) {
+            $this->logements->removeElement($logement);
+            // set the owning side to null (unless already changed)
+            if ($logement->getVille() === $this) {
+                $logement->setVille(null);
+            }
+        }
 
         return $this;
     }

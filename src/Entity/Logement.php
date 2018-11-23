@@ -69,6 +69,12 @@ class Logement
      * @ORM\OneToMany(targetEntity="App\Entity\ParametresLogement", mappedBy="logement")
      */
     private $parametresLogement;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="yes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $ville;
     
 
     public function __construct()
@@ -296,6 +302,18 @@ class Logement
                 $parametresLogement->setLogement(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): self
+    {
+        $this->ville = $ville;
 
         return $this;
     }
