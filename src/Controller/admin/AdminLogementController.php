@@ -49,7 +49,8 @@ class AdminLogementController extends AbstractController
                         $p = new ParametresLogement();
                         $p->setLogement($logement);
                         $p->setParametre($this->getDoctrine()->getRepository(ParametresType::class)->findOneBy(['id' => $k]));
-                        $p->setValeur($v);  
+                        $p->setValeur($v);
+                        $logement->addParametre($p);
                         $em->persist($p);
                         $em->flush();                   
                     }
@@ -76,22 +77,25 @@ class AdminLogementController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="logement_edit", methods="GET|POST")
+     * @Route("/edit/{id}", name="logement_edit", methods="GET|POST")
      */
     public function edit(Request $request, Logement $logement): Response
     {
         $form = $this->createForm(LogementType::class, $logement);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('logement_edit', ['id' => $logement->getId()]);
+        $form->handleRequest($request);        
+        if ($form->isSubmitted()) {
+            if($form->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
+                $this->addFlash('success', 'Logement bien mis à jour.');
+            } else {                
+                $this->addFlash('error', 'La création du logement a rencontré un problème.');
+            }
         }
-
         return $this->render('admin/logement/logement-edit.html.twig', [
             'logement' => $logement,
             'form' => $form->createView(),
+            //'params' => $this->getDoctrine()->getRepository(ParametresLogement::class)->findBy(['logement' => $logement])
+            'params' => $logement->getParametres()
         ]);
     }
 

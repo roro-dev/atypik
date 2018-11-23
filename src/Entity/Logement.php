@@ -198,12 +198,12 @@ class Logement
     /**
      * @return Collection|ActviteLogement[]
      */
-    public function getActviteLogements(): Collection
+    public function getActivites(): Collection
     {
         return $this->actviteLogements;
     }
 
-    public function addActviteLogement(ActviteLogement $actviteLogement): self
+    public function addActivite(ActviteLogement $actviteLogement): self
     {
         if (!$this->actviteLogements->contains($actviteLogement)) {
             $this->actviteLogements[] = $actviteLogement;
@@ -213,7 +213,7 @@ class Logement
         return $this;
     }
 
-    public function removeActviteLogement(ActviteLogement $actviteLogement): self
+    public function removeActivite(ActviteLogement $actviteLogement): self
     {
         if ($this->actviteLogements->contains($actviteLogement)) {
             $this->actviteLogements->removeElement($actviteLogement);
@@ -272,12 +272,12 @@ class Logement
     /**
      * @return Collection|ParametresLogement[]
      */
-    public function getParametresLogement(): Collection
+    public function getParametres(): Collection
     {
         return $this->parametresLogement;
     }
 
-    public function addParametresLogement(ParametresLogement $parametresLogement): self
+    public function addParametre(ParametresLogement $parametresLogement): self
     {
         if (!$this->parametresLogement->contains($parametresLogement)) {
             $this->parametresLogement[] = $parametresLogement;
@@ -287,7 +287,7 @@ class Logement
         return $this;
     }
 
-    public function removeParametresLogement(ParametresLogement $parametresLogement): self
+    public function removeParametre(ParametresLogement $parametresLogement): self
     {
         if ($this->parametresLogement->contains($parametresLogement)) {
             $this->parametresLogement->removeElement($parametresLogement);
