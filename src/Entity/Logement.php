@@ -71,7 +71,7 @@ class Logement
     private $parametresLogement;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="yes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="logements")
      * @ORM\JoinColumn(nullable=false)
      */
     private $ville;

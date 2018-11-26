@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\RolesUtilisateur;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -71,11 +72,6 @@ class Utilisateur implements UserInterface
     private $reservations;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Ville", mappedBy="id_utilisateur")
-     */
-    private $villes;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $password;
@@ -106,7 +102,6 @@ class Utilisateur implements UserInterface
         $this->commentaires = new ArrayCollection();
         $this->paiements = new ArrayCollection();
         $this->reservations = new ArrayCollection();
-        $this->villes = new ArrayCollection();
         $this->logements = new ArrayCollection();
     }
 
@@ -289,12 +284,15 @@ class Utilisateur implements UserInterface
     
     public function getSalt()
     {
+        return null;
     }
     public function eraseCredentials()
     {
     }
 
-    public function getUsername() {}
+    public function getUsername() {
+        return $this->email;
+    }
 
     public function setPassword(string $password): self
     {
