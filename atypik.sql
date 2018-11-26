@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 20 nov. 2018 à 11:08
--- Version du serveur :  5.7.23
--- Version de PHP :  7.2.10
+-- Généré le :  lun. 26 nov. 2018 à 14:31
+-- Version du serveur :  5.7.21
+-- Version de PHP :  5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -87,9 +87,11 @@ CREATE TABLE IF NOT EXISTS `logement` (
   `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `prix` int(11) NOT NULL,
   `id_proprietaire_id` int(11) NOT NULL,
+  `ville_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_F0FD44571BD125E3` (`id_type_id`),
-  KEY `IDX_F0FD44579F9BCDC2` (`id_proprietaire_id`)
+  KEY `IDX_F0FD44579F9BCDC2` (`id_proprietaire_id`),
+  KEY `IDX_F0FD4457A73F0036` (`ville_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -104,6 +106,17 @@ CREATE TABLE IF NOT EXISTS `migration_versions` (
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Déchargement des données de la table `migration_versions`
+--
+
+INSERT INTO `migration_versions` (`version`) VALUES
+('20181126093908'),
+('20181126101019'),
+('20181126101945'),
+('20181126102513'),
+('20181126141747');
+
 -- --------------------------------------------------------
 
 --
@@ -115,6 +128,7 @@ CREATE TABLE IF NOT EXISTS `parametres_logement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parametre_id` int(11) NOT NULL,
   `logement_id` int(11) NOT NULL,
+  `valeur` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_8D459AE06358FF62` (`parametre_id`),
   KEY `IDX_8D459AE058ABF955` (`logement_id`)
@@ -195,7 +209,15 @@ CREATE TABLE IF NOT EXISTS `roles_utilisateur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `roles_utilisateur`
+--
+
+INSERT INTO `roles_utilisateur` (`id`, `role`) VALUES
+(1, 'ROLE_ADMIN'),
+(2, 'ROLE_USER');
 
 -- --------------------------------------------------------
 
@@ -232,7 +254,7 @@ CREATE TABLE IF NOT EXISTS `type_paiement` (
 DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE IF NOT EXISTS `utilisateur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_role_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
   `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `prenom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `adresse` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -243,8 +265,15 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `token_user` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_1D1C63B3E7927C74` (`email`),
-  KEY `IDX_1D1C63B389E8BDC` (`id_role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `IDX_1D1C63B3D60322AC` (`role_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`id`, `role_id`, `nom`, `prenom`, `adresse`, `email`, `telephone`, `password`, `valide_user`, `token_user`) VALUES
+(1, 1, 'stefane', 'stefane', '124', 'stefane.rodrigues@aefinfo.fr', '0102030405', '$2y$12$yyEE/3e1yISWlxPkCAiJhuLXWSTwN5nmxVsydG5Ecm9xvLHWjC0qS', 0, '670a76b5c3');
 
 -- --------------------------------------------------------
 
@@ -255,11 +284,9 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 DROP TABLE IF EXISTS `ville`;
 CREATE TABLE IF NOT EXISTS `ville` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_utilisateur_id` int(11) NOT NULL,
   `nom` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `taxe` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_43C3D9C3C6EE5C49` (`id_utilisateur_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -285,7 +312,8 @@ ALTER TABLE `commentaire`
 --
 ALTER TABLE `logement`
   ADD CONSTRAINT `FK_F0FD44571BD125E3` FOREIGN KEY (`id_type_id`) REFERENCES `type_logement` (`id`),
-  ADD CONSTRAINT `FK_F0FD44579F9BCDC2` FOREIGN KEY (`id_proprietaire_id`) REFERENCES `utilisateur` (`id`);
+  ADD CONSTRAINT `FK_F0FD44579F9BCDC2` FOREIGN KEY (`id_proprietaire_id`) REFERENCES `utilisateur` (`id`),
+  ADD CONSTRAINT `FK_F0FD4457A73F0036` FOREIGN KEY (`ville_id`) REFERENCES `ville` (`id`);
 
 --
 -- Contraintes pour la table `parametres_logement`
@@ -324,13 +352,7 @@ ALTER TABLE `reservation`
 -- Contraintes pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  ADD CONSTRAINT `FK_1D1C63B389E8BDC` FOREIGN KEY (`id_role_id`) REFERENCES `roles_utilisateur` (`id`);
-
---
--- Contraintes pour la table `ville`
---
-ALTER TABLE `ville`
-  ADD CONSTRAINT `FK_43C3D9C3C6EE5C49` FOREIGN KEY (`id_utilisateur_id`) REFERENCES `utilisateur` (`id`);
+  ADD CONSTRAINT `FK_1D1C63B3D60322AC` FOREIGN KEY (`role_id`) REFERENCES `roles_utilisateur` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
