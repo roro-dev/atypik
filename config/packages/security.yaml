@@ -25,4 +25,4 @@ security:
                 default_target_path: home_route
                 failure_path: login_route
     access_control:
-        - { path: ^/toto, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }

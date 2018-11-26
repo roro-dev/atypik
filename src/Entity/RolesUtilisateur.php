@@ -24,7 +24,7 @@ class RolesUtilisateur
     private $role;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Utilisateur", mappedBy="id_role")
+     * @ORM\OneToMany(targetEntity="App\Entity\Utilisateur", mappedBy="role")
      */
     private $utilisateurs;
 

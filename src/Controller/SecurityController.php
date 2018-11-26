@@ -41,7 +41,7 @@ class SecurityController extends AbstractController
             if($form->isValid()) {
                 $repository = $this->getDoctrine()->getRepository(RolesUtilisateur::class);
                 $role = $repository->findOneBy(['id' => 1]);
-                $user->setIdRole($role);
+                $user->setRole($role);
                 $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
                 $user->setPassword($password);
                 $user->setTokenUser(bin2hex(random_bytes(5)));
@@ -49,7 +49,7 @@ class SecurityController extends AbstractController
                 $entityManager->persist($user);
                 $entityManager->flush();
                 $this->addFlash('success', 'Votre compte à bien été crée. Vous allez recevoir un mail pour valider votre compte.');
-                return $this->redirectToRoute('home_route');
+                return $this->redirectToRoute('home');
             } else {
                 $this->addFlash('error', 'La création de compte a connu certains problèmes.');
                 //$error = $form->getErrors();

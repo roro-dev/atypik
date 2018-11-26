@@ -54,7 +54,7 @@ class Utilisateur implements UserInterface
      * @ORM\ManyToOne(targetEntity="App\Entity\RolesUtilisateur", inversedBy="utilisateurs")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $id_role;
+    private $role;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="id_utilisateur", orphanRemoval=true)
@@ -170,14 +170,14 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
-    public function getIdRole(): ?RolesUtilisateur
+    public function getRole(): ?RolesUtilisateur
     {
-        return $this->id_role;
+        return $this->role;
     }
 
-    public function setIdRole(?RolesUtilisateur $id_role): self
+    public function setRole(?RolesUtilisateur $role): self
     {
-        $this->id_role = $id_role;
+        $this->role = $role;
 
         return $this;
     }
@@ -278,7 +278,7 @@ class Utilisateur implements UserInterface
     public function getRoles()
     {
         $roles = array();
-        $roles[] = 'ROLE_USER';
+        $roles[] = $this->role->getRole();
         return array_unique($roles);
     }
     
