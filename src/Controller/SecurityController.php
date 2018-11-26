@@ -67,22 +67,12 @@ class SecurityController extends AbstractController
     /**
      * @Route("/test", name="test_mail")
      */
-    public function test(\Swift_Mailer $mailer)
+    public function sendMail(\Swift_Mailer $mailer)
     {
         $message = (new \Swift_Message('Hello Email'))
             ->setFrom('stefanedr.dev@gmail.com')
             ->setTo('stefanerodrigues75010@gmail.com')
             ->setBody('Test vous etes inscrit')
-            /*
-            * If you also want to include a plaintext version of the message
-            ->addPart(
-                $this->renderView(
-                    'emails/registration.txt.twig',
-                    array('name' => $name)
-                ),
-                'text/plain'
-            )
-            */
         ;
 
         $result = $mailer->send($message);
@@ -108,9 +98,9 @@ class SecurityController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('success', 'Votre compte a été validé. Vous pouvez vous connecter.');
-            return $this->render('security/login.html.twig');
+            return $this->redirectToRoute('login_route');
         } else {
-            $this->addFlash('error', 'La validation du compte a connu certains problèmes ...');
+            $this->addFlash('error', 'La validation du compte a connu certains problèmes ...<br>Veuillez contactez l\'administrateur du site.');
             return $this->render('home/index.html.twig');
         }        
     }
