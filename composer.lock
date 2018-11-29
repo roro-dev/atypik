@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0652e45d69d2ce01ae563e15d8af2eb",
+    "content-hash": "c68a215b48011f87803a813f99fc9b5f",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1410,6 +1410,57 @@
             "time": "2017-06-19T01:22:40+00:00"
         },
         {
+            "name": "nikic/php-parser",
+            "version": "v4.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nikic/PHP-Parser.git",
+                "reference": "fa6ee28600d21d49b2b4e1006b48426cec8e579c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/fa6ee28600d21d49b2b4e1006b48426cec8e579c",
+                "reference": "fa6ee28600d21d49b2b4e1006b48426cec8e579c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-tokenizer": "*",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.5 || ^7.0"
+            },
+            "bin": [
+                "bin/php-parse"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PhpParser\\": "lib/PhpParser"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Popov"
+                }
+            ],
+            "description": "A PHP parser written in PHP",
+            "keywords": [
+                "parser",
+                "php"
+            ],
+            "time": "2018-09-18T07:03:24+00:00"
+        },
+        {
             "name": "ocramius/package-versions",
             "version": "1.3.0",
             "source": {
@@ -1825,16 +1876,16 @@
         },
         {
             "name": "psr/log",
-            "version": "1.0.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d"
+                "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
-                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
+                "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
                 "shasum": ""
             },
             "require": {
@@ -1868,7 +1919,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10T12:19:37+00:00"
+            "time": "2018-11-20T15:27:04+00:00"
         },
         {
             "name": "psr/simple-cache",
@@ -2306,16 +2357,16 @@
         },
         {
             "name": "symfony/debug",
-            "version": "v4.1.6",
+            "version": "v4.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "e3f76ce6198f81994e019bb2b4e533e9de1b9b90"
+                "reference": "f9eea0cff99d14f97d69b24b17164098ece3fd32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/e3f76ce6198f81994e019bb2b4e533e9de1b9b90",
-                "reference": "e3f76ce6198f81994e019bb2b4e533e9de1b9b90",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/f9eea0cff99d14f97d69b24b17164098ece3fd32",
+                "reference": "f9eea0cff99d14f97d69b24b17164098ece3fd32",
                 "shasum": ""
             },
             "require": {
@@ -2358,20 +2409,20 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2018-10-02T16:36:10+00:00"
+            "time": "2018-11-11T19:51:29+00:00"
         },
         {
             "name": "symfony/dependency-injection",
-            "version": "v4.1.6",
+            "version": "v4.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "f6b9d893ad28aefd8942dc0469c8397e2216fe30"
+                "reference": "9508a26af7e2546babf67a1494683ffabcd5a0a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/f6b9d893ad28aefd8942dc0469c8397e2216fe30",
-                "reference": "f6b9d893ad28aefd8942dc0469c8397e2216fe30",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/9508a26af7e2546babf67a1494683ffabcd5a0a3",
+                "reference": "9508a26af7e2546babf67a1494683ffabcd5a0a3",
                 "shasum": ""
             },
             "require": {
@@ -2429,7 +2480,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2018-10-02T12:40:59+00:00"
+            "time": "2018-11-20T16:14:00+00:00"
         },
         {
             "name": "symfony/doctrine-bridge",
@@ -2570,16 +2621,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v4.1.6",
+            "version": "v4.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "bfb30c2ad377615a463ebbc875eba64a99f6aa3e"
+                "reference": "8b93ce06506d58485893e2da366767dcc5390862"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/bfb30c2ad377615a463ebbc875eba64a99f6aa3e",
-                "reference": "bfb30c2ad377615a463ebbc875eba64a99f6aa3e",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/8b93ce06506d58485893e2da366767dcc5390862",
+                "reference": "8b93ce06506d58485893e2da366767dcc5390862",
                 "shasum": ""
             },
             "require": {
@@ -2629,7 +2680,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2018-07-26T09:10:45+00:00"
+            "time": "2018-11-26T10:26:29+00:00"
         },
         {
             "name": "symfony/expression-language",
@@ -3027,16 +3078,16 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v4.1.6",
+            "version": "v4.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "d528136617ff24f530e70df9605acc1b788b08d4"
+                "reference": "26062b9527b6797fc6239ed698c9c0a3c5e891e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/d528136617ff24f530e70df9605acc1b788b08d4",
-                "reference": "d528136617ff24f530e70df9605acc1b788b08d4",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/26062b9527b6797fc6239ed698c9c0a3c5e891e0",
+                "reference": "26062b9527b6797fc6239ed698c9c0a3c5e891e0",
                 "shasum": ""
             },
             "require": {
@@ -3077,20 +3128,20 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2018-10-03T08:48:45+00:00"
+            "time": "2018-11-26T10:26:29+00:00"
         },
         {
             "name": "symfony/http-kernel",
-            "version": "v4.1.6",
+            "version": "v4.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-kernel.git",
-                "reference": "f5e7c15a5d010be0e16ce798594c5960451d4220"
+                "reference": "2be29c72276ba4ef5c5488de666f9f12aa768b44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/f5e7c15a5d010be0e16ce798594c5960451d4220",
-                "reference": "f5e7c15a5d010be0e16ce798594c5960451d4220",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/2be29c72276ba4ef5c5488de666f9f12aa768b44",
+                "reference": "2be29c72276ba4ef5c5488de666f9f12aa768b44",
                 "shasum": ""
             },
             "require": {
@@ -3164,7 +3215,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-            "time": "2018-10-03T12:53:38+00:00"
+            "time": "2018-11-26T14:52:15+00:00"
         },
         {
             "name": "symfony/inflector",
@@ -3298,6 +3349,72 @@
                 "localization"
             ],
             "time": "2018-10-02T12:40:59+00:00"
+        },
+        {
+            "name": "symfony/maker-bundle",
+            "version": "v1.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/maker-bundle.git",
+                "reference": "e873047b6022a0343c9354f65d5d47b9e351dd53"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/e873047b6022a0343c9354f65d5d47b9e351dd53",
+                "reference": "e873047b6022a0343c9354f65d5d47b9e351dd53",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/inflector": "^1.2",
+                "nikic/php-parser": "^4.0",
+                "php": "^7.0.8",
+                "symfony/config": "^3.4|^4.0",
+                "symfony/console": "^3.4|^4.0",
+                "symfony/dependency-injection": "^3.4|^4.0",
+                "symfony/filesystem": "^3.4|^4.0",
+                "symfony/finder": "^3.4|^4.0",
+                "symfony/framework-bundle": "^3.4|^4.0",
+                "symfony/http-kernel": "^3.4|^4.0"
+            },
+            "require-dev": {
+                "allocine/twigcs": "^3.0",
+                "doctrine/doctrine-bundle": "^1.8",
+                "doctrine/orm": "^2.3",
+                "friendsofphp/php-cs-fixer": "^2.8",
+                "symfony/phpunit-bridge": "^3.4|^4.0",
+                "symfony/process": "^3.4|^4.0",
+                "symfony/yaml": "^3.4|^4.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Bundle\\MakerBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Maker helps you create empty commands, controllers, form classes, tests and more so you can forget about writing boilerplate code.",
+            "homepage": "https://symfony.com/doc/current/bundles/SymfonyMakerBundle/index.html",
+            "keywords": [
+                "code generator",
+                "generator",
+                "scaffold",
+                "scaffolding"
+            ],
+            "time": "2018-11-03T18:25:11+00:00"
         },
         {
             "name": "symfony/monolog-bridge",
@@ -3571,16 +3688,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.9.0",
+            "version": "v1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "d0cd638f4634c16d8df4508e847f14e9e43168b8"
+                "reference": "c79c051f5b3a46be09205c73b80b346e4153e494"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/d0cd638f4634c16d8df4508e847f14e9e43168b8",
-                "reference": "d0cd638f4634c16d8df4508e847f14e9e43168b8",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/c79c051f5b3a46be09205c73b80b346e4153e494",
+                "reference": "c79c051f5b3a46be09205c73b80b346e4153e494",
                 "shasum": ""
             },
             "require": {
@@ -3626,7 +3743,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-08-06T14:22:27+00:00"
+            "time": "2018-09-21T13:07:52+00:00"
         },
         {
             "name": "symfony/process",
@@ -4618,53 +4735,6 @@
             "time": "2018-07-26T09:10:45+00:00"
         },
         {
-            "name": "symfony/webpack-encore-bundle",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/webpack-encore-bundle.git",
-                "reference": "ebe7747897d664ff06fe6845bf2ce94f7a60513f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/ebe7747897d664ff06fe6845bf2ce94f7a60513f",
-                "reference": "ebe7747897d664ff06fe6845bf2ce94f7a60513f",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1.3",
-                "symfony/asset": "^3.4 || ^4.0",
-                "symfony/config": "^3.4 || ^4.0",
-                "symfony/dependency-injection": "^3.4 || ^4.0",
-                "symfony/http-kernel": "^3.4 || ^4.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.13",
-                "symfony/framework-bundle": "^3.4 || ^4.0",
-                "symfony/phpunit-bridge": "^3.4 || ^4.1",
-                "symfony/twig-bundle": "^3.4 || ^4.0",
-                "twig/twig": "^1.35 || ^2.0"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\WebpackEncoreBundle\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Integration with your Symfony app & Webpack Encore!",
-            "time": "2018-11-03T19:31:51+00:00"
-        },
-        {
             "name": "symfony/yaml",
             "version": "v4.1.6",
             "source": {
@@ -5060,57 +5130,6 @@
             "time": "2018-05-16T17:37:13+00:00"
         },
         {
-            "name": "nikic/php-parser",
-            "version": "v4.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "fa6ee28600d21d49b2b4e1006b48426cec8e579c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/fa6ee28600d21d49b2b4e1006b48426cec8e579c",
-                "reference": "fa6ee28600d21d49b2b4e1006b48426cec8e579c",
-                "shasum": ""
-            },
-            "require": {
-                "ext-tokenizer": "*",
-                "php": ">=7.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^6.5 || ^7.0"
-            },
-            "bin": [
-                "bin/php-parse"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "PhpParser\\": "lib/PhpParser"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Nikita Popov"
-                }
-            ],
-            "description": "A PHP parser written in PHP",
-            "keywords": [
-                "parser",
-                "php"
-            ],
-            "time": "2018-09-18T07:03:24+00:00"
-        },
-        {
             "name": "symfony/browser-kit",
             "version": "v4.1.6",
             "source": {
@@ -5371,72 +5390,6 @@
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
             "time": "2018-10-02T12:40:59+00:00"
-        },
-        {
-            "name": "symfony/maker-bundle",
-            "version": "v1.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/maker-bundle.git",
-                "reference": "22a9bf33868f0fed6cab013fe5231e8485d15e20"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/22a9bf33868f0fed6cab013fe5231e8485d15e20",
-                "reference": "22a9bf33868f0fed6cab013fe5231e8485d15e20",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/inflector": "^1.2",
-                "nikic/php-parser": "^4.0",
-                "php": "^7.0.8",
-                "symfony/config": "^3.4|^4.0",
-                "symfony/console": "^3.4|^4.0",
-                "symfony/dependency-injection": "^3.4|^4.0",
-                "symfony/filesystem": "^3.4|^4.0",
-                "symfony/finder": "^3.4|^4.0",
-                "symfony/framework-bundle": "^3.4|^4.0",
-                "symfony/http-kernel": "^3.4|^4.0"
-            },
-            "require-dev": {
-                "allocine/twigcs": "^3.0",
-                "doctrine/doctrine-bundle": "^1.8",
-                "doctrine/orm": "^2.3",
-                "friendsofphp/php-cs-fixer": "^2.8",
-                "symfony/phpunit-bridge": "^3.4|^4.0",
-                "symfony/process": "^3.4|^4.0",
-                "symfony/yaml": "^3.4|^4.0"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Bundle\\MakerBundle\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Maker helps you create empty commands, controllers, form classes, tests and more so you can forget about writing boilerplate code.",
-            "homepage": "https://symfony.com/doc/current/bundles/SymfonyMakerBundle/index.html",
-            "keywords": [
-                "code generator",
-                "generator",
-                "scaffold",
-                "scaffolding"
-            ],
-            "time": "2018-08-30T01:08:06+00:00"
         },
         {
             "name": "symfony/panther",
