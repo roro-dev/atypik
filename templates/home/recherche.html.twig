@@ -3,48 +3,16 @@
 {% block title %}Recherche{% endblock %}
 
 {% block body %}
+
 <header>
     <img id ="logo" src="/img/logo.png">
     <div id="title"><a href="index.html">Atypik'House</a></div>
     <button id="btnInscrire" type="button" class="btn btn-success"><p>S'inscrire</p></button>
     <button id="btnConnecter" class="btn btn-primary"><p>Se connecter</p></button>
 </header>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
 <div id="formulaire">
+<div id="transparence-form-rech"></div>
   <form>
     <div class="form-group">
       <select class="form-control" id="exampleFormControlSelect1">
@@ -60,6 +28,20 @@
         <option>Lyon</option>
       </select>
     </div>
+    <input value="Date Départ" id="datepickerDep"/>
+    <script>
+        $('#datepickerDep').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+    </script>
+
+     <input value="Date Retour" id="datepickerRet"/>
+    <script>
+        $('#datepickerRet').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+    </script>
+    
     <div class="form-group">
       <select class="form-control" id="exampleFormControlSelect1">
         <option>Voyageurs</option>
@@ -67,8 +49,10 @@
         <option>2</option>
       </select>
     </div>
+
+    <button type="button" class="btn btn-recherche">Rechercher</button>
   </form>
-  <img src="/img/imageFormRecherche.png">
+  <img src="/img/imageFormRecherche.png"/>
 </div>
   <br/>
 <div class="container">
@@ -86,6 +70,7 @@
           <h4 class="card-title ">Cabane dans le ciel</h4>
           <h5 class="card-title">LIMOGES - 122€ /nuit </h5>
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus </p>
+          <buttont type="button" class="btn btn-consulter"><a href="" class="a-consulter">Consulter</a></button>
         </div>
       </div>
       <div class="card">
@@ -94,6 +79,7 @@
           <h4 class="card-title">Yourte</h4>
           <h5 class="card-title">BRETAGNE - 100€ /nuit </h5>
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus </p>
+           <buttont type="button" class="btn btn-consulter"><a href="" class="a-consulter">Consulter</a></button>
         </div>
       </div>
       <div class="card">
@@ -102,6 +88,7 @@
           <h4 class="card-title">Bulle et la bête</h4>
           <h5 class="card-title">PARIS - 115€ /nuit </h5>
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus </p>
+           <buttont type="button" class="btn btn-consulter"><a href="" class="a-consulter">Consulter</a></button>
         </div>
       </div>
     </div>
@@ -113,6 +100,7 @@
           <h4 class="card-title ">Cabane dans le ciel</h4>
           <h5 class="card-title">LIMOGES - 122€ /nuit </h5>
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus </p>
+           <buttont type="button" class="btn btn-consulter"><a href="" class="a-consulter">Consulter</a></button>
         </div>
       </div>
       <div class="card">
@@ -121,6 +109,7 @@
           <h4 class="card-title">Yourte</h4>
           <h5 class="card-title">BRETAGNE - 100€ /nuit </h5>
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus </p>
+           <buttont type="button" class="btn btn-consulter"><a href="" class="a-consulter">Consulter</a></button>
         </div>
       </div>
       <div class="card">
@@ -129,6 +118,7 @@
           <h4 class="card-title">Bulle et la bête</h4>
           <h5 class="card-title">PARIS - 115€ /nuit </h5>
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus </p>
+           <buttont type="button" class="btn btn-consulter"><a href="" class="a-consulter">Consulter</a></button>
         </div>
       </div>
     </div>
@@ -140,6 +130,7 @@
           <h4 class="card-title ">Cabane dans le ciel</h4>
           <h5 class="card-title">LIMOGES - 122€ /nuit </h5>
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus </p>
+           <buttont type="button" class="btn btn-consulter"><a href="" class="a-consulter">Consulter</a></button>
         </div>
       </div>
       <div class="card">
@@ -148,6 +139,7 @@
           <h4 class="card-title">Yourte</h4>
           <h5 class="card-title">BRETAGNE - 100€ /nuit </h5>
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus </p>
+           <buttont type="button" class="btn btn-consulter"><a href="" class="a-consulter">Consulter</a></button>
         </div>
       </div>
       <div class="card">
@@ -156,10 +148,11 @@
           <h4 class="card-title">Bulle et la bête</h4>
           <h5 class="card-title">PARIS - 115€ /nuit </h5>
           <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus </p>
+           <buttont type="button" class="btn btn-consulter"><a href="" class="a-consulter">Consulter</a></button>
         </div>
       </div>
     </div>
 </div>
 
-{% endblock %}
 
+{% endblock %}
