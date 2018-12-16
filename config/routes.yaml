@@ -5,3 +5,7 @@
 home_route:
   path: /
   controller: App\Controller\HomeController::index
+
+contact_route:
+  path: /contact
+  controller: App\Controller\ContactController::index
