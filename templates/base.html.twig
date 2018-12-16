@@ -15,9 +15,16 @@
         {% endblock %}
     </head>
     <body>
+        <header>
+            <img id ="logo" src="/img/logo.png">
+            <div id="title"><a href="index.html">Atypik'House</a></div>
+            <button id="btnInscrire" type="button" class="btn btn-success"><p>S'inscrire</p></button>
+            <button id="btnConnecter" class="btn btn-primary"><p>Se connecter</p></button>
+        </header>
+
         {% block body %}{% endblock %}
 
-           <footer class="footer">
+        <footer class="footer">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4">Colonne Menu 1</div>
@@ -25,7 +32,7 @@
                     <div class="col-lg-4">Colonne Menu 3</div>
                 </div>
             </div>
-            </footer>
+        </footer>
         {% block javascripts %}
 
         {% endblock %}
