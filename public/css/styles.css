@@ -312,7 +312,7 @@ footer{
 
 	.etoile{
 		float: right;
-		margin-right: 3em;
+		margin-right: 4em;
 		margin-bottom: 0.5em;
 	}
 
@@ -327,15 +327,28 @@ footer{
 	.prix{
 		float: right;
 		margin-top: -0.5em;
-		margin-right: 3em;
+		margin-right: 4em;
 	}
 
 	.produit-desc{
-		margin-right: -1em;
+		padding-left: 2.5em;
+		margin-right: -0.7em;
 		margin-top: -0.5em;
-		padding-right: 3em;
+		padding-right: 3.5em;
 	}
 
 	.separate{
 		border-right: 1px solid rgb(126, 118, 118);
+		margin-bottom: 2em;
+	}
+
+	.picto_prod{
+		height: 3.75em;
+		width: 3.3em;
+		padding-bottom: 0.5em;
+	}
+
+	.interdit{
+		font-weight: bold;
+		font-size: 1.2em;
 	}
