@@ -32,6 +32,51 @@ header{
 	margin-top: 0.9375em;
 }
 
+#btnDeco{
+	float: right;
+	margin-top: 0.9375em;
+	margin-right: 3.125em;
+	color: white;
+	background-color: #C64300; 
+}
+
+#btnDeco:hover{
+	background-color: orangered;
+}
+
+#Utilisateur{
+	float: right;
+	text-decoration:none; 
+	color: black;
+	font-weight: bold;
+	margin-top: 0.9375em;
+	margin-right: 3.125em;
+}
+
+#avatarLogin{
+	float: right;
+	margin-top: 0.9375em;
+	margin-right: 3.125em;
+}
+
+#cloche{
+	float: right;
+	margin-top: 1.1em;
+	margin-right: 5em;
+}
+
+#cloche:hover{
+	opacity: 0.5;
+}
+
+.btn-deconnexion{
+	height: 1.875em;
+}
+
+.btn-deconnexion p{
+	margin-top: -0.3125em;
+}
+
 .btn-success{
 	height: 1.875em;
 }
@@ -166,8 +211,7 @@ footer{
 	width: 100%;
 }
 
-.card-deck .card{
-	border: 0.3125em solid #fff; 
+.card-deck .card:hover{
 	box-shadow: 0.5em 0.5em 0.75em #555; 
 }
 
@@ -194,7 +238,7 @@ footer{
 	display: none;
 	position: fixed;
 	z-index: 10;
-	padding-top: 6.25em;
+	padding-top: 3.25em;
 	left: 0;
 	top: 0;
 	width: 100%;
@@ -210,7 +254,7 @@ footer{
 	margin: auto;
 	padding: 0;
 	width: 90%;
-	max-width: 93.75em;
+	max-width: 45.75em;
   }
   
   /* The Close Button */
