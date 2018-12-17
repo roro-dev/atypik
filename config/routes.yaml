@@ -9,3 +9,6 @@ home_route:
 contact_route:
   path: /contact
   controller: App\Controller\ContactController::index
+
+logout_route:
+  path: /logout
