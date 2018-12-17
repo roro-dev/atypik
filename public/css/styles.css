@@ -1,8 +1,3 @@
-header{
-	background-color: #FFFFFF;
-	height: 3.75em;
-}
-
 #logo{
 	margin-left: 0.9375em;
 	display: inline-block;
@@ -34,7 +29,6 @@ header{
 
 #btnDeco{
 	float: right;
-	margin-top: 0.9375em;
 	margin-right: 3.125em;
 	color: white;
 	background-color: #C64300; 
@@ -49,19 +43,16 @@ header{
 	text-decoration:none; 
 	color: black;
 	font-weight: bold;
-	margin-top: 0.9375em;
 	margin-right: 3.125em;
 }
 
 #avatarLogin{
 	float: right;
-	margin-top: 0.9375em;
 	margin-right: 3.125em;
 }
 
 #cloche{
 	float: right;
-	margin-top: 1.1em;
 	margin-right: 5em;
 }
 
