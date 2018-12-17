@@ -29,4 +29,15 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController'
         ]);
     }
+
+    /**
+     * @Route("/produit", name="produit_route")
+     */
+    public function produit()
+    {
+        $repoLogement = $this->getDoctrine()->getRepository(RolesUtilisateur::class);
+        return $this->render('home/produit.html.twig', [
+            'controller_name' => 'HomeController'
+        ]);
+    }
 }
