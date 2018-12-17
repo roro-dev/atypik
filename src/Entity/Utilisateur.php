@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\RolesUtilisateur;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -53,7 +54,7 @@ class Utilisateur implements UserInterface
      * @ORM\ManyToOne(targetEntity="App\Entity\RolesUtilisateur", inversedBy="utilisateurs")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $id_role;
+    private $role;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="id_utilisateur", orphanRemoval=true)
@@ -69,11 +70,6 @@ class Utilisateur implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="id_utilisateur")
      */
     private $reservations;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Ville", mappedBy="id_utilisateur")
-     */
-    private $villes;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -106,7 +102,6 @@ class Utilisateur implements UserInterface
         $this->commentaires = new ArrayCollection();
         $this->paiements = new ArrayCollection();
         $this->reservations = new ArrayCollection();
-        $this->villes = new ArrayCollection();
         $this->logements = new ArrayCollection();
     }
 
@@ -175,14 +170,14 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
-    public function getIdRole(): ?RolesUtilisateur
+    public function getRole(): ?RolesUtilisateur
     {
-        return $this->id_role;
+        return $this->role;
     }
 
-    public function setIdRole(?RolesUtilisateur $id_role): self
+    public function setRole(?RolesUtilisateur $role): self
     {
-        $this->id_role = $id_role;
+        $this->role = $role;
 
         return $this;
     }
@@ -280,52 +275,24 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Ville[]
-     */
-    public function getVilles(): Collection
-    {
-        return $this->villes;
-    }
-
-    public function addVille(Ville $ville): self
-    {
-        if (!$this->villes->contains($ville)) {
-            $this->villes[] = $ville;
-            $ville->setIdUtilisateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeVille(Ville $ville): self
-    {
-        if ($this->villes->contains($ville)) {
-            $this->villes->removeElement($ville);
-            // set the owning side to null (unless already changed)
-            if ($ville->getIdUtilisateur() === $this) {
-                $ville->setIdUtilisateur(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getRoles()
     {
         $roles = array();
-        $roles[] = 'ROLE_USER';
+        $roles[] = $this->role->getRole();
         return array_unique($roles);
     }
     
     public function getSalt()
     {
+        return null;
     }
     public function eraseCredentials()
     {
     }
 
-    public function getUsername() {}
+    public function getUsername() {
+        return $this->email;
+    }
 
     public function setPassword(string $password): self
     {

@@ -1,12 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-bo.html.twig' %}
 
-{% block title %}Edit Logement{% endblock %}
+{% block title %}Logements > Modification{% endblock %}
 
 {% block body %}
     <div class="row mx-auto my-2">
         <a href="{{ path('logement_liste') }}">Retour</a>
     </div>
     <h1>Modification d'un logement</h1>
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
     {% for flash_message in app.session.flashBag.get('error') %}
         <div class="alert alert-error">
             {{ flash_message }}
@@ -15,6 +20,11 @@
     <br>
     {{ form_start(form) }}
         {{ form_widget(form) }}
+        <br>
+        {% for p in params %}
+            <label for="param-{{ p.id }}">{{ p.getParametre().getNom() }}</label>
+            <input type="text" name="param[{{ p.id }}]" value="{{ p.valeur }}" class="form-control"/>
+        {% endfor %}
         <br>
         <button class="btn btn-success">Mettre à jour</button>
     {{ form_end(form) }}

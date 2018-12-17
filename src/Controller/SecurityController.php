@@ -32,7 +32,7 @@ class SecurityController extends AbstractController
 	/**
      * @Route("/register", name="user_registration")
      */
-    public function register(LoginFormAuthenticator $authenticator, GuardAuthenticatorHandler $guardHandler, Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function register(LoginFormAuthenticator $authenticator, GuardAuthenticatorHandler $guardHandler, Request $request, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer)
     {
         $user = new Utilisateur();
         $form = $this->createForm(UtilisateurType::class, $user);
@@ -41,18 +41,27 @@ class SecurityController extends AbstractController
             if($form->isValid()) {
                 $repository = $this->getDoctrine()->getRepository(RolesUtilisateur::class);
                 $role = $repository->findOneBy(['id' => 1]);
-                $user->setIdRole($role);
+                $user->setRole($role);
                 $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
                 $user->setPassword($password);
                 $user->setTokenUser(bin2hex(random_bytes(5)));
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
-                $this->addFlash('success', 'Votre compte à bien été crée. Vous allez recevoir un mail pour valider votre compte.');
-                return $this->redirectToRoute('home_route');
+                $this->addFlash('success', 'Votre compte à bien été crée. Vous allez recevoir un mail pour valider votre compte.');                
+                $result = $this->sendMail($mailer, array(
+                    'email' => $user->getEmail(), 
+                    'token' => $user->getTokenUser(), 
+                    'prenom' => $user->getPrenom()
+                ));
+                if($result) {
+                    $this->addFlash('success', 'Mail good.');
+                } else {
+                    $this->addFlash('error', 'Erreur mail.');
+                }
+                return $this->redirectToRoute('home');
             } else {
                 $this->addFlash('error', 'La création de compte a connu certains problèmes.');
-                //$error = $form->getErrors();
             }
         }
 
@@ -65,34 +74,25 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/test", name="test_mail")
+     * Permet d'envoyer le mail d'inscription afin de pouvoir se connecter
      */
-    public function test(\Swift_Mailer $mailer)
+    public function sendMail(\Swift_Mailer $mailer, $_data)
     {
-        $message = (new \Swift_Message('Hello Email'))
+        $message = (new \Swift_Message("Confirmation d'adresse mail"))
             ->setFrom('stefanedr.dev@gmail.com')
-            ->setTo('stefanerodrigues75010@gmail.com')
-            ->setBody('Test vous etes inscrit')
-            /*
-            * If you also want to include a plaintext version of the message
-            ->addPart(
+            ->setTo($_data['email'])
+            ->setBody(
                 $this->renderView(
-                    'emails/registration.txt.twig',
-                    array('name' => $name)
+                    'emails/inscription.html.twig',
+                    array(
+                        'prenom' => $_data['prenom'],
+                        'token' => $_data['token']
+                    )
                 ),
-                'text/plain'
+                'text/html'
             )
-            */
         ;
-
-        $result = $mailer->send($message);
-        if($result) {
-            echo 'mail good';
-        } else {
-            echo 'error mail';
-        }
-        die;
-        return $this->render('home/index.html.twig');
+        return $mailer->send($message);
     }
 
     /**
@@ -108,9 +108,9 @@ class SecurityController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('success', 'Votre compte a été validé. Vous pouvez vous connecter.');
-            return $this->render('security/login.html.twig');
+            return $this->redirectToRoute('login_route');
         } else {
-            $this->addFlash('error', 'La validation du compte a connu certains problèmes ...');
+            $this->addFlash('error', 'La validation du compte a connu certains problèmes ...<br>Veuillez contactez l\'administrateur du site.');
             return $this->render('home/index.html.twig');
         }        
     }
