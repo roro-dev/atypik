@@ -5,17 +5,18 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\LogementRepository;
-use App\Entity\RolesUtilisateur;
+use App\Entity\TypeLogement;
 
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/home", name="home")
+     * @Route("/", name="home")
      */
     public function index()
     {
+        $repo = $this->getDoctrine()->getRepository(TypeLogement::class);
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController'
+            'types' => $repo->findAll()
         ]);
     }
 
@@ -24,7 +25,6 @@ class HomeController extends AbstractController
      */
     public function recherche()
     {
-        $repoLogement = $this->getDoctrine()->getRepository(RolesUtilisateur::class);
         return $this->render('home/recherche.html.twig', [
             'controller_name' => 'HomeController'
         ]);
@@ -35,7 +35,6 @@ class HomeController extends AbstractController
      */
     public function produit()
     {
-        $repoLogement = $this->getDoctrine()->getRepository(RolesUtilisateur::class);
         return $this->render('home/produit.html.twig', [
             'controller_name' => 'HomeController'
         ]);
