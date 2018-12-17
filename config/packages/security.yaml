@@ -18,6 +18,8 @@ security:
             anonymous: true
             provider: in_database
 
+            logout:
+                path: logout_route
             form_login:
                 login_path: login_route
                 check_path: login_route
