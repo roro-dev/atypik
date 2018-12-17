@@ -2059,7 +2059,11 @@
         },
         {
             "name": "symfony/asset",
+<<<<<<< HEAD
             "version": "v4.1.9",
+=======
+            "version": "v4.1.7",
+>>>>>>> dev
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/asset.git",

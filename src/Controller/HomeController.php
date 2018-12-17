@@ -18,4 +18,15 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController'
         ]);
     }
+
+    /**
+     * @Route("/recherche", name="recherche_route")
+     */
+    public function recherche()
+    {
+        $repoLogement = $this->getDoctrine()->getRepository(RolesUtilisateur::class);
+        return $this->render('home/recherche.html.twig', [
+            'controller_name' => 'HomeController'
+        ]);
+    }
 }
