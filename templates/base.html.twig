@@ -15,22 +15,44 @@
         {% endblock %}
     </head>
     <body>
-        <header>
-            <img id ="logo" src="/img/logo.png">
-            <div id="title"><a href="index.html">Atypik'House</a></div>
-            <button id="btnInscrire" type="button" class="btn btn-success"><p>S'inscrire</p></button>
-            <button id="btnConnecter" class="btn btn-primary"><p>Se connecter</p></button>
-        </header>
 
-        <header>
-            <img id ="logo" src="/img/logo.png">
-            <div id="title"><a href="index.html">Atypik'House</a></div>
-            <button id="btnDeco" class="btn btn-deconnexion"><p>Deconnexion</p></button>
+ <nav class="navbar navbar-expand-lg navbar-light">
+  <img id ="logo" src="/img/logo.png">
+   <div id="title"><a href="index.html">Atypik'House</a></div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+      
+    </ul>
+           <button id="btnInscrire" type="button" class="btn btn-success"><p>S'inscrire</p></button>
+            <button id="btnConnecter" class="btn btn-primary"><p>Se connecter</p></button>
+  </div>
+</nav>
+
+
+ <nav class="navbar navbar-expand-lg navbar-light">
+  <img id ="logo" src="/img/logo.png">
+   <div id="title"><a href="index.html">Atypik'House</a></div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+      
+    </ul>
+            <img id ="avatarLogin" src="/img/header/avatarLogin.png">  
+            <div id="Utilisateur">Bienvenue Zoé</div>
             <img id ="cloche" src="/img/header/cloche.png">
             <img id ="cloche" src="/img/header/clocheNotif.png">
-            <div id="Utilisateur">Bienvenue Zoé</div>
-            <img id ="avatarLogin" src="/img/header/avatarLogin.png">
-</header>
+            <button id="btnDeco" class="btn btn-deconnexion"><p>Deconnexion</p></button>
+  </div>
+</nav>
 
 
         {% block body %}{% endblock %}
