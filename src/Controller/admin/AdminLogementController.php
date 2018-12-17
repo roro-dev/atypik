@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UtilisateurRepository;
 use App\Entity\Utilisateur;
+use App\Entity\ParametresLogement;
+use App\Entity\ParametresType;
 
 /**
  * @Route("/admin/logement")
@@ -30,7 +32,7 @@ class AdminLogementController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        var_dump($request->request->get('params[]'));die;
+        
         $logement = new Logement();
         $repo = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneBy(['id' => 1]);
         $logement->setIdProprietaire($repo);
@@ -40,9 +42,21 @@ class AdminLogementController extends AbstractController
             if($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($logement);
-                $em->flush();                
+                $em->flush();
+                if(!empty($request->request->get('params'))) {
+                    $params = $request->request->get('params');
+                    foreach($params as $k => $v) {
+                        $p = new ParametresLogement();
+                        $p->setLogement($logement);
+                        $p->setParametre($this->getDoctrine()->getRepository(ParametresType::class)->findOneBy(['id' => $k]));
+                        $p->setValeur($v);
+                        $logement->addParametre($p);
+                        $em->persist($p);
+                        $em->flush();                   
+                    }
+                }
                 $this->addFlash('success', 'Logement crée avec succès.');
-                return $this->redirectToRoute('logement_index');
+                return $this->redirectToRoute('logement_liste');
             } else {                
                 $this->addFlash('error', 'La création du logement a rencontré un problème.');
             }
@@ -63,22 +77,25 @@ class AdminLogementController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="logement_edit", methods="GET|POST")
+     * @Route("/edit/{id}", name="logement_edit", methods="GET|POST")
      */
     public function edit(Request $request, Logement $logement): Response
     {
         $form = $this->createForm(LogementType::class, $logement);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('logement_edit', ['id' => $logement->getId()]);
+        $form->handleRequest($request);        
+        if ($form->isSubmitted()) {
+            if($form->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
+                $this->addFlash('success', 'Logement bien mis à jour.');
+            } else {                
+                $this->addFlash('error', 'La création du logement a rencontré un problème.');
+            }
         }
-
         return $this->render('admin/logement/logement-edit.html.twig', [
             'logement' => $logement,
             'form' => $form->createView(),
+            //'params' => $this->getDoctrine()->getRepository(ParametresLogement::class)->findBy(['logement' => $logement])
+            'params' => $logement->getParametres()
         ]);
     }
 

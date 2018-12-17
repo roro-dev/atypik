@@ -1,18 +1,9 @@
 $(document).ready(function() {
     
     if($('#logement_id_type').length > 0) {
+        getParams();
         $('#logement_id_type').on('change', function() {
-            $.ajax({
-                url: '/admin/parametres-type/getParamsByType',
-                data: {'type': $(this).val()},
-                method: 'post',
-                success: function(response) {
-                    showParams(JSON.parse(response), '#parametres');
-                }, 
-                error: function() {
-                    alert('Une erreur est survenue. Veuillez contactez l\'administrateur du site.');
-                }
-            })
+            getParams();
         })
     }
 
@@ -28,7 +19,21 @@ function showParams(tab, container) {
         $(container).empty();
         $.each(tab, function(k, v){
             $(container).append('<label>'+v.nom+'</label>');
-            $(container).append('<input class="form-control" type="text" name="params[]">');
+            $(container).append('<input class="form-control" type="text" name="params[' + v.id + ']">');
         });
     }
+}
+
+function getParams() {
+    $.ajax({
+        url: '/admin/parametres-type/getParamsByType',
+        data: {'type': $('#logement_id_type').val()},
+        method: 'post',
+        success: function(response) {
+            showParams(JSON.parse(response), '#parametres');
+        }, 
+        error: function() {
+            alert('Une erreur est survenue. Veuillez contactez l\'administrateur du site.');
+        }
+    });
 }
