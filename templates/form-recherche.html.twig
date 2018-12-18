@@ -1,0 +1,41 @@
+<form action="/recherche" method="post">
+    <div class="form-group">
+        <select class="form-control" id="selectHousingType" name="type">
+            <option disabled selected>Sélectionner un logement :</option>
+        {% for type in types %}
+            <option value="{{ type.id }}">{{ type.type }}</option>
+        {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <select class="form-control" id="selectLocation" name="ville">
+            <option>Lieu</option>
+            <option>Bordeaux</option>
+            <option>Lyon</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" id="inputDepartureDate" placeholder="Date de départ">
+        <script>
+            $('#inputDepartureDate').datepicker({
+                uiLibrary: 'bootstrap4'
+            });
+        </script>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" id="inputArrivalDate" placeholder="Date d'arrivée">
+        <script>
+            $('#inputArrivalDate').datepicker({
+                uiLibrary: 'bootstrap4'
+            });
+        </script>
+    </div>    
+    <div class="form-group">
+        <select class="form-control" id="selectTravelers" name="nb">
+            <option disabled selected>Nombre de voyageurs :</option>
+            <option>1</option>
+            <option>2</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-recherche">Rechercher</button>
+</form>
