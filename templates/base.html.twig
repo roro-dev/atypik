@@ -3,22 +3,26 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block link %}
+        {% block stylesheet %}
            <link rel="stylesheet" href="/css/bootstrap.min.css">
+           <link rel="stylesheet" href="/css/jquery-ui.min.css">
            <link rel="stylesheet" href="/css/styles.css">
            <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-           <script type="text/javascript" src="/js/jquery.min.js"></script>
-           <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-           <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
-           <script type="text/javascript" src="/js/slider.js"></script>
-
         {% endblock %}
     </head>
     <body>
 
  <nav class="navbar navbar-expand-lg navbar-light">
+ <div class="d-flex justify-content-start">
+  <div class="d-flex bd-highlight">
+  <div class="p-3 flex-fill bd-highlight">
   <img id ="logo" src="/img/logo.png">
+  </div>
+  <div class="p-3 flex-fill bd-highlight">
    <div id="title"><a href="/">Atypik'House</a></div>
+   </div>
+   </div>
+   </div>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -29,11 +33,23 @@
       
     </ul>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <img id ="avatarLogin" src="/img/header/avatarLogin.png">  
-        <div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div>
-        <img id ="cloche" src="/img/header/cloche.png">
-        <!--<img id ="cloche" src="/img/header/clocheNotif.png">-->
-        <button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'"><p>Deconnexion</p></button>
+        <div class="d-flex justify-content-end d-md-none d-lg-block">
+        <div class="d-flex bd-highlight ">
+        <div class="p-3 flex-fill bd-highlight"><img id ="avatarLogin" src="/img/header/avatarLogin.png"></div>
+        <div class="p-3 flex-fill bd-highlight"><div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div></div>
+        <div class="p-3 flex-fill bd-highlight"><img id ="cloche" src="/img/header/cloche.png"></div>
+        <div class="p-3 flex-fill bd-highlight"><button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'"><p>Deconnexion</p></button></div>
+        </div>
+        </div>
+
+        <div class="d-flex justify-content-end d-none d-md-block d-lg-none">
+        <div class="d-flex bd-highlight flex-column">
+        <div class="p-3 justify-content-end"><img id ="avatarLogin" src="/img/header/avatarLogin.png"></div>
+        <div class="p-3 flex-fill bd-highlight"><div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div></div>
+        <div class="p-3 flex-fill bd-highlight"><img id ="cloche" src="/img/header/cloche.png"></div>
+        <div class="p-3 flex-fill bd-highlight"><button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'"><p>Deconnexion</p></button></div>
+        </div>
+        </div>
     {% else %}
             <button id="btnInscrire" type="button" class="btn btn-success" onclick="location.href='/register'"><p>S'inscrire</p></button>
             <button id="btnConnecter" class="btn btn-primary" onclick="location.href='/login'"><p>Se connecter</p></button>
@@ -45,14 +61,35 @@
         <footer class="footer">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4">Colonne Menu 1</div>
-                    <div class="col-lg-4">Colonne Menu 2</div>
+                    <div class="col-lg-4">
+                    <div class="titreMenuFooter">Top regions</div>
+                    <ul>
+                        <li><a href="">Nuit et week-end insolites en Ile-de-France</a></li>
+                        <li><a href="">Nuit et week-end insolites en Bretagne</a></li>
+                        <li><a href="">Nuit et week-end insolites en Auvergne</a></li>
+                        <li><a href="">Nuit et Week-end insolites en Provence</a></li>
+                    </ul>
+                    </div>
+                    <div class="col-lg-4">
+                    <div class="titreMenuFooter">Top hébergements</div>
+                    <ul>
+                        <li><a href="">Dormir dans une cabane</a></li>
+                        <li><a href="">Dormir dans une bulle</a></li>
+                        <li><a href="">Dormir dans une yourte</a></li>
+                        <li><a href="">Dormir dans une roulotte</a></li>
+                    </ul>
+                    </div>
                     <div class="col-lg-4">Colonne Menu 3</div>
                 </div>
             </div>
         </footer>
         {% block javascripts %}
-
+           <script type="text/javascript" src="/js/jquery.min.js"></script>
+           <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+           <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+           <script type="text/javascript" src="/js/gijgo.min.js"></script>
+           <script type="text/javascript" src="/js/slider.js"></script>
+           <script type="text/javascript" src="/js/global.js"></script>
         {% endblock %}
     </body>
 </html>
