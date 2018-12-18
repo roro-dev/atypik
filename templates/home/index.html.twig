@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Accueil - Atypik'House{% endblock %}
 
 {% block body %}
 <style>
@@ -50,46 +50,7 @@ h3 {
 </style>
 
 <div id="formulaire">
-    <form>
-        <div class="form-group">
-            <select class="form-control" id="selectHousingType">
-            {% for type in types %}
-                <option value="{{ type.id }}">{{ type.type }}</option>
-            {% endfor %}
-            </select>
-        </div>
-        <div class="form-group">
-            <select class="form-control" id="selectLocation">
-                <option>Lieu</option>
-                <option>Bordeaux</option>
-                <option>Lyon</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" id="inputArrivalDate" placeholder="Date d'arrivée">
-            <script>
-                $('#inputArrivalDate').datepicker({
-                    uiLibrary: 'bootstrap4'
-                });
-            </script>
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" id="inputDepartureDate" placeholder="Date de départ">
-            <script>
-                $('#inputDepartureDate').datepicker({
-                    uiLibrary: 'bootstrap4'
-                });
-            </script>
-        </div>
-        <div class="form-group">
-            <select class="form-control" id="selectTravelers">
-                <option disabled selected>Nombre de voyageurs :</option>
-                <option>1</option>
-                <option>2</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-recherche">Rechercher</button>
-    </form>
+    {% include 'form-recherche.html.twig' %}
     <img src="/img/imageFormRecherche.png"/>
 </div>
 

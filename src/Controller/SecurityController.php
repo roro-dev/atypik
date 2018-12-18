@@ -40,7 +40,7 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted()) {
             if($form->isValid()) {
                 $repository = $this->getDoctrine()->getRepository(RolesUtilisateur::class);
-                $role = $repository->findOneBy(['id' => 1]);
+                $role = $repository->findOneBy(['id' => 2]);
                 $user->setRole($role);
                 $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
                 $user->setPassword($password);
