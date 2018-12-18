@@ -1,51 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recherche{% endblock %}
+{% block title %}Recherche - Atypik'House{% endblock %}
 
 {% block body %}
 
-
 <div id="formulaire">
-<div id="transparence-form-rech"></div>
-  <form>
-    <div class="form-group">
-      <select class="form-control" id="exampleFormControlSelect1">
-        <option>Type de logement</option>
-        <option>Yourte</option>
-        <option>Bulle</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <select class="form-control" id="exampleFormControlSelect1">
-        <option>Lieu</option>
-        <option>Bordeaux</option>
-        <option>Lyon</option>
-      </select>
-    </div>
-    <input value="Date Départ" id="datepickerDep"/>
-    <script>
-        $('#datepickerDep').datepicker({
-            uiLibrary: 'bootstrap4'
-        });
-    </script>
-
-     <input value="Date Retour" id="datepickerRet"/>
-    <script>
-        $('#datepickerRet').datepicker({
-            uiLibrary: 'bootstrap4'
-        });
-    </script>
-    
-    <div class="form-group">
-      <select class="form-control" id="exampleFormControlSelect1">
-        <option>Voyageurs</option>
-        <option>1</option>
-        <option>2</option>
-      </select>
-    </div>
-
-    <button type="button" class="btn btn-recherche">Rechercher</button>
-  </form>
+<div id="transparence-form-rech"></div>  
+    {% include 'form-recherche.html.twig' %}
   <img src="/img/imageFormRecherche.png"/>
 </div>
   <br/>
