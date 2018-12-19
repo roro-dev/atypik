@@ -1,12 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Produit{% endblock %}
+{% block title %}Logement > {{ logement.nom }} {% endblock %}
 
 {% block body %}
 
 <div id="formulaire">
 <div id="transparence-form-prod"></div>
-  {% include 'form-recherche.html.twig' %}
   <button type="button" class="btn btn-photo"  onclick="openModal();currentSlide(1)">Voir les photos</button>
   <img src="/img/cabane2.jpg"/>
 
@@ -64,7 +63,7 @@
   <div class="row">
     <div class="col-lg-6">
     <center>
-      <h4>Cabane dans les bois</h4>
+      <h4>{{ logement.nom }}</h4>
     </center>
       <div class="separate">
       <br/>
@@ -84,16 +83,12 @@
       </div>
       <br/><br/>
       <div class="prix">
-        140 € / nuit
+        {{ logement.prix }} € / nuit
       </div>
       <br/>
       <br/>
       <div class="produit-desc">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget felis vel nunc malesuada facilisis.  Nulla aliquam vehicula velit vel
-        egestas. Quisque imperdiet mauris lectus, sollicitudin pharetra nulla finibus a. Vivamus vitae justo ac nunc eleifend vehicula a ac ligula. Quisque vitae urna odio. Mauris nulla dui, lobortis ut elementum sed, gravida at mi.
-        <br/><br/>
-        egestas. Quisque imperdiet mauris lectus, sollicitudin pharetra nulla finibus a. Vivamus vitae justo ac nunc eleifend vehicula a ac ligula. Quisque vitae urna odio. Mauris nulla dui, lobortis ut elementum sed, gravida at mi.
-
+        {{ logement.description }}
       </div>
       </div>
     </div>
@@ -200,8 +195,6 @@
                         </p>
                     </div>
                 </div>
-
-                <!-- reply is indented -->
                 <div class="comment-reply col-md-11 offset-md-1 col-sm-10 offset-sm-2">
                     <div class="row">
                         <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
@@ -218,10 +211,7 @@
                         </div>
                     </div>
                </div>
-               <!-- /reply is indented -->
             </div>
-            <!-- /comment -->
-            <!-- comment -->
             <div class="comment mb-2 row">
                 <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
                     <a href=""><img class="mx-auto rounded-circle img-fluid" src="http://demos.themes.guide/bodeo/assets/images/users/w102.jpg" alt="avatar"></a>
@@ -236,7 +226,6 @@
                     </div>
                 </div>
             </div>
-            <!-- /comment -->
             <div class="row pt-2">
                 <div class="col-12">
                     <a href="" class="btn btn-sm btn-primary">Comment</a>
