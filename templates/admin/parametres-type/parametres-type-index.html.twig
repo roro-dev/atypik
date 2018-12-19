@@ -11,7 +11,7 @@
     {% endfor %}
     <div class="row">
         <div class="mx-auto col">
-            <select class="form-control" name="type" onchange="location = '/admin/parametres-type/' + this.value;">
+            <select class="form-control" name="type" onchange="location = '/admin/parametres-type/liste/' + this.value;">
                 <option value="" disabled {{ typeSelect is empty ? 'selected' : '' }}>Sélectionnez un type de logement</option>
                 {% for type in types %}
                     <option value="{{ type.id }}" onclick="" {{ typeSelect == type.id ? 'selected' : '' }}>{{ type.type }}</option>

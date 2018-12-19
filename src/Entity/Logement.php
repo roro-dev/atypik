@@ -72,7 +72,7 @@ class Logement
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="logements")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $ville;
     
