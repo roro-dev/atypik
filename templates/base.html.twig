@@ -58,31 +58,76 @@
 </nav>
         {% block body %}{% endblock %}
 
-        <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4">
-                    <div class="titreMenuFooter">Top regions</div>
-                    <ul>
-                        <li><a href="">Nuit et week-end insolites en Ile-de-France</a></li>
-                        <li><a href="">Nuit et week-end insolites en Bretagne</a></li>
-                        <li><a href="">Nuit et week-end insolites en Auvergne</a></li>
-                        <li><a href="">Nuit et Week-end insolites en Provence</a></li>
-                    </ul>
-                    </div>
-                    <div class="col-lg-4">
-                    <div class="titreMenuFooter">Top hébergements</div>
-                    <ul>
-                        <li><a href="">Dormir dans une cabane</a></li>
-                        <li><a href="">Dormir dans une bulle</a></li>
-                        <li><a href="">Dormir dans une yourte</a></li>
-                        <li><a href="">Dormir dans une roulotte</a></li>
-                    </ul>
-                    </div>
-                    <div class="col-lg-4">Colonne Menu 3</div>
-                </div>
-            </div>
-        </footer>
+<footer class="page-footer font-small stylish-color-dark pt-4">
+    <div class="container-fluid text-center text-md-left">
+      <div class="row">
+        <div class="col-md-4 mx-auto">
+          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">A PROPOS...</h5>
+          <p>Atypik'House est un site mis en place pour faciliter les démarches entre propriétaires de 
+          logements atypiques, et rêveurs qui désirent passer une ou plusieurs nuit dans un endroit hors du commun...
+          En espérant que vous trouverez votre bonheur, nous vous souhaitons une excellente visite.</p>
+        </div>
+        <hr class="w-100 d-md-none">
+
+        <div class="col-md-2 mx-auto">
+          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Top régions</h5>
+          <ul class="list-unstyled">
+                <li><a href="">Nuit et week-end insolites en Ile-de-France</a></li>
+                <li><a href="">Nuit et week-end insolites en Bretagne</a></li>
+                <li><a href="">Nuit et week-end insolites en Auvergne</a></li>
+                <li><a href="">Nuit et Week-end insolites en Provence</a></li>
+          </ul>
+        </div>
+
+        <hr class="w-100 d-md-none">
+
+        <div class="col-md-2 mx-auto">
+          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Top hébergement</h5>
+          <ul class="list-unstyled">
+                <li><a href="">Dormir dans une cabane</a></li>
+                <li><a href="">Dormir dans une bulle</a></li>
+                <li><a href="">Dormir dans une yourte</a></li>
+                <li><a href="">Dormir dans une roulotte</a></li>
+          </ul>
+        </div>
+
+
+        <hr class="w-100 d-md-none">
+        <div class="col-md-2 mx-auto">
+          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Liens utiles</h5>
+          <ul class="list-unstyled">
+                <li><a href="">Mentions légales</a></li>
+                <li><a href="">Qui sommes nous</a></li>
+                <li><a href="">Contactez nous</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Social buttons -->
+    <ul class="list-unstyled list-inline text-center">
+      <li class="list-inline-item">
+          <img href="" src="img\icones\fb.svg"/>
+      </li>
+      <li class="list-inline-item">
+        <img href="" src="img\icones\insta.svg"/>
+      </li>
+      <li class="list-inline-item">
+        <img href="" src="img\icones\google_plus.svg"/>
+      </li>
+    </ul>
+    <!-- Social buttons -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center">© 2018 Copyright:
+      <a href=""> Code&Rise</a>
+    </div>
+    <!-- Copyright -->
+
+</footer>
+
         {% block javascripts %}
            <script type="text/javascript" src="/js/jquery.min.js"></script>
            <script type="text/javascript" src="/js/jquery-ui.min.js"></script>

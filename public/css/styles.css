@@ -189,8 +189,16 @@ a.a-consulter:hover{
 
 } 
 
+/* FOOTER CSS */
+
+.page-footer li.list-inline-item img{
+	width: 45px;
+	margin: 10px;
+	cursor: pointer;
+}
+
 footer{
-	margin-top: 6.25em;
+	margin-top: 2.25em;
 	padding-top: 4em;
 	padding-bottom: 3em;
 	height: 100%;
