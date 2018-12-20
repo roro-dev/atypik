@@ -19,6 +19,27 @@ class LogementRepository extends ServiceEntityRepository
         parent::__construct($registry, Logement::class);
     }
 
+    /**
+     * Permet de récupérer des logements grâce à des critères
+     * @param   array   $_data
+     * @return  Logement[]
+     */
+    public function findByCriteres($_data) {
+        $result = array();
+        if(!empty($_data) && is_array($_data)) {
+            $conn = $this->getEntityManager()->getConnection();
+            $query = 'SELECT l.*
+                FROM logement l
+                WHERE l.id_type_id = :type 
+                AND l.nb_personne <= :nb';
+            $stmt = $conn->prepare($query);
+            $stmt->execute(['type' => $_data['type'], 'nb' => $_data['nb']]);
+            $result = $stmt->fetchAll();
+        }        
+        return $result;
+    }
+
+
 //    /**
 //     * @return Logement[] Returns an array of Logement objects
 //     */
