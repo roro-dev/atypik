@@ -19,15 +19,17 @@
      </div>
     </div>
     <div class="card-deck">
-      <div class="card">
-        <img class="card-img-top" src="/img/cabane.jpg" alt="Card image cap">
-        <div class="card-body">
-          <h4 class="card-title ">Cabane dans le ciel</h4>
-          <h5 class="card-title">LIMOGES - 122€ /nuit </h5>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus </p>
-          <buttont type="button" class="btn btn-consulter"><a href="" class="a-consulter">Consulter</a></button>
+      {% for lo in logements %}
+        <div class="card">
+          <img class="card-img-top" src="/img/cabane.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title ">{{ lo.nom }}</h4>
+            <h5 class="card-title">LIMOGES - {{ lo.prix }}€/nuit </h5>
+            <p class="card-text">{{ lo.description }}</p>
+            <button type="button" class="btn btn-consulter"><a href="{{ path('logement_index', {'id': lo.id}) }}" class="a-consulter">Consulter</a></button>
+          </div>
         </div>
-      </div>
+      {% endfor %}
       <div class="card">
         <img class="card-img-top" src="/img/yourte.jpg" alt="Card image cap">
         <div class="card-body">
