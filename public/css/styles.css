@@ -198,13 +198,17 @@ a.a-consulter:hover{
 }
 
 footer{
+	font-family: roboto;
 	margin-top: 2.25em;
 	padding-top: 4em;
 	padding-bottom: 3em;
 	height: 100%;
 	background-color: #C4C4C4;
 	width: 100%;
+}
 
+ul.list-unstyled li a{
+	color: black;
 }
 
 .card-deck .card:hover{
