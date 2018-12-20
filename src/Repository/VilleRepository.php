@@ -19,32 +19,23 @@ class VilleRepository extends ServiceEntityRepository
         parent::__construct($registry, Ville::class);
     }
 
-//    /**
-//     * @return Ville[] Returns an array of Ville objects
-//     */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('v.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+    /**
+     * Permet de récupérer les villes qui commencent par le terme recherché
+     * @param   string     $_term
+     * @return  array   
+     */
+    public function findByTerm($_term) {
+        $result = array();
+        if(!empty($_type)) {
+            $conn = $this->getEntityManager()->getConnection();
+            $query = 'SELECT v.*
+                FROM ville v
+                WHERE v.nom LIKE :term%
+                ORDER BY v.nom';
+            $stmt = $conn->prepare($query);
+            $stmt->execute(['term' => $_term]);
+            $result = $stmt->fetchAll();
+        }        
+        return $result;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Ville
-    {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

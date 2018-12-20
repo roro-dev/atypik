@@ -14,6 +14,7 @@ use App\Repository\UtilisateurRepository;
 use App\Entity\Utilisateur;
 use App\Entity\ParametresLogement;
 use App\Entity\ParametresType;
+use App\Entity\Ville;
 
 /**
  * @Route("/admin/logement")

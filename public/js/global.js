@@ -10,20 +10,18 @@ $(document).ready(function() {
 
     if($('#villeAuto').length > 0) {
         $('#villeAuto').autocomplete({
-            minLength: 2,
+            minLength: 3,
             source: function (requete, reponse) {
                 $.ajax({
-                    url: 'https://geo.api.gouv.fr/docs/communes',
+                    url: '/ville/getVilles',
                     dataType: 'JSON',
-                    method: 'get',
-                    data: {'name': $('#villeAuto').val(), 'fields': 'departement'},
+                    method: 'post',
+                    data: {'term': $('#villeAuto').val()},
                     success: function (donnee) {
                         console.log(donnee);
-                        reponse(
-                            $.map(donnee, function (objet) {
-                                
-                            })
-                        );
+                        /*reponse(
+                            $.map(donnee, function (objet) {})
+                        );*/
                     }
                 });
             }

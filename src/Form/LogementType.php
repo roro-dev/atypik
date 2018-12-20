@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use App\Entity\Ville;
 
 class LogementType extends AbstractType
 {
@@ -54,6 +55,15 @@ class LogementType extends AbstractType
                 ),
                 'label' => 'Code Postal'
             ))
+            /*->add('ville', EntityType::class, array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'id' => 'searchVille'
+                ),
+                'label' => 'Ville',
+                'class' => Ville::class,
+                'choice_label' => 'nom'
+            ))*/
             ->add('prix', MoneyType::class, array(
                 'attr' => array(
                     'class' => 'form-control'

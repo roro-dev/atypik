@@ -7,6 +7,28 @@ $(document).ready(function() {
         })
     }
 
+    if($('#villeSearch').length > 0) {
+        $('#villeSearch').autocomplete({
+            minLength: 2,
+            source: function (requete, reponse) {
+                $.ajax({
+                    url: '/admin/logement/getVilles',
+                    dataType: 'JSON',
+                    method: 'post',
+                    data: {'term': $('#villeSearch').val()},
+                    success: function (donnee) {
+                        console.log(donnee);
+                        /*reponse(
+                            $.map(donnee, function (objet) {
+                                
+                            })
+                        );*/
+                    }
+                });
+            }
+        });
+    }
+
 })
 
 /**
