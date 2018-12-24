@@ -52,24 +52,24 @@ class Reservation
         return $this->id;
     }
 
-    public function getIdLogement(): ?Logement
+    public function getLogement(): ?Logement
     {
         return $this->id_logement;
     }
 
-    public function setIdLogement(?Logement $id_logement): self
+    public function setLogement(?Logement $id_logement): self
     {
         $this->id_logement = $id_logement;
 
         return $this;
     }
 
-    public function getIdUtilisateur(): ?Utilisateur
+    public function getUtilisateur(): ?Utilisateur
     {
         return $this->id_utilisateur;
     }
 
-    public function setIdUtilisateur(?Utilisateur $id_utilisateur): self
+    public function setUtilisateur(?Utilisateur $id_utilisateur): self
     {
         $this->id_utilisateur = $id_utilisateur;
 
@@ -100,12 +100,12 @@ class Reservation
         return $this;
     }
 
-    public function getDateCreation(): ?string
+    public function getDateCreation(): ?\DateTimeInterface
     {
         return $this->date_creation;
     }
 
-    public function setDateCreation(string $date_creation): self
+    public function setDateCreation(\DateTimeInterface $date_creation): self
     {
         $this->date_creation = $date_creation;
 
