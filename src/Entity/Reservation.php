@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReservationRepository")
@@ -35,6 +36,16 @@ class Reservation
      * @ORM\Column(type="datetime")
      */
     private $date_fin;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date_creation;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nbPersonne;
 
     public function getId(): ?int
     {
@@ -85,6 +96,30 @@ class Reservation
     public function setDateFin(\DateTimeInterface $date_fin): self
     {
         $this->date_fin = $date_fin;
+
+        return $this;
+    }
+
+    public function getDateCreation(): ?string
+    {
+        return $this->date_creation;
+    }
+
+    public function setDateCreation(string $date_creation): self
+    {
+        $this->date_creation = $date_creation;
+
+        return $this;
+    }
+
+    public function getNbPersonne(): ?int
+    {
+        return $this->nbPersonne;
+    }
+
+    public function setNbPersonne(int $nbPersonne): self
+    {
+        $this->nbPersonne = $nbPersonne;
 
         return $this;
     }

@@ -7,6 +7,14 @@ $(document).ready(function() {
         format: 'dd/mm/yyyy',
         uiLibrary: 'bootstrap4'
     });
+    $('#dateDebut').datepicker({
+        format: 'dd/mm/yyyy',
+        uiLibrary: 'bootstrap4'
+    });
+    $('#dateFin').datepicker({
+        format: 'dd/mm/yyyy',
+        uiLibrary: 'bootstrap4'
+    });
 
     if($('#villeAuto').length > 0) {
         $('#villeAuto').autocomplete({
