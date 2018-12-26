@@ -26,7 +26,6 @@ $(document).ready(function() {
                     method: 'post',
                     data: {'term': $('#villeAuto').val()},
                     success: function (donnee) {
-                        console.log(donnee);
                         reponse(
                             $.map(donnee, function (objet) {
                                 return objet.nom;
