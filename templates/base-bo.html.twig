@@ -17,17 +17,30 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('logement_liste') }}">Logements</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Logements
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ path('logement_liste') }}">Liste des logements</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('reservation_index') }}">Réservations</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Commentaires (TODO)</a>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Commentaires</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Types d'habitat
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ path('type_logement_index') }}">Liste des types d'habitat</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('parametres_type_index', {'type': 0}) }}">Paramètres</a>                                
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Utilisateurs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('parametres_type_index', {'type': 0}) }}">Paramètres</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Taxes (Ville)</a>

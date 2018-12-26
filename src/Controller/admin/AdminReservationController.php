@@ -20,7 +20,7 @@ class AdminReservationController extends AbstractController
      */
     public function index(ReservationRepository $reservationRepository): Response
     {
-        return $this->render('reservation/index.html.twig', ['reservations' => $reservationRepository->findAll()]);
+        return $this->render('admin/reservation/reservation-index.html.twig', ['reservations' => $reservationRepository->findAll()]);
     }
 
     /**
@@ -40,7 +40,7 @@ class AdminReservationController extends AbstractController
             return $this->redirectToRoute('reservation_index');
         }
 
-        return $this->render('reservation/new.html.twig', [
+        return $this->render('admin/reservation/reservation-new.html.twig', [
             'reservation' => $reservation,
             'form' => $form->createView(),
         ]);
@@ -51,7 +51,7 @@ class AdminReservationController extends AbstractController
      */
     public function show(Reservation $reservation): Response
     {
-        return $this->render('reservation/show.html.twig', ['reservation' => $reservation]);
+        return $this->render('admin/reservation/reservation-show.html.twig', ['reservation' => $reservation]);
     }
 
     /**
@@ -68,7 +68,7 @@ class AdminReservationController extends AbstractController
             return $this->redirectToRoute('reservation_index', ['id' => $reservation->getId()]);
         }
 
-        return $this->render('reservation/edit.html.twig', [
+        return $this->render('admin/reservation/reservation-edit.html.twig', [
             'reservation' => $reservation,
             'form' => $form->createView(),
         ]);

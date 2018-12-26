@@ -3,27 +3,28 @@
 {% block title %}Reservation index{% endblock %}
 
 {% block body %}
-    <h1>Reservation index</h1>
-
+    <h3>Liste des réservations</h3>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Date_debut</th>
-                <th>Date_fin</th>
-                <th>Date_creation</th>
-                <th>NbPersonne</th>
+                <th>Logement</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th>Réservée le</th>
+                <th>Nombre de personnes</th>
+                <th>Prix Total
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for reservation in reservations %}
             <tr>
-                <td>{{ reservation.id }}</td>
-                <td>{{ reservation.dateDebut ? reservation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ reservation.dateFin ? reservation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ reservation.dateCreation ? reservation.dateCreation|date('Y-m-d H:i:s') : '' }}</td>
+                <td><a href="{{ path('logement_show', {'id': reservation.getLogement().getId()}) }}">{{ reservation.getLogement().getNom() }}</a></td>
+                <td>{{ reservation.dateDebut ? reservation.dateDebut|date('d/m/Y') : '' }}</td>
+                <td>{{ reservation.dateFin ? reservation.dateFin|date('d/m/Y') : '' }}</td>
+                <td>{{ reservation.dateCreation ? reservation.dateCreation|date('d/m/Y H:i:s') : '' }}</td>
                 <td>{{ reservation.nbPersonne }}</td>
+                <td>{{ reservation.getPrixResa()}} €</td>
                 <td>
                     <a href="{{ path('reservation_show', {'id': reservation.id}) }}">show</a>
                     <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">edit</a>
@@ -36,6 +37,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('reservation_new') }}">Create new</a>
 {% endblock %}

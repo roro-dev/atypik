@@ -123,4 +123,12 @@ class Reservation
 
         return $this;
     }
+
+    /**
+     * Retourne le prix total d'une réservation
+     * @return integer
+     */
+    public function getPrixResa() {
+        return $this->date_debut->diff($this->date_fin)->format('%a') * $this->getLogement()->getPrix();
+    }
 }
