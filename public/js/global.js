@@ -27,9 +27,11 @@ $(document).ready(function() {
                     data: {'term': $('#villeAuto').val()},
                     success: function (donnee) {
                         console.log(donnee);
-                        /*reponse(
-                            $.map(donnee, function (objet) {})
-                        );*/
+                        reponse(
+                            $.map(donnee, function (objet) {
+                                return objet.nom;
+                            })
+                        );
                     }
                 });
             }

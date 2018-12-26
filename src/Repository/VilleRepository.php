@@ -26,15 +26,16 @@ class VilleRepository extends ServiceEntityRepository
      */
     public function findByTerm($_term) {
         $result = array();
-        if(!empty($_type)) {
-            $conn = $this->getEntityManager()->getConnection();
-            $query = 'SELECT v.*
-                FROM ville v
-                WHERE v.nom LIKE :term%
-                ORDER BY v.nom';
-            $stmt = $conn->prepare($query);
-            $stmt->execute(['term' => $_term]);
-            $result = $stmt->fetchAll();
+        if(!empty($_term)) {
+            $entityManager = $this->getEntityManager();
+            $query = $entityManager->createQuery('SELECT DISTINCT v.nom
+                FROM App\Entity\Ville v
+                WHERE v.nom LIKE :term
+                ORDER BY v.nom
+                ')
+                ->setParameter('term', $_term . '%')
+                ->setMaxResults(10);
+            $result = $query->execute();
         }        
         return $result;
     }
