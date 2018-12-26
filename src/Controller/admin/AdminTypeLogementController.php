@@ -20,7 +20,7 @@ class AdminTypeLogementController extends AbstractController
      */
     public function index(TypeLogementRepository $typeLogementRepository): Response
     {
-        return $this->render('admin/type-logement/index.html.twig', ['type_logements' => $typeLogementRepository->findAll()]);
+        return $this->render('admin/type-logement/type-logement-index.html.twig', ['type_logements' => $typeLogementRepository->findAll()]);
     }
 
     /**

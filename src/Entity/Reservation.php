@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReservationRepository")
@@ -36,29 +37,39 @@ class Reservation
      */
     private $date_fin;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date_creation;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nbPersonne;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIdLogement(): ?Logement
+    public function getLogement(): ?Logement
     {
         return $this->id_logement;
     }
 
-    public function setIdLogement(?Logement $id_logement): self
+    public function setLogement(?Logement $id_logement): self
     {
         $this->id_logement = $id_logement;
 
         return $this;
     }
 
-    public function getIdUtilisateur(): ?Utilisateur
+    public function getUtilisateur(): ?Utilisateur
     {
         return $this->id_utilisateur;
     }
 
-    public function setIdUtilisateur(?Utilisateur $id_utilisateur): self
+    public function setUtilisateur(?Utilisateur $id_utilisateur): self
     {
         $this->id_utilisateur = $id_utilisateur;
 
@@ -87,5 +98,37 @@ class Reservation
         $this->date_fin = $date_fin;
 
         return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->date_creation;
+    }
+
+    public function setDateCreation(\DateTimeInterface $date_creation): self
+    {
+        $this->date_creation = $date_creation;
+
+        return $this;
+    }
+
+    public function getNbPersonne(): ?int
+    {
+        return $this->nbPersonne;
+    }
+
+    public function setNbPersonne(int $nbPersonne): self
+    {
+        $this->nbPersonne = $nbPersonne;
+
+        return $this;
+    }
+
+    /**
+     * Retourne le prix total d'une réservation
+     * @return integer
+     */
+    public function getPrixResa() {
+        return $this->date_debut->diff($this->date_fin)->format('%a') * $this->getLogement()->getPrix();
     }
 }

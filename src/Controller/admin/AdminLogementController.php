@@ -6,6 +6,7 @@ use App\Entity\Logement;
 use App\Form\LogementType;
 use App\Repository\LogementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,6 +14,7 @@ use App\Repository\UtilisateurRepository;
 use App\Entity\Utilisateur;
 use App\Entity\ParametresLogement;
 use App\Entity\ParametresType;
+use App\Entity\Ville;
 
 /**
  * @Route("/admin/logement")
@@ -84,6 +86,7 @@ class AdminLogementController extends AbstractController
         $form = $this->createForm(LogementType::class, $logement);
         $form->handleRequest($request);        
         if ($form->isSubmitted()) {
+            //var_dump($logement->getPhotos());die;
             if($form->isValid()) {
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('success', 'Logement bien mis à jour.');
@@ -94,7 +97,6 @@ class AdminLogementController extends AbstractController
         return $this->render('admin/logement/logement-edit.html.twig', [
             'logement' => $logement,
             'form' => $form->createView(),
-            //'params' => $this->getDoctrine()->getRepository(ParametresLogement::class)->findBy(['logement' => $logement])
             'params' => $logement->getParametres()
         ]);
     }

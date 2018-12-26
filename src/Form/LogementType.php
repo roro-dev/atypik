@@ -3,19 +3,22 @@
 namespace App\Form;
 
 use App\Entity\Logement;
+use App\Entity\TypeLogement;
+use App\Entity\Photo;
+use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Proxies\__CG__\App\Entity\TypeLogement;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use App\Entity\Utilisateur;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use App\Entity\Ville;
 
 class LogementType extends AbstractType
 {
@@ -40,11 +43,38 @@ class LogementType extends AbstractType
                     'class' => 'form-control'
                 )
             ))
+            ->add('adresse', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control'
+                ),
+                'label' => 'Adresse'
+            ))
+            ->add('codePostal', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control'
+                ),
+                'label' => 'Code Postal'
+            ))
+            /*->add('ville', EntityType::class, array(
+                'attr' => array(
+                    'class' => 'form-control',
+                    'id' => 'searchVille'
+                ),
+                'label' => 'Ville',
+                'class' => Ville::class,
+                'choice_label' => 'nom'
+            ))*/
             ->add('prix', MoneyType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
                 ),
-                'label' => 'Prix (en euros)'
+                'label' => 'Prix / nuit (en euros)'
+            ))
+            ->add('nbPersonne', NumberType::class, array(
+                'attr' => array(
+                    'class' => 'form-control'
+                ),
+                'label' => 'Nombre de personne'
             ))
             ->add('id_proprietaire', EntityType::class, array(
                 'attr' => array(
@@ -53,6 +83,13 @@ class LogementType extends AbstractType
                 'label' => 'Propriétaire du logement',
                 'class' => Utilisateur::class
             ))
+            /*->add('photos', FileType::class, array(
+                'attr' => array(
+                    'class' => 'form-control'
+                ),
+                'multiple' => true,                
+                'label' => 'Prises de vue'
+            ))*/
         ;
     }
 
