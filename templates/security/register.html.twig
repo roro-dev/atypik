@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 {% block title %}Inscription{% endblock %}    
 {% block body %}
-    {% for flash_message in app.session.flashBag.get('error') %}
-        <div class="alert alert-success">
-            {{ flash_message }}
-        </div>
-    {% endfor %}
+    <div class="container">
+        {% for flash_message in app.session.flashBag.get('error') %}
+            <div class="alert alert-danger">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
         {{ form_start(form) }}
             {{ form_row(form.nom) }}
             {{ form_row(form.prenom) }}
@@ -13,7 +14,10 @@
             {{ form_row(form.telephone)}}
             {{ form_row(form.adresse)}}
             {{ form_row(form.plainPassword.first) }}
-            {{ form_row(form.plainPassword.second) }}
-            <button type="submit">S'inscrire !</button>
+            {{ form_row(form.plainPassword.second) }}            
+            {{ form_row(form.cgv) }}
+            <br>
+            <button type="submit" class="btn btn-success" style="height: initial;">S'inscrire !</button>
         {{ form_end(form) }}
+    </div>
 {% endblock %}
