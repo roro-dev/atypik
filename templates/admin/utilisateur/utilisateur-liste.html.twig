@@ -1,19 +1,24 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-bo.html.twig' %}
 
-{% block title %}Utilisateur index{% endblock %}
+{% block title %}Liste des utilisateurs{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <h1>Liste des utilisateurs</h1>
+<div class="container">
+    <h3>Liste des utilisateurs</h3>
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ flash_message }}
         </div>
-        <div class="row">
-            <a class="btn btn-success" href="{{ path('utilisateur_new') }}">Create new</a>
+    {% endfor %}
+    <div class="row">
+        <div class="mx-auto col">
+            <a class="btn btn-success" href="{{ path('utilisateur_new') }}">Créer un nouvel utilisateur</a>
         </div>
+    </div>
+    <div class="row mx-auto my-2">
         <table class="table">
             <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Nom</th>
                     <th>Prenom</th>
                     <th>Adresse</th>
@@ -26,7 +31,6 @@
             <tbody>
             {% for utilisateur in utilisateurs %}
                 <tr>
-                    <td>{{ utilisateur.id }}</td>
                     <td>{{ utilisateur.nom }}</td>
                     <td>{{ utilisateur.prenom }}</td>
                     <td>{{ utilisateur.adresse }}</td>
@@ -44,7 +48,6 @@
             {% endfor %}
             </tbody>
         </table>
-
-        
-    </div>
+    </div>        
+</div>
 {% endblock %}

@@ -58,8 +58,9 @@ class UtilisateurType extends AbstractType
                 )
             ))
             ->add('cgv', CheckboxType::class,array(
-                'label' => 'J\'accepte les CGU.'
-            ));
+                'label' => 'J\'accepte les Conditions Générales d\'Utilisation.'
+            ))
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

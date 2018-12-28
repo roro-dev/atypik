@@ -32,14 +32,17 @@ class AdminTypeLogementController extends AbstractController
         $form = $this->createForm(TypeLogementType::class, $typeLogement);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($typeLogement);
-            $em->flush();
-
-            return $this->redirectToRoute('type_logement_index');
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($typeLogement);
+                $em->flush();
+                $this->addFlash('success', 'Type ajouté avec succès.');
+                return $this->redirectToRoute('type_logement_index');
+            } else {                
+                $this->addFlash('error', 'La création du type a rencontré un problème.');
+            }
         }
-
         return $this->render('admin/type-logement/new.html.twig', [
             'type_logement' => $typeLogement,
             'form' => $form->createView(),
