@@ -16,11 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminReservationController extends AbstractController
 {
     /**
-     * @Route("/", name="reservation_index", methods="GET")
+     * @Route("/", name="reservation_liste", methods="GET")
      */
     public function index(ReservationRepository $reservationRepository): Response
     {
-        return $this->render('admin/reservation/reservation-index.html.twig', ['reservations' => $reservationRepository->findAll()]);
+        return $this->render('admin/reservation/reservation-liste.html.twig', ['reservations' => $reservationRepository->findAll()]);
     }
 
     /**

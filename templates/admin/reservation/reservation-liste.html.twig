@@ -28,8 +28,8 @@
                     <td>{{ reservation.nbPersonne }}</td>
                     <td>{{ reservation.getPrixResa()}} €</td>
                     <td>
-                        <a href="{{ path('reservation_show', {'id': reservation.id}) }}">show</a>
-                        <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">edit</a>
+                        <a href="{{ path('reservation_edit', {'id': logement.id}) }}" class="btn btn-success" title="Modifier le logement">M</a>
+                        <a href="{{ path('reservation_delete', {'id': logement.id}) }}" class="btn btn-danger" title="Supprimer le logement">S</a>
                     </td>
                 </tr>
             {% else %}

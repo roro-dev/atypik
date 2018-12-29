@@ -26,7 +26,7 @@ class AdminLogementController extends AbstractController
      */
     public function liste(LogementRepository $logementRepository): Response
     {
-        return $this->render('admin/logement/logement-index.html.twig', ['logements' => $logementRepository->findAll()]);
+        return $this->render('admin/logement/logement-liste.html.twig', ['logements' => $logementRepository->findAll()]);
     }
 
     /**
@@ -71,11 +71,11 @@ class AdminLogementController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="logement_show", methods="GET")
+     * @Route("/{id}", name="logement_apercu", methods="GET")
      */
     public function show(Logement $logement): Response
     {
-        return $this->render('admin/logement/logement-show.html.twig', ['logement' => $logement]);
+        return $this->render('admin/logement/logement-apercu.html.twig', ['logement' => $logement]);
     }
 
     /**
@@ -86,7 +86,6 @@ class AdminLogementController extends AbstractController
         $form = $this->createForm(LogementType::class, $logement);
         $form->handleRequest($request);        
         if ($form->isSubmitted()) {
-            //var_dump($logement->getPhotos());die;
             if($form->isValid()) {
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('success', 'Logement bien mis à jour.');
@@ -111,7 +110,6 @@ class AdminLogementController extends AbstractController
             $em->remove($logement);
             $em->flush();
         }
-
         return $this->redirectToRoute('logement_index');
     }
 }

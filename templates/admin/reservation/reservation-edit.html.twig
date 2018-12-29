@@ -1,8 +1,14 @@
 {% extends 'base-bo.html.twig' %}
 
-{% block title %}Edit Reservation{% endblock %}
+{% block title %}Modification d'une réservation{% endblock %}
 
 {% block body %}
+    <div class="container">    
+    <div class="row mx-auto my-2">
+        <a href="{{ path('reservation_liste') }}">Retour</a>
+    </div>
+
+    </div>
     <h1>Edit Reservation</h1>
 
     {{ include('reservation/_form.html.twig', {'button_label': 'Update'}) }}
