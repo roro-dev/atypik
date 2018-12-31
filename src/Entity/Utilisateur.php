@@ -97,6 +97,11 @@ class Utilisateur implements UserInterface
      */
     private $logements;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $cgv;
+
     public function __construct() {
         $this->valideUser = 0;
         $this->commentaires = new ArrayCollection();
@@ -375,5 +380,17 @@ class Utilisateur implements UserInterface
 
     public function __toString() {
         return $this->nom . ' ' . $this->prenom;
+    }
+
+    public function getCgv(): ?bool
+    {
+        return $this->cgv;
+    }
+
+    public function setCgv(bool $cgv): self
+    {
+        $this->cgv = $cgv;
+
+        return $this;
     }
 }

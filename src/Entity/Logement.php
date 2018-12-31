@@ -59,6 +59,8 @@ class Logement
      */
     private $photos;
 
+    private $photosUploads;
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="logements")
      * @ORM\JoinColumn(nullable=false)
@@ -72,9 +74,24 @@ class Logement
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="logements")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $ville;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $adresse;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $codePostal;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nbPersonne;
     
 
     public function __construct()
@@ -315,6 +332,51 @@ class Logement
     {
         $this->ville = $ville;
 
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getCodePostal(): ?string
+    {
+        return $this->codePostal;
+    }
+
+    public function setCodePostal(?string $codePostal): self
+    {
+        $this->codePostal = $codePostal;
+
+        return $this;
+    }
+
+    public function getNbPersonne(): ?int
+    {
+        return $this->nbPersonne;
+    }
+
+    public function setNbPersonne(int $nbPersonne): self
+    {
+        $this->nbPersonne = $nbPersonne;
+
+        return $this;
+    }
+
+    public function getPhotosUploads() {
+        return $this->photosUploads;
+    }
+
+    public function setPhotosUploads(array $photosUploads) {
+        $this->photosUploads = $photosUploads;
         return $this;
     }
 }

@@ -1,24 +1,218 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}Accueil - Atypik'House{% endblock %}
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-<div class="example-wrapper">
-    {% for flash_message in app.session.flashBag.get('success') %}
-        <div class="alert alert-success">
-            {{ flash_message }}
-        </div>
-    {% endfor %}
-    <h1>Hello {{ controller_name }}! ✅</h1>
+h2.contactTitle {
+	position: absolute;
+	top: 14em;
+	left: 4em;
+	color: white;
+	font-weight: bold;
+}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
+h3 {
+    padding: 1em 0 1em 0;
+}
+
+#nightDream {
+    margin-top: 3em;
+}
+
+#nightDream img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+}
+
+#nightDream .content {
+    width: 100%;
+    padding: 0 8em;
+}
+
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.no-gutters .col, [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.carousel-item img {
+    width: 33%;
+    position: relative;
+    height: 200px;
+    object-fit: cover;
+    padding: 0 5px;
+}
+
+@media (max-width: 768px) { 
+    .deuxiemeDiv{
+        flex-direction: column-reverse;
+    }
+    #nightDream .content {
+         width: 100%;
+        padding: 1rem;
+    }
+}
+
+.carousel-item img {
+    margin:10px;
+}
+.block4-wrap {
+    display:flex
+}
+.block4 {
+    flex:1 0 25%;
+    color:black;
+}
+.my-captions{
+    margin-top: -30px;
+    padding-left: 55px;
+    padding-bottom: 0em;
+    }
+    .my-captions h5{
+        padding-top: 30px;
+    }
+
+/* fix width and make user scroll with mouse/touch to see the items */
+@media screen and (max-width:768px){
+    .block4{max-width:280px;flex:1 0 100%;overflow:hidden}  
+    .carousel{overflow:hidden;}
+    .carousel-inner{overflow-x:visible;}
+}
+@media screen and (max-width:480px){
+    .block4{max-width:240px;}   
+}
+</style>
+
+{% for flash_message in app.session.flashBag.get('success') %}
+    <div class="alert alert-success">
+        {{ flash_message }}
+    </div>
+{% endfor %}
+<div id="formulaire">
+    {% include 'form-recherche.html.twig' %}
+    <img src="/img/imageFormRecherche.png"/>
 </div>
+
+ <div class="container carouselmarge">
+ <h3>Nos différents types de logements</h3>
+  <div class="row flex-xl-nowrap">
+    <div class="col-12">
+      <div class="bd-example">
+        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="block4-wrap">
+                <div class="block4"><img class="d-block w-100" src="/img/types-habitat/peniche.jpg" alt="Péniche">
+                  <div class="my-captions">
+                    <h5>Péniches</h5>
+                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                  </div>
+                </div>
+                <div class="block4"><img class="d-block w-100" src="/img/types-habitat/tipis.jpg" alt="Tipis">
+                  <div class="my-captions">
+                    <h5>Tipis</h5>
+                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                  </div>
+                </div>
+                <div class="block4"><img class="d-block w-100" src="/img/types-habitat/bulle.png" alt="Bulle">
+                  <div class="my-captions">
+                    <h5>Bulles</h5>
+                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                  </div>
+                </div>
+                <div class="block4"> <img class="d-block w-100" src="/img/types-habitat/cabane.jpg" alt="Cabane">
+                  <div class="my-captions">
+                    <h5>Cabanes</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="block4-wrap">
+                <div class="block4"> <img class="d-block w-100" src="/img/types-habitat/nid.jpg" alt="Nid">
+                  <div class="my-captions">
+                    <h5>Nid</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  </div>
+                </div>
+                <div class="block4"> <img class="d-block w-100" src="/img/types-habitat/yourte.jpg" alt="Yourte">
+                  <div class="my-captions">
+                    <h5>Youtes</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  </div>
+                </div>
+                <div class="block4"> <img class="d-block w-100" src="/img/types-habitat/gite.jpg" alt="Gîte">
+                  <div class="my-captions">
+                    <h5>Gites</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  </div>
+                </div>
+                <div class="block4"> <img class="d-block w-100" src="/img/types-habitat/roulotte.jpg" alt="Roulotte">
+                  <div class="my-captions">
+                    <h5>Roulottes</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+               
+              </div>
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only">Previous</span> </a> <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span> </a> </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="nightDream" class="container-fluid">
+    <div class="container">
+        <h3>Où désirez vous passer une nuit de rêve ?</h3>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 no-gutters">
+            <img src="https://a0.muscache.com/im/pictures/0e25bbd4-d081-4bab-85de-a8fd05245b53.jpg?aki_policy=large"/>
+        </div>
+        <div class="col-sm-6 d-flex align-items-center">
+            <div class="content">
+                <h4>Get some perspective</h4>
+                <p>Take your trip to new heights with these one-of-a-kind treehouses.</p>
+            </div>
+        </div>
+    </div>
+    <div class="row deuxiemeDiv">
+        <div class="col-sm-6 d-flex align-items-center">
+            <div class="content">
+                <h4>Sail the high seas</h4>
+                <p>Follow in the footsteps of adventurers past with boats of all shapes and sizes.</p>
+            </div>
+        </div>
+        <div class="col-sm-6 no-gutters">
+            <img src="https://a0.muscache.com/im/pictures/1df93d87-26a5-4c5e-8a91-b37ccb173aa1.jpg?aki_policy=large"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 no-gutters">
+            <img src="https://a0.muscache.com/im/pictures/408ad1e8-0367-4cb7-be52-6d7bfcc9d046.jpg?aki_policy=large"/>
+        </div>
+        <div class="col-sm-6 d-flex align-items-center">
+            <div class="content">
+                <h4>Made just for glamping</h4>
+                <p>Embrace a mix of indoor comfort and the great outdoors.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 {% endblock %}
