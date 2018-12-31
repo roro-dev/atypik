@@ -59,6 +59,8 @@ class Logement
      */
     private $photos;
 
+    private $photosUploads;
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="logements")
      * @ORM\JoinColumn(nullable=false)
@@ -366,6 +368,15 @@ class Logement
     {
         $this->nbPersonne = $nbPersonne;
 
+        return $this;
+    }
+
+    public function getPhotosUploads() {
+        return $this->photosUploads;
+    }
+
+    public function setPhotosUploads(array $photosUploads) {
+        $this->photosUploads = $photosUploads;
         return $this;
     }
 }

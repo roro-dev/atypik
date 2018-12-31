@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminTypeLogementController extends AbstractController
 {
     /**
-     * @Route("/", name="type_logement_index", methods="GET")
+     * @Route("/", name="type_logement_liste", methods="GET")
      */
     public function index(TypeLogementRepository $typeLogementRepository): Response
     {

@@ -15,6 +15,7 @@ use App\Entity\Utilisateur;
 use App\Entity\ParametresLogement;
 use App\Entity\ParametresType;
 use App\Entity\Ville;
+use App\Entity\Photo;
 
 /**
  * @Route("/admin/logement")
@@ -45,6 +46,18 @@ class AdminLogementController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($logement);
                 $em->flush();
+                foreach($logement->getPhotosUploads() as $file) {
+                    $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                    $file->move(
+                        $this->getParameter('uploads_directory') . '/' . $logement->getId(),
+                        $fileName
+                    );
+                    $photo = new Photo();
+                    $photo->setPhoto($fileName);
+                    $photo->setIdLogement($logement);
+                    $em->persist($photo);
+                    $em->flush();
+                }
                 if(!empty($request->request->get('params'))) {
                     $params = $request->request->get('params');
                     foreach($params as $k => $v) {

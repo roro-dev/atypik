@@ -83,13 +83,13 @@ class LogementType extends AbstractType
                 'label' => 'Propriétaire du logement',
                 'class' => Utilisateur::class
             ))
-            /*->add('photos', FileType::class, array(
+            ->add('photosUploads', FileType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
                 ),
                 'multiple' => true,                
                 'label' => 'Prises de vue'
-            ))*/
+            ))
         ;
     }
 
