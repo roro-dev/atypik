@@ -2,7 +2,8 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>Back Office - {% block title %}{% endblock %}</title>
+        <link rel="icon" type="image/png" href="/img/logo.png" />
         {% block stylesheets %}
             <link rel="stylesheet" href="/css/bootstrap.min.css">
         {% endblock %}
@@ -16,14 +17,30 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('logement_liste') }}">Logements</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Logements
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ path('logement_liste') }}">Liste des logements</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('reservation_liste') }}">Réservations</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Commentaires (TODO)</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Types d'habitat
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ path('type_logement_liste') }}">Liste des types d'habitat</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('parametres_type_liste', {'type': 0}) }}">Paramètres</a>                                
+                            </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Utilisateurs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('parametres_type_index', {'type': 0}) }}">Paramètres</a>
+                            <a class="nav-link" href="{{ path('utilisateur_liste') }}">Utilisateurs</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Taxes (Ville)</a>
@@ -36,6 +53,7 @@
             {% block body %}{% endblock %}
             {% block javascripts %}
                 <script src="/js/jquery.min.js"></script>
+                <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
                 <script src="/js/bootstrap.min.js"></script>
                 <script src="/js/bo.js"></script>
             {% endblock %}

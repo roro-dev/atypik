@@ -3,7 +3,7 @@
 namespace App\Controller\admin;
 
 use App\Entity\Utilisateur;
-use App\Form\Utilisateur1Type;
+use App\Form\UtilisateurType;
 use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,11 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminUtilisateurController extends AbstractController
 {
     /**
-     * @Route("/", name="utilisateur_index", methods="GET")
+     * @Route("/", name="utilisateur_liste", methods="GET")
      */
     public function index(UtilisateurRepository $utilisateurRepository): Response
     {
-        return $this->render('admin/utilisateur/index.html.twig', ['utilisateurs' => $utilisateurRepository->findAll()]);
+        return $this->render('admin/utilisateur/utilisateur-liste.html.twig', ['utilisateurs' => $utilisateurRepository->findAll()]);
     }
 
     /**
@@ -40,7 +40,7 @@ class AdminUtilisateurController extends AbstractController
             return $this->redirectToRoute('utilisateur_index');
         }
 
-        return $this->render('admin/utilisateur/new.html.twig', [
+        return $this->render('admin/utilisateur/utilisateur-new.html.twig', [
             'utilisateur' => $utilisateur,
             'form' => $form->createView(),
         ]);
@@ -51,7 +51,7 @@ class AdminUtilisateurController extends AbstractController
      */
     public function show(Utilisateur $utilisateur): Response
     {
-        return $this->render('admin/utilisateur/show.html.twig', ['utilisateur' => $utilisateur]);
+        return $this->render('admin/utilisateur/utilisateur-apercu.html.twig', ['utilisateur' => $utilisateur]);
     }
 
     /**
@@ -68,7 +68,7 @@ class AdminUtilisateurController extends AbstractController
             return $this->redirectToRoute('utilisateur_edit', ['id' => $utilisateur->getId()]);
         }
 
-        return $this->render('admin/utilisateur/edit.html.twig', [
+        return $this->render('admin/utilisateur/utilisateur-edit.html.twig', [
             'utilisateur' => $utilisateur,
             'form' => $form->createView(),
         ]);

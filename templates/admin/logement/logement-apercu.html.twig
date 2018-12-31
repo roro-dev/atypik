@@ -1,0 +1,33 @@
+{% extends 'base-bo.html.twig' %}
+
+{% block title %}Aperçu : {{ logement.nom }}{% endblock %}
+
+{% block body %}
+    <div class="row mx-auto my-2">
+        <a href="{{ path('logement_liste') }}">Retour</a>
+    </div>
+    <h3>{{ logement.nom }}</h3>
+    <a href="" class="btn btn-info">Modifier</a>
+    {{ include('admin/logement/logement-delete-form.html.twig') }}
+    <br><br>
+    <img src="/img/cabane2.jpg" />
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>{{ logement.description }}</td>
+            </tr>
+            <tr>
+                <th>Paramètres</th>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ logement.prix }} € / nuit</td>
+            </tr>
+        </tbody>
+    </table>
+
+    
+{% endblock %}

@@ -33,6 +33,11 @@ class TypeLogement
      */
     private $parametresType;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $pathImg;
+
     public function __construct()
     {
         $this->logements = new ArrayCollection();
@@ -114,6 +119,18 @@ class TypeLogement
                 $parametresType->setType(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPathImg(): ?string
+    {
+        return $this->pathImg;
+    }
+
+    public function setPathImg(?string $pathImg): self
+    {
+        $this->pathImg = $pathImg;
 
         return $this;
     }

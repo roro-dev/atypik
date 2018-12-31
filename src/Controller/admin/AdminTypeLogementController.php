@@ -16,11 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminTypeLogementController extends AbstractController
 {
     /**
-     * @Route("/", name="type_logement_index", methods="GET")
+     * @Route("/", name="type_logement_liste", methods="GET")
      */
     public function index(TypeLogementRepository $typeLogementRepository): Response
     {
-        return $this->render('admin/type-logement/index.html.twig', ['type_logements' => $typeLogementRepository->findAll()]);
+        return $this->render('admin/type-logement/type-logement-index.html.twig', ['type_logements' => $typeLogementRepository->findAll()]);
     }
 
     /**
@@ -32,14 +32,17 @@ class AdminTypeLogementController extends AbstractController
         $form = $this->createForm(TypeLogementType::class, $typeLogement);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($typeLogement);
-            $em->flush();
-
-            return $this->redirectToRoute('type_logement_index');
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($typeLogement);
+                $em->flush();
+                $this->addFlash('success', 'Type ajouté avec succès.');
+                return $this->redirectToRoute('type_logement_index');
+            } else {                
+                $this->addFlash('error', 'La création du type a rencontré un problème.');
+            }
         }
-
         return $this->render('admin/type-logement/new.html.twig', [
             'type_logement' => $typeLogement,
             'form' => $form->createView(),

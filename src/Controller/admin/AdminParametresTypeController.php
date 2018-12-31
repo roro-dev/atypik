@@ -18,7 +18,7 @@ use App\Entity\Utilisateur;
 class AdminParametresTypeController extends AbstractController
 {
     /**
-     * @Route("/liste/{type}", name="parametres_type_index", methods="GET|POST")
+     * @Route("/liste/{type}", name="parametres_type_liste", methods="GET|POST")
      */
     public function liste($type = null): Response {
         $data = array('types' => $this->getDoctrine()->getRepository(TypeLogement::class)->findAll(), 'typeSelect' => $type);

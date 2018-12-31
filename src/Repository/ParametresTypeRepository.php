@@ -21,7 +21,6 @@ class ParametresTypeRepository extends ServiceEntityRepository
 
     /**
      * Permet de récupérer tous les paramètres pour un type donné
-     * @author  Roro Dev
      * @param   int     $_param
      * @return  array   
      */

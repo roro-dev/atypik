@@ -1,0 +1,407 @@
+#logo{
+	margin-left: 0.9375em;
+	display: inline-block;
+	margin-right: 1.875em;
+	width: 60px;
+	height: 60px;
+}
+
+#title a{
+	display: inline-block;
+	text-transform: uppercase;
+	text-decoration:none; 
+	color: black;
+	font-weight: bold;
+	margin-top: 1.1em;
+}
+
+.navbar {
+	height: auto;
+	margin-top: -1em;
+	margin-bottom: -1em;
+}
+
+#btnInscrire{
+	float: right;
+	margin-top: 0.2em;
+	margin-right: 3.125em;
+}
+
+#btnConnecter{
+	float: right;
+	margin-top: 0.2em;
+}
+
+#btnDeco{
+	margin-right: 1.825em;
+	color: white;
+	background-color: #C64300; 
+}
+
+#btnDeco:hover{
+	background-color: orangered;
+}
+
+#Utilisateur{
+	text-decoration:none; 
+	color: black;
+	font-weight: bold;
+}
+
+
+#cloche:hover{
+	opacity: 0.5;
+}
+
+.btn-deconnexion{
+	height: 1.875em;
+}
+
+.btn-deconnexion p{
+	margin-top: -0.3125em;
+}
+
+.btn-success{
+	height: 1.875em;
+}
+
+.btn-success p{
+	margin-top: -0.3125em;
+}
+
+.btn-primary p{
+	margin-top: -0.3125em;
+}
+
+.btn-primary{
+	height: 1.875em;
+	margin-right: 1.875em;
+}
+
+
+#formulaire > img{
+	height: 30rem;
+	width: 100%; 
+	background-attachment:fixed;
+	object-fit: cover;
+}
+
+#formulaire form{
+	position:absolute;
+	right: 0; 
+	margin-right: 6.25rem;
+    margin-top: 6rem;
+	
+}
+
+#transparence-form-prod{
+	position: absolute;
+	right: 0;
+	border-radius: 2.5em 2.5em 2.5em 2.5em;
+	background-color:black; 
+	opacity: 0.7;
+	height: 21.875em;
+	width: 25em;
+	margin-right: 3.125em;
+	margin-top: 3.75em;
+}
+
+#transparence-form-rech{
+	position: absolute;
+	right: 0;
+	border-radius: 2.5em 2.5em 2.5em 2.5em;
+	background-color:black; 
+	opacity: 0.7;
+	height: 28.125em;
+	width: 25em;
+	margin-right: 3.125em;
+	margin-top: 3.75em;
+}
+
+#formulaire .form-control{
+	width: 18.75em;
+	color: orangered;
+}
+
+.input-group>.input-group-append>.btn{
+	color:orangered;
+	margin-left: -2.3125em;
+	border: none;
+}
+
+#datepickerDep{
+	margin-bottom: 0.9375em;
+}
+
+#datepickerRet{
+	margin-bottom: 0.9375em;
+}
+
+.btn-outline-secondary{
+	height: 2.1875em;
+}
+
+.gj-datepicker-bootstrap [role=right-icon] button:hover
+{
+	background-color: #C64300;
+}
+
+.btn-recherche{
+	background-color: #C64300;
+	color: white;
+	float: right;
+	width: 12.5em;
+}
+
+.btn-photo{
+	background-color: rgb(201, 6, 6);
+	color:white;
+	position: absolute;
+	width: 12.5em;
+	margin-top: 31.25em;
+	margin-left: 4.375em;
+	border-radius: 2.5em 2.5em 2.5em 2.5em;
+}
+
+.btn-recherche:hover, .btn-photo:hover{
+	background-color: rgb(184, 54, 14);
+}
+
+.btn-consulter{
+	background-color: #C64300;
+	color: white;
+	float: right;
+	width: 6.375em;
+} 
+
+.btn-consulter:hover{
+	background-color: rgb(184, 54, 14);
+} 
+
+a.a-consulter{
+	color: white;
+	text-decoration:none; 
+} 
+
+a.a-consulter:hover{
+	color: white;
+	text-decoration:none; 
+
+} 
+
+/* FOOTER CSS */
+
+.page-footer li.list-inline-item img{
+	width: 45px;
+	margin: 10px;
+	cursor: pointer;
+}
+
+footer{
+	font-family: roboto;
+	margin-top: 2.25em;
+	padding-top: 4em;
+	padding-bottom: 3em;
+	height: 100%;
+	background-color: #C4C4C4;
+	width: 100%;
+}
+
+ul.list-unstyled li a{
+	color: black;
+}
+
+.card-deck .card:hover{
+	box-shadow: 0.5em 0.5em 0.75em #555; 
+}
+
+
+/*Slider*/
+
+ .ligne > .colonne {
+	padding: 0 0.5em;
+  }
+  
+  .ligne:after {
+	content: "";
+	display: table;
+	clear: both;
+  }
+  
+  .colonne {
+	float: left;
+	width: 25%;
+  }
+  
+  /* The Modal (background) */
+  .modalSlider {
+	display: none;
+	position: fixed;
+	z-index: 10;
+	padding-top: 3.25em;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: black;
+  }
+  
+  /* Modal Content */
+  .modal-contentSlider {
+	position: relative;
+	background-color: #fefefe;
+	margin: auto;
+	padding: 0;
+	width: 90%;
+	max-width: 45.75em;
+  }
+  
+  /* The Close Button */
+  .close {
+	color: white;
+	position: absolute;
+	top: 0.625em;
+	right: 1.5625em;
+	font-size: 2.1875em;
+	font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+	color: #999;
+	text-decoration: none;
+	cursor: pointer;
+  }
+  
+  .mySlides {
+	display: none;
+  }
+  
+  .cursor {
+	cursor: pointer;
+  }
+  
+  /* Next & previous buttons */
+  .precedent,
+  .suivant {
+	cursor: pointer;
+	position: absolute;
+	top: 50%;
+	width: auto;
+	padding: 1em;
+	margin-top: -3.125em;
+	color: white;
+	font-weight: bold;
+	font-size: 1.25em;
+	transition: 0.6s ease;
+	border-radius: 0 0.1875em 0.1875em 0;
+	user-select: none;
+	-webkit-user-select: none;
+	background-color: #C64300;
+  }
+  
+  /* Position the "next button" to the right */
+  .suivant {
+	right: 0;
+	border-radius: 0.1875em 0 0 30.1875empx;
+  }
+  
+  /* On hover, add a black background color with a little bit see-through */
+  .precedent:hover,
+  .suivant:hover {
+	background-color: orangered;
+  }
+  
+  /* Number text (1/3 etc) */
+  .nombre {
+	color: #f2f2f2;
+	font-size: 0.75em;
+	padding: 0.5em 0.75em;
+	position: absolute;
+	top: 0;
+  }
+
+.mySlides > img {
+	margin-bottom: -0.25em;
+	background-attachment: fixed;
+  }
+  
+  .caption-containerSlider {
+	text-align: center;
+	background-color: black;
+	padding: 0.125em 1em;
+	color: white;
+  }
+  
+  .demo {
+	opacity: 0.6;
+	padding-right: 0.625em;
+  }
+  
+  .active,
+  .demo:hover {
+	opacity: 1;
+  }
+  
+  img.hover-shadow {
+	transition: 0.3s;
+  }
+  
+  .hover-shadow:hover {
+	box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.2), 0 0.375em 1.25em 0 rgba(0, 0, 0, 0.19);
+  }
+
+	/*Fin Slider*/
+
+	.etoile{
+		float: right;
+		margin-right: 4em;
+		margin-bottom: 0.5em;
+	}
+
+	.rating a {
+		color: black;
+		text-decoration: none;
+		font-size: 1.5em;
+		transition: color .4s;
+		padding-bottom: 0.5em;
+ }
+
+	.prix{
+		float: right;
+		margin-top: -0.5em;
+		margin-right: 4em;
+	}
+
+	.produit-desc{
+		padding-left: 2.5em;
+		margin-right: -0.7em;
+		margin-top: -0.5em;
+		padding-right: 3.5em;
+	}
+
+	.separate{
+		border-right: 1px solid rgb(126, 118, 118);
+		margin-bottom: 2em;
+	}
+
+	.picto_prod{
+		height: 3.75em;
+		width: 3.3em;
+		padding-bottom: 0.5em;
+	}
+
+	.interdit{
+		font-weight: bold;
+		font-size: 1.2em;
+	}
+
+	/*Mobile*/
+
+	@media (min-width: 576px) and (max-width: 767px)
+{
+    #avatarLogin{
+		right:0;
+	}
+}
