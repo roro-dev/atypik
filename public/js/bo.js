@@ -48,7 +48,7 @@ function showParams(tab, container) {
 
 function getParams() {
     $.ajax({
-        url: '/admin/parametres-type/getParamsByType',
+        url: '/ajax/getParamsByType',
         data: {'type': $('#logement_id_type').val()},
         method: 'post',
         success: function(response) {

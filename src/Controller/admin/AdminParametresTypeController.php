@@ -108,18 +108,4 @@ class AdminParametresTypeController extends AbstractController
         $proprios = $this->getDoctrine()->getRepository(Utilisateur::class)->findByParametre($_idParam);
         var_dump($proprios);
     }
-
-    /**
-     * @Route("/getParamsByType", name="parametres_getbytype", methods="POST")
-     * Permet de récupérer les paramètres d'un type
-     * @return  JSON | String
-     */
-    public function getParamsByType(Request $request) {
-        if(!empty($request->request->get('type'))) {
-            $params = $this->getDoctrine()->getRepository(ParametresType::class)->findByType($request->request->get('type'));
-            return new Response(json_encode($params));
-        } else {
-            return new Response("Erreur");
-        }        
-    }
 }

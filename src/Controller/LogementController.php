@@ -10,6 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use App\Entity\Logement;
 use App\Entity\Reservation;
 use App\Form\LogementType;
+use App\Entity\Ville;
+use App\Entity\Photo;
 
 Class LogementController extends AbstractController {
 
@@ -74,7 +76,7 @@ Class LogementController extends AbstractController {
      * @Route("/ajout-logement", name="logement_ajout")
      * @Security("has_role('ROLE_USER')")
      */
-    public function proposerLogement(Request $request) {
+    public function proposerLogement(Request $request,\Swift_Mailer $mailer) {
         $logement = new Logement();
         $logement->setIdProprietaire($this->getUser());
         $form = $this->createForm(LogementType::class, $logement);
@@ -109,12 +111,12 @@ Class LogementController extends AbstractController {
                     }
                 }
                 $this->addFlash('success', 'Logement ajouté avec succès. Vous allez recevoir un mail dés lors que votre bien sera validé par notre équipe.');
-                $result = $this->sendMail($mailer, array(
+               /* $result = $this->sendMail($mailer, array(
                     'email' => $user->getEmail(), 
                     'token' => $user->getTokenUser(), 
                     'prenom' => $user->getPrenom()
-                ));
-                return $this->redirectToRoute('logement_liste');
+                ));*/
+                return $this->redirectToRoute('home');
             } else {
                 $this->addFlash('error', 'L\'ajout du logement a rencontré un problème.');
             }

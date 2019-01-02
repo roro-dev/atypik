@@ -3,8 +3,10 @@
 namespace App\Controller\admin;
 
 use App\Entity\Logement;
+use App\Form\TypeLogementType;
 use App\Form\LogementType;
 use App\Repository\LogementRepository;
+use App\Repository\TypeLogementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;

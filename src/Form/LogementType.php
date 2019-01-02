@@ -53,7 +53,7 @@ class LogementType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control'
                 ),
-                'label' => 'Code Postal'
+                'label' => 'Code Postal (00000 : hors de France)'
             ))
             /*->add('ville', EntityType::class, array(
                 'attr' => array(
