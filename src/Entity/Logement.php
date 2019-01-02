@@ -92,6 +92,11 @@ class Logement
      * @ORM\Column(type="integer")
      */
     private $nbPersonne;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $etat;
     
 
     public function __construct()
@@ -377,6 +382,18 @@ class Logement
 
     public function setPhotosUploads(array $photosUploads) {
         $this->photosUploads = $photosUploads;
+        return $this;
+    }
+
+    public function getEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(bool $etat): self
+    {
+        $this->etat = $etat;
+
         return $this;
     }
 }

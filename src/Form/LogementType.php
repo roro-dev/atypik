@@ -76,16 +76,16 @@ class LogementType extends AbstractType
                 ),
                 'label' => 'Nombre de personne'
             ))
-            ->add('id_proprietaire', EntityType::class, array(
+            /*->add('id_proprietaire', EntityType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
                 ),
                 'label' => 'Propriétaire du logement',
                 'class' => Utilisateur::class
-            ))
+            ))*/
             ->add('photosUploads', FileType::class, array(
                 'attr' => array(
-                    'class' => 'form-control'
+                    'class' => 'form-control-file'
                 ),
                 'multiple' => true,                
                 'label' => 'Prises de vue'

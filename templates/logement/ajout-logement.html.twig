@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}Ajout d'un logement{% endblock %}
+
+{% block body %}
+    <div id="formulaire">
+        <img src="/img/imageFormRecherche.png"/>
+    </div>
+    <div class="container">    
+        <div class="row mx-auto my-2">
+            <a href="{{ path('logement_liste') }}">Retour</a>
+        </div>
+        <h1>Ajoutez votre bien !</h1>
+        {% for flash_message in app.session.flashBag.get('error') %}
+            <div class="alert alert-error">
+                {{ flash_message }}
+            </div>
+        {% endfor %}   
+        <br>
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <br>
+            <div id="parametres">
+                <h4>Paramètres de l'habitat</h4>
+            </div>
+            <br>
+            <button class="btn btn-success">Enregistrer</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
