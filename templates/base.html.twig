@@ -3,9 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" type="image/png" href="/img/logo.png"/>
         {% block stylesheet %}
            <link rel="stylesheet" href="/css/bootstrap.min.css">
-           <link rel="stylesheet" href="/css/jquery-ui.min.css">
            <link rel="stylesheet" href="/css/styles.css">
            <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
         {% endblock %}
@@ -19,7 +19,7 @@
   <img id ="logo" src="/img/logo.png">
   </div>
   <div class="p-3 flex-fill bd-highlight">
-   <div id="title"><a href="/">Atypik'House</a></div>
+   <center><div id="title"><a href="/">Atypik'House</a></div></center>
    </div>
    </div>
    </div>
@@ -33,26 +33,70 @@
       
     </ul>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <div class="d-flex justify-content-end d-md-none d-lg-block">
-        <div class="d-flex bd-highlight ">
-        <div class="p-3 flex-fill bd-highlight"><img id ="avatarLogin" src="/img/header/avatarLogin.png"></div>
-        <div class="p-3 flex-fill bd-highlight"><div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div></div>
-        <div class="p-3 flex-fill bd-highlight"><img id ="cloche" src="/img/header/cloche.png"></div>
-        <div class="p-3 flex-fill bd-highlight"><button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'"><p>Deconnexion</p></button></div>
+        <div class="d-flex justify-content-end">
+        <div class="d-flex bd-highlight">
+        <div class="p-3 flex-fill bd-highlight d-none d-lg-none d-lg-block"><img id ="avatarLogin" src="/img/header/avatarLogin.png"></div>
+        <div class="p-3 flex-fill bd-highlight d-none d-lg-none d-lg-block"><div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div></div>
+        <div class="p-3 flex-fill bd-highlight d-none d-lg-none d-lg-block"><img id ="cloche" src="/img/header/cloche.png"></div>
+        <div class="p-3 flex-fill bd-highlight d-none d-lg-none d-lg-block"><button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'"><p>Deconnexion</p></button></div>
         </div>
         </div>
 
-        <div class="d-flex justify-content-end d-none d-md-block d-lg-none">
-        <div class="d-flex bd-highlight flex-column">
-        <div class="p-3 justify-content-end"><img id ="avatarLogin" src="/img/header/avatarLogin.png"></div>
+        {# <div class="d-flex justify-content-end">
+        <div class="d-flex flex-column d-md-block d-lg-none">
         <div class="p-3 flex-fill bd-highlight"><div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div></div>
-        <div class="p-3 flex-fill bd-highlight"><img id ="cloche" src="/img/header/cloche.png"></div>
+        <div class="p-3 flex-fill bd-highlight">Notifications</div>
         <div class="p-3 flex-fill bd-highlight"><button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'"><p>Deconnexion</p></button></div>
         </div>
         </div>
+ #}
+        <div class="d-flex bd-highlight flex-column d-md-block d-lg-no  ne">
+            {# <div class="p-3 flex-fill bd-highlight"><button id="btnInscrire" type="button" class="btn btn-success" onclick="location.href='/register'"><p>S'inscrire</p></button></div>
+            <div class="p-3 flex-fill bd-highlight"><button id="btnConnecter" class="btn btn-primary" onclick="location.href='/login'"><p>Se connecter</p></button></div> #}
+            <center>
+            <ul class="nav flex-column d-md-block d-lg-none menuMobile">
+                <li class="nav-item">
+                    <div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Notifications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'"><p>Deconnexion</p></button></a>
+                </li>
+            </ul>
+            </center>
+        </div>        
+
+
+
     {% else %}
-            <button id="btnInscrire" type="button" class="btn btn-success" onclick="location.href='/register'"><p>S'inscrire</p></button>
-            <button id="btnConnecter" class="btn btn-primary" onclick="location.href='/login'"><p>Se connecter</p></button>
+            <div class="d-flex justify-content-end">
+            <div class="d-flex bd-highlight">
+            <div class="p-3 flex-fill bd-highlight d-none d-lg-none d-lg-block"><button id="btnInscrire" type="button" class="btn btn-success" onclick="location.href='/register'"><p>S'inscrire</p></button></div>
+            <div class="p-3 flex-fill bd-highlight d-none d-lg-none d-lg-block"><button id="btnConnecter" class="btn btn-primary" onclick="location.href='/login'"><p>Se connecter</p></button></div>
+            </div>
+            </div>
+
+
+            <div class="d-flex bd-highlight flex-column d-md-block d-lg-none">
+            {# <div class="p-3 flex-fill bd-highlight"><button id="btnInscrire" type="button" class="btn btn-success" onclick="location.href='/register'"><p>S'inscrire</p></button></div>
+            <div class="p-3 flex-fill bd-highlight"><button id="btnConnecter" class="btn btn-primary" onclick="location.href='/login'"><p>Se connecter</p></button></div> #}
+            <ul id="menuMobile"class="nav flex-column d-md-block d-lg-none">
+                <li class="nav-item">
+                     <img class="picto"src="/img/header/recherchePicto.png"/><a class="nav-link" href="#">Recherche Destination</a>
+                </li>
+                <br/>
+                 <li class="nav-item">
+                    <img class="picto"src="/img/header/recherchePicto.png"/><a class="nav-link" href="#">Inscription</a>
+                </li>
+                <br/>
+                <li class="nav-item">
+                    <img class="picto"src="/img/header/recherchePicto.png"/><a class="nav-link" href="#">Connexion</a>
+                </li>
+            </ul>
+            </div>
+
     {% endif %}           
   </div>
 </nav>
@@ -85,9 +129,8 @@
         </footer>
         {% block javascripts %}
            <script type="text/javascript" src="/js/jquery.min.js"></script>
-           <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
            <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-           <script type="text/javascript" src="/js/gijgo.min.js"></script>
+           <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
            <script type="text/javascript" src="/js/slider.js"></script>
            <script type="text/javascript" src="/js/global.js"></script>
         {% endblock %}
