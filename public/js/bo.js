@@ -7,6 +7,28 @@ $(document).ready(function() {
         })
     }
 
+    if($('#villeSearch').length > 0) {
+        $('#villeSearch').autocomplete({
+            minLength: 2,
+            source: function (requete, reponse) {
+                $.ajax({
+                    url: '/admin/logement/getVilles',
+                    dataType: 'JSON',
+                    method: 'post',
+                    data: {'term': $('#villeSearch').val()},
+                    success: function (donnee) {
+                        console.log(donnee);
+                        /*reponse(
+                            $.map(donnee, function (objet) {
+                                
+                            })
+                        );*/
+                    }
+                });
+            }
+        });
+    }
+
 })
 
 /**
@@ -26,7 +48,7 @@ function showParams(tab, container) {
 
 function getParams() {
     $.ajax({
-        url: '/admin/parametres-type/getParamsByType',
+        url: '/ajax/getParamsByType',
         data: {'type': $('#logement_id_type').val()},
         method: 'post',
         success: function(response) {

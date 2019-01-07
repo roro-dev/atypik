@@ -18,7 +18,7 @@ use App\Entity\Utilisateur;
 class AdminParametresTypeController extends AbstractController
 {
     /**
-     * @Route("/liste/{type}", name="parametres_type_index", methods="GET|POST")
+     * @Route("/liste/{type}", name="parametres_type_liste", methods="GET|POST")
      */
     public function liste($type = null): Response {
         $data = array('types' => $this->getDoctrine()->getRepository(TypeLogement::class)->findAll(), 'typeSelect' => $type);
@@ -107,19 +107,5 @@ class AdminParametresTypeController extends AbstractController
     private function alerteProprio($_idParam) {
         $proprios = $this->getDoctrine()->getRepository(Utilisateur::class)->findByParametre($_idParam);
         var_dump($proprios);
-    }
-
-    /**
-     * @Route("/getParamsByType", name="parametres_getbytype", methods="POST")
-     * Permet de récupérer les paramètres d'un type
-     * @return  JSON | String
-     */
-    public function getParamsByType(Request $request) {
-        if(!empty($request->request->get('type'))) {
-            $params = $this->getDoctrine()->getRepository(ParametresType::class)->findByType($request->request->get('type'));
-            return new Response(json_encode($params));
-        } else {
-            return new Response("Erreur");
-        }        
     }
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #logo{
 	display: inline-block;
 	margin-right: 1.875em;
@@ -27,6 +28,11 @@
 
 #btnConnecter{
 
+=======
+#title{
+	text-transform: uppercase;
+	font-weight: 600;
+>>>>>>> dev
 }
 
 #btnDeco{
@@ -36,7 +42,7 @@
 }
 
 #btnDeco:hover{
-	background-color: orangered;
+	background-color: #C64300;
 }
 
 #Utilisateur{
@@ -58,11 +64,14 @@
 	margin-top: -0.3125em;
 }
 
+<<<<<<< HEAD
 .btn-success{
 	height: 1.875em;
 	width: 10rem;
 }
 
+=======
+>>>>>>> dev
 .btn-success p{
 	margin-top: -0.3125em;
 }
@@ -79,7 +88,7 @@
 
 
 #formulaire > img{
-	height: 30rem;
+	height: 35rem;
 	width: 100%; 
 	background-attachment:fixed;
 	object-fit: cover;
@@ -89,8 +98,10 @@
 	position:absolute;
 	right: 0; 
 	margin-right: 6.25rem;
-    margin-top: 6rem;
-	
+	margin-top: 6rem;
+	background-color: white;
+    padding: 30px;
+    border-radius: 10px;
 }
 
 #transparence-form-prod{
@@ -119,11 +130,11 @@
 
 #formulaire .form-control{
 	width: 18.75em;
-	color: orangered;
+	color: #C64300;
 }
 
 .input-group>.input-group-append>.btn{
-	color:orangered;
+	color:#C64300;
 	margin-left: -2.3125em;
 	border: none;
 }
@@ -149,7 +160,11 @@
 	background-color: #C64300;
 	color: white;
 	float: right;
-	width: 12.5em;
+	width: 100%;
+}
+
+.gj-picker-bootstrap table tr td.selected.gj-cursor-pointer div{
+	background-color: #C64300 !important;
 }
 
 .btn-photo{
@@ -188,14 +203,26 @@ a.a-consulter:hover{
 
 } 
 
+/* FOOTER CSS */
+
+.page-footer li.list-inline-item img{
+	width: 45px;
+	margin: 10px;
+	cursor: pointer;
+}
+
 footer{
-	margin-top: 6.25em;
+	font-family: roboto;
+	margin-top: 2.25em;
 	padding-top: 4em;
 	padding-bottom: 3em;
 	height: 100%;
 	background-color: #C4C4C4;
 	width: 100%;
+}
 
+ul.list-unstyled li a{
+	color: black;
 }
 
 .card-deck .card:hover{
@@ -297,7 +324,7 @@ footer{
   /* On hover, add a black background color with a little bit see-through */
   .precedent:hover,
   .suivant:hover {
-	background-color: orangered;
+	background-color: #C64300;
   }
   
   /* Number text (1/3 etc) */

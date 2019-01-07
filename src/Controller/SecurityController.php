@@ -39,11 +39,9 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             if($form->isValid()) {
-                $repository = $this->getDoctrine()->getRepository(RolesUtilisateur::class);
-                $role = $repository->findOneBy(['id' => 2]);
+                $role = $this->getDoctrine()->getRepository(RolesUtilisateur::class)->findOneBy(['id' => 2]);
                 $user->setRole($role);
-                $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-                $user->setPassword($password);
+                $user->setPassword($passwordEncoder->encodePassword($user, $user->getPlainPassword()));
                 $user->setTokenUser(bin2hex(random_bytes(5)));
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
@@ -78,7 +76,7 @@ class SecurityController extends AbstractController
      */
     public function sendMail(\Swift_Mailer $mailer, $_data)
     {
-        $message = (new \Swift_Message("Confirmation d'adresse mail"))
+        $message = (new \Swift_Message("Atypik\'House - Confirmation d\'adresse mail"))
             ->setFrom('stefanedr.dev@gmail.com')
             ->setTo($_data['email'])
             ->setBody(

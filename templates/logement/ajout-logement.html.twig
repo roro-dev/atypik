@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block title %}Ajout d'un logement{% endblock %}
+
+{% block body %}
+    <div id="formulaire">
+        <img src="/img/imageFormRecherche.png"/>
+    </div>
+    <div class="container">    
+        <div class="row mx-auto my-2">
+            <a href="{{ path('logement_liste') }}">Retour</a>
+        </div>
+        <h1>Ajoutez votre bien !</h1>
+        {% for flash_message in app.session.flashBag.get('error') %}
+            <div class="alert alert-error">
+                {{ flash_message }}
+            </div>
+        {% endfor %}   
+        <br>
+        {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_row(form.id_type) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.nom) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.description) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.adresse) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.codePostal) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.prix) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.nbPersonne) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.photosUploads) }}
+            </div>
+            <br>
+            <h4>Paramètres de l'habitat</h4>
+            <div id="parametres"></div>
+            <br>
+            <button class="btn btn-success btn-lg btn-block">Ajoutez votre bien</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

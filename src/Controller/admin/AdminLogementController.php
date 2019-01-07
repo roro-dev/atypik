@@ -3,9 +3,12 @@
 namespace App\Controller\admin;
 
 use App\Entity\Logement;
+use App\Form\TypeLogementType;
 use App\Form\LogementType;
 use App\Repository\LogementRepository;
+use App\Repository\TypeLogementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,6 +16,8 @@ use App\Repository\UtilisateurRepository;
 use App\Entity\Utilisateur;
 use App\Entity\ParametresLogement;
 use App\Entity\ParametresType;
+use App\Entity\Ville;
+use App\Entity\Photo;
 
 /**
  * @Route("/admin/logement")
@@ -24,7 +29,7 @@ class AdminLogementController extends AbstractController
      */
     public function liste(LogementRepository $logementRepository): Response
     {
-        return $this->render('admin/logement/logement-index.html.twig', ['logements' => $logementRepository->findAll()]);
+        return $this->render('admin/logement/logement-liste.html.twig', ['logements' => $logementRepository->findAll()]);
     }
 
     /**
@@ -43,6 +48,18 @@ class AdminLogementController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($logement);
                 $em->flush();
+                foreach($logement->getPhotosUploads() as $file) {
+                    $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                    $file->move(
+                        $this->getParameter('uploads_directory') . '/' . $logement->getId(),
+                        $fileName
+                    );
+                    $photo = new Photo();
+                    $photo->setPhoto($fileName);
+                    $photo->setIdLogement($logement);
+                    $em->persist($photo);
+                    $em->flush();
+                }
                 if(!empty($request->request->get('params'))) {
                     $params = $request->request->get('params');
                     foreach($params as $k => $v) {
@@ -69,11 +86,11 @@ class AdminLogementController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="logement_show", methods="GET")
+     * @Route("/{id}", name="logement_apercu", methods="GET")
      */
     public function show(Logement $logement): Response
     {
-        return $this->render('admin/logement/logement-show.html.twig', ['logement' => $logement]);
+        return $this->render('admin/logement/logement-apercu.html.twig', ['logement' => $logement]);
     }
 
     /**
@@ -94,7 +111,6 @@ class AdminLogementController extends AbstractController
         return $this->render('admin/logement/logement-edit.html.twig', [
             'logement' => $logement,
             'form' => $form->createView(),
-            //'params' => $this->getDoctrine()->getRepository(ParametresLogement::class)->findBy(['logement' => $logement])
             'params' => $logement->getParametres()
         ]);
     }
@@ -109,7 +125,6 @@ class AdminLogementController extends AbstractController
             $em->remove($logement);
             $em->flush();
         }
-
         return $this->redirectToRoute('logement_index');
     }
 }

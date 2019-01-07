@@ -43,8 +43,10 @@ h3 {
 
 .carousel-item img {
     width: 33%;
+    position: relative;
     height: 200px;
     object-fit: cover;
+    padding: 0 5px;
 }
 
 @media (max-width: 768px) { 
@@ -57,45 +59,119 @@ h3 {
     }
 }
 
+.carousel-item img {
+    margin:10px;
+}
+.block4-wrap {
+    display:flex
+}
+.block4 {
+    flex:1 0 25%;
+    color:black;
+}
+.my-captions{
+    margin-top: -30px;
+    padding-left: 55px;
+    padding-bottom: 0em;
+    }
+    .my-captions h5{
+        padding-top: 30px;
+    }
 
+/* fix width and make user scroll with mouse/touch to see the items */
+@media screen and (max-width:768px){
+    .block4{max-width:280px;flex:1 0 100%;overflow:hidden}  
+    .carousel{overflow:hidden;}
+    .carousel-inner{overflow-x:visible;}
+}
+@media screen and (max-width:480px){
+    .block4{max-width:240px;}   
+}
 </style>
 
+{% for flash_message in app.session.flashBag.get('success') %}
+    <div class="alert alert-success">
+        {{ flash_message }}
+    </div>
+{% endfor %}
 <div id="formulaire">
     {% include 'form-recherche.html.twig' %}
-    <img src="/img/imageFormRecherche.png"/>
+    <img src="/img/chair.jpeg"/>
 </div>
 
-<div class="container">
-    <div class="row">
-        <h3>Nos différents types de Logements</h3>
-        <div id="housingTypes" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="d-block w-100">
-                        <img src="https://a0.muscache.com/im/pictures/1faf9a4c-f839-44da-bd37-65ddc928379e.jpg?aki_policy=large">
-                        <img src="https://a0.muscache.com/im/pictures/45680811/f4987a12_original.jpg?aki_policy=large">
-                        <img src="https://a0.muscache.com/im/pictures/29099674/7e3509fe_original.jpg?aki_policy=large">
-                    </div>
+ <div class="container carouselmarge">
+ <h3>Nos différents types de logements</h3>
+  <div class="row flex-xl-nowrap">
+    <div class="col-12">
+      <div class="bd-example">
+        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="block4-wrap">
+                <div class="block4"><img class="d-block w-100" src="/img/types-habitat/peniche.jpg" alt="Péniche">
+                  <div class="my-captions">
+                    <h5>Péniches</h5>
+                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                  </div>
                 </div>
-                <div class="carousel-item">
-                    <div class="d-block w-100">
-                        <img src="https://a0.muscache.com/im/pictures/1faf9a4c-f839-44da-bd37-65ddc928379e.jpg?aki_policy=large">
-                        <img src="https://a0.muscache.com/im/pictures/45680811/f4987a12_original.jpg?aki_policy=large">
-                        <img src="https://a0.muscache.com/im/pictures/29099674/7e3509fe_original.jpg?aki_policy=large">
-                    </div>
+                <div class="block4"><img class="d-block w-100" src="/img/types-habitat/tipis.jpg" alt="Tipis">
+                  <div class="my-captions">
+                    <h5>Tipis</h5>
+                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                  </div>
                 </div>
+                <div class="block4"><img class="d-block w-100" src="/img/types-habitat/bulle.png" alt="Bulle">
+                  <div class="my-captions">
+                    <h5>Bulles</h5>
+                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                  </div>
+                </div>
+                <div class="block4"> <img class="d-block w-100" src="/img/types-habitat/cabane.jpg" alt="Cabane">
+                  <div class="my-captions">
+                    <h5>Cabanes</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <a class="carousel-control-prev" href="#housingTypesControls" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#housingTypesControls" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
+            <div class="carousel-item">
+              <div class="block4-wrap">
+                <div class="block4"> <img class="d-block w-100" src="/img/types-habitat/nid.jpg" alt="Nid">
+                  <div class="my-captions">
+                    <h5>Nid</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  </div>
+                </div>
+                <div class="block4"> <img class="d-block w-100" src="/img/types-habitat/yourte.jpg" alt="Yourte">
+                  <div class="my-captions">
+                    <h5>Youtes</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  </div>
+                </div>
+                <div class="block4"> <img class="d-block w-100" src="/img/types-habitat/gite.jpg" alt="Gîte">
+                  <div class="my-captions">
+                    <h5>Gites</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  </div>
+                </div>
+                <div class="block4"> <img class="d-block w-100" src="/img/types-habitat/roulotte.jpg" alt="Roulotte">
+                  <div class="my-captions">
+                    <h5>Roulottes</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+               
+              </div>
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only">Previous</span> </a> <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span> </a> </div>
+      </div>
     </div>
+  </div>
 </div>
+
 
 <div id="nightDream" class="container-fluid">
     <div class="container">
@@ -135,4 +211,8 @@ h3 {
         </div>
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 {% endblock %}

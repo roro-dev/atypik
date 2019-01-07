@@ -1,0 +1,42 @@
+{% extends 'base-bo.html.twig' %}
+
+{% block title %}Types de Logement{% endblock %}
+
+{% block body %}
+    <h3>Types de Logement</h3>
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+    <div class="row">
+        <div class="mx-auto col">
+            <a href="{{ path('type_logement_new') }}" class="btn btn-primary">Ajouter un type</a>
+        </div>
+    </div>
+    <div class="row mx-auto my-2">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for type_logement in type_logements %}
+                <tr>
+                    <td>{{ type_logement.type }}</td>
+                    <td>
+                        <a href="{{ path('type_logement_show', {'id': type_logement.id}) }}">show</a>
+                        <a href="{{ path('type_logement_edit', {'id': type_logement.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3" align="center">Aucun résultat</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

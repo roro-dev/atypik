@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LogementRepository")
@@ -20,6 +21,7 @@ class Logement
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $nom;
 
@@ -30,6 +32,7 @@ class Logement
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
      */
     private $prix;
 
@@ -58,10 +61,13 @@ class Logement
      * @ORM\OneToMany(targetEntity="App\Entity\Photo", mappedBy="id_logement")
      */
     private $photos;
+    
+    private $photosUploads;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="logements")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
      */
     private $id_proprietaire;
 
@@ -72,9 +78,35 @@ class Logement
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="logements")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $ville;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $adresse;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 5,
+     *      minMessage = "Le code postal doit faire {{ limit }} caractères de long",
+     *      maxMessage = "Le code postal ne peut pas dépasser {{ limit }} caractères"
+     * )
+     */
+    private $codePostal;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nbPersonne;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $etat;
     
 
     public function __construct()
@@ -84,6 +116,7 @@ class Logement
         $this->actviteLogements = new ArrayCollection();
         $this->photos = new ArrayCollection();
         $this->parametresLogement = new ArrayCollection();
+        $this->etat = 0;
     }
 
     public function getId(): ?int
@@ -314,6 +347,63 @@ class Logement
     public function setVille(?Ville $ville): self
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getCodePostal(): ?string
+    {
+        return $this->codePostal;
+    }
+
+    public function setCodePostal(?string $codePostal): self
+    {
+        $this->codePostal = $codePostal;
+
+        return $this;
+    }
+
+    public function getNbPersonne(): ?int
+    {
+        return $this->nbPersonne;
+    }
+
+    public function setNbPersonne(int $nbPersonne): self
+    {
+        $this->nbPersonne = $nbPersonne;
+
+        return $this;
+    }
+
+    public function getPhotosUploads() {
+        return $this->photosUploads;
+    }
+
+    public function setPhotosUploads(array $photosUploads) {
+        $this->photosUploads = $photosUploads;
+        return $this;
+    }
+
+    public function getEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(bool $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }

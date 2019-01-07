@@ -18,33 +18,19 @@ class TypeLogementRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, TypeLogement::class);
     }
-
-//    /**
-//     * @return TypeLogement[] Returns an array of TypeLogement objects
-//     */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+    
+    /**
+     * Permet de récupérer les noms des types de logement
+     * @return  array   
+     */
+    public function findAllTypes() {
+        $result = array();
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('SELECT DISTINCT t.type
+            FROM App\Entity\TypeLogement t
+            ORDER BY t.type
+            ');
+        $result = $query->execute();
+        return $result;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?TypeLogement
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
