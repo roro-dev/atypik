@@ -1,47 +1,5 @@
 <!DOCTYPE html>
 <html>
-<<<<<<< HEAD
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" type="image/png" href="/img/logo.png"/>
-        {% block stylesheet %}
-           <link rel="stylesheet" href="/css/bootstrap.min.css">
-           <link rel="stylesheet" href="/css/styles.css">
-           <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-        {% endblock %}
-    </head>
-    <body>
-
- <nav class="navbar navbar-expand-lg navbar-light">
- <div class="d-flex justify-content-start">
-  <div class="d-flex bd-highlight">
-  <div class="p-3 flex-fill bd-highlight">
-  <img id ="logo" src="/img/logo.png">
-  </div>
-  <div class="p-3 flex-fill bd-highlight">
-   <center><div id="title"><a href="/">Atypik'House</a></div></center>
-   </div>
-   </div>
-   </div>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-      
-    </ul>
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <div class="d-flex justify-content-end">
-        <div class="d-flex bd-highlight">
-        <div class="p-3 flex-fill bd-highlight d-none d-lg-none d-lg-block"><img id ="avatarLogin" src="/img/header/avatarLogin.png"></div>
-        <div class="p-3 flex-fill bd-highlight d-none d-lg-none d-lg-block"><div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div></div>
-        <div class="p-3 flex-fill bd-highlight d-none d-lg-none d-lg-block"><img id ="cloche" src="/img/header/cloche.png"></div>
-        <div class="p-3 flex-fill bd-highlight d-none d-lg-none d-lg-block"><button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'"><p>Deconnexion</p></button></div>
-        </div>
-=======
 
 <head>
   <meta charset="UTF-8">
@@ -73,27 +31,25 @@
           <ul class="mr-auto"></ul>
 
       {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-      <div class="d-flex justify-content-end d-md-none d-lg-block">
-        <div class="d-flex bd-highlight ">
-          <div class="p-3 flex-fill bd-highlight"><img id="avatarLogin" src="/img/header/avatarLogin.png"></div>
-          <div class="p-3 flex-fill bd-highlight">
-            <div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div>
-          </div>
-          <div class="p-3 flex-fill bd-highlight"><img id="cloche" src="/img/header/cloche.png"></div>
-          <div class="p-3 flex-fill bd-highlight"><button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'">
-              <p>Deconnexion</p>
-            </button></div>
->>>>>>> dev
-        </div>
-      </div>
 
-<<<<<<< HEAD
-        {# <div class="d-flex justify-content-end">
-        <div class="d-flex flex-column d-md-block d-lg-none">
-        <div class="p-3 flex-fill bd-highlight"><div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div></div>
-        <div class="p-3 flex-fill bd-highlight">Notifications</div>
-        <div class="p-3 flex-fill bd-highlight"><button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'"><p>Deconnexion</p></button></div>
-=======
+         <ul class="nav navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/register"><img id="avatarLogin" src="/img/header/avatarLogin.png"></a>
+        </li>
+        <li class="nav-item">
+          <div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/register"><img id="cloche" src="/img/header/cloche.png"></a>
+        </li>
+        <li class="nav-item">
+          <button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'">
+              <p>Deconnexion</p>
+            </button>
+        </li>
+        </ul>
+  
+
       <div class="d-flex justify-content-end d-none d-md-block d-lg-none">
         <div class="d-flex bd-highlight flex-column">
           <div class="p-3 justify-content-end"><img id="avatarLogin" src="/img/header/avatarLogin.png"></div>
@@ -150,7 +106,6 @@
             <li><a href="">Nuit et week-end insolites en Auvergne</a></li>
             <li><a href="">Nuit et Week-end insolites en Provence</a></li>
           </ul>
->>>>>>> dev
         </div>
 
         <hr class="w-100 d-md-none">
@@ -164,95 +119,6 @@
             <li><a href="">Dormir dans une roulotte</a></li>
           </ul>
         </div>
-<<<<<<< HEAD
- #}
-        <div class="d-flex bd-highlight flex-column d-md-block d-lg-no  ne">
-            {# <div class="p-3 flex-fill bd-highlight"><button id="btnInscrire" type="button" class="btn btn-success" onclick="location.href='/register'"><p>S'inscrire</p></button></div>
-            <div class="p-3 flex-fill bd-highlight"><button id="btnConnecter" class="btn btn-primary" onclick="location.href='/login'"><p>Se connecter</p></button></div> #}
-            <center>
-            <ul class="nav flex-column d-md-block d-lg-none menuMobile">
-                <li class="nav-item">
-                    <div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Notifications</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'"><p>Deconnexion</p></button></a>
-                </li>
-            </ul>
-            </center>
-        </div>        
-
-
-
-    {% else %}
-            <div class="d-flex justify-content-end">
-            <div class="d-flex bd-highlight">
-            <div class="p-3 flex-fill bd-highlight d-none d-lg-none d-lg-block"><button id="btnInscrire" type="button" class="btn btn-success" onclick="location.href='/register'"><p>S'inscrire</p></button></div>
-            <div class="p-3 flex-fill bd-highlight d-none d-lg-none d-lg-block"><button id="btnConnecter" class="btn btn-primary" onclick="location.href='/login'"><p>Se connecter</p></button></div>
-            </div>
-            </div>
-
-
-            <div class="d-flex bd-highlight flex-column d-md-block d-lg-none">
-            {# <div class="p-3 flex-fill bd-highlight"><button id="btnInscrire" type="button" class="btn btn-success" onclick="location.href='/register'"><p>S'inscrire</p></button></div>
-            <div class="p-3 flex-fill bd-highlight"><button id="btnConnecter" class="btn btn-primary" onclick="location.href='/login'"><p>Se connecter</p></button></div> #}
-            <ul id="menuMobile"class="nav flex-column d-md-block d-lg-none">
-                <li class="nav-item">
-                     <img class="picto"src="/img/header/recherchePicto.png"/><a class="nav-link" href="#">Recherche Destination</a>
-                </li>
-                <br/>
-                 <li class="nav-item">
-                    <img class="picto"src="/img/header/recherchePicto.png"/><a class="nav-link" href="#">Inscription</a>
-                </li>
-                <br/>
-                <li class="nav-item">
-                    <img class="picto"src="/img/header/recherchePicto.png"/><a class="nav-link" href="#">Connexion</a>
-                </li>
-            </ul>
-            </div>
-
-    {% endif %}           
-  </div>
-</nav>
-        {% block body %}{% endblock %}
-
-        <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4">
-                    <div class="titreMenuFooter">Top regions</div>
-                    <ul>
-                        <li><a href="">Nuit et week-end insolites en Ile-de-France</a></li>
-                        <li><a href="">Nuit et week-end insolites en Bretagne</a></li>
-                        <li><a href="">Nuit et week-end insolites en Auvergne</a></li>
-                        <li><a href="">Nuit et Week-end insolites en Provence</a></li>
-                    </ul>
-                    </div>
-                    <div class="col-lg-4">
-                    <div class="titreMenuFooter">Top hébergements</div>
-                    <ul>
-                        <li><a href="">Dormir dans une cabane</a></li>
-                        <li><a href="">Dormir dans une bulle</a></li>
-                        <li><a href="">Dormir dans une yourte</a></li>
-                        <li><a href="">Dormir dans une roulotte</a></li>
-                    </ul>
-                    </div>
-                    <div class="col-lg-4">Colonne Menu 3</div>
-                </div>
-            </div>
-        </footer>
-        {% block javascripts %}
-           <script type="text/javascript" src="/js/jquery.min.js"></script>
-           <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-           <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
-           <script type="text/javascript" src="/js/slider.js"></script>
-           <script type="text/javascript" src="/js/global.js"></script>
-        {% endblock %}
-    </body>
-</html>
-=======
 
 
         <hr class="w-100 d-md-none">
@@ -294,4 +160,3 @@
 </body>
 
 </html>
->>>>>>> dev
