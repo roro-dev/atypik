@@ -1,41 +1,10 @@
-<<<<<<< HEAD
-#logo{
-	display: inline-block;
-	margin-right: 1.875em;
-	width: 60px;
-	height: 60px;
-}
-
-#title a{
-	display: inline-block;
-	text-transform: uppercase;
-	text-decoration:none; 
-	color: black;
-	font-weight: bold;
-	margin-top: 0.7em;
-    font-size: 20px;
-}
-
-.navbar {
-	height: auto;
-	margin-top: -1.5em;
-	margin-bottom: -1.5em;
-}
-
-#btnInscrire{
-
-}
-
-#btnConnecter{
-
-=======
 #title{
 	text-transform: uppercase;
 	font-weight: 600;
->>>>>>> dev
 }
 
 #btnDeco{
+	margin-top: 0.5em;
 	margin-right: 1.825em;
 	color: white;
 	background-color: #C64300; 
@@ -46,6 +15,7 @@
 }
 
 #Utilisateur{
+	margin-top: 0.5em;
 	text-decoration:none; 
 	color: black;
 	font-weight: bold;
@@ -64,14 +34,6 @@
 	margin-top: -0.3125em;
 }
 
-<<<<<<< HEAD
-.btn-success{
-	height: 1.875em;
-	width: 10rem;
-}
-
-=======
->>>>>>> dev
 .btn-success p{
 	margin-top: -0.3125em;
 }
@@ -81,7 +43,6 @@
 }
 
 .btn-primary{
-	width: 10em;
 	height: 1.875em;
 	margin-right: 1.875em;
 }
@@ -413,89 +374,9 @@ ul.list-unstyled li a{
 
 	/*Mobile*/
 
-	@media only screen and (max-width: 991px){
-	.navbar-collapse{
-		margin-top: -1em;
-		padding-bottom: 1.2em;
-	}
-
-	.mobileMenu{
-		background-color: red;
-		width: 500px;
-	}
-    #btnInscrire{
-		margin-right: -1rem;
-	}
-
-	#btnConnecter{
-		margin-right: -1rem;
-		margin-bottom: 0.5rem;
-		margin-top: -1rem;
-	}
-
-	.btn-deconnexion{
-		float: right;
-	}
-	#avatarLogin{
-		float:left ; 
-		margin-left: auto;	
-		margin-right: 1em;
-	}
-	#Utilisateur{
-		float: left ;
-	}
-	#cloche{
-		float: right;
-	}
-
-	#menuMobile  li  a{
-		color: #C64300;
-		text-transform: uppercase;
-    	font-size: 15px;
-		font-weight: 700;
-	}
-
-	#menuMobile  li{
-		border-bottom: 1px solid black;
-	}
-
-	#menuMobile  li a:hover{
-		color: orangered;
-	}
-
-	#menuMobile > li:last-child{
-		border-bottom: none;
-	}
-
-	#menuMobile .picto{
-		float: left;
-		height: 50px;
-		width: 50px;
-		margin-top: -0.5em;
-	}
-}
-
-@media only screen and (max-width: 770px){
-
-	#btnConnecter{
-		margin-right: -1rem;
-		margin-top: -0.7rem;
-		margin-bottom: 1em;
-	}
-
-	#menuMobile  li{
-		margin-top: 0.5em;
-		margin-bottom: -1.5em;
-	}
-
-	#menuMobile  li a{
-		margin-top: 0.5em;
-		margin-bottom: -1em;
-	}
-
-	#menuMobile .picto{
-		float: left;
-		height: 50px;
-		width: 50px;
+	@media (min-width: 576px) and (max-width: 767px)
+{
+    #avatarLogin{
+		right:0;
 	}
 }
