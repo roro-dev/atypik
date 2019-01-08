@@ -88,18 +88,6 @@ Class LogementController extends AbstractController {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($logement);
                 $em->flush();
-                foreach($logement->getPhotosUploads() as $file) {
-                    $fileName = md5(uniqid()).'.'.$file->guessExtension();
-                    $file->move(
-                        $this->getParameter('uploads_directory') . '/' . $logement->getId(),
-                        $fileName
-                    );
-                    $photo = new Photo();
-                    $photo->setPhoto($fileName);
-                    $photo->setIdLogement($logement);
-                    $em->persist($photo);
-                    $em->flush();
-                }
                 if(!empty($request->request->get('params'))) {
                     $params = $request->request->get('params');
                     foreach($params as $k => $v) {
@@ -111,6 +99,18 @@ Class LogementController extends AbstractController {
                         $em->persist($p);
                         $em->flush();                   
                     }
+                }                
+                foreach($logement->getPhotosUploads() as $file) {
+                    $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                    $file->move(
+                        $this->getParameter('uploads_directory') . '/' . $logement->getId(),
+                        $fileName
+                    );
+                    $photo = new Photo();
+                    $photo->setPhoto($fileName);
+                    $photo->setIdLogement($logement);
+                    $em->persist($photo);
+                    $em->flush();
                 }
                 $this->addFlash('success', 'Logement ajouté avec succès. Vous allez recevoir un mail dés lors que votre bien sera validé par notre équipe.');
                /* $result = $this->sendMail($mailer, array(

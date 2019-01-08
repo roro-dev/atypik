@@ -53,12 +53,11 @@ class LogementType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control'
                 ),
-                'label' => 'Code Postal (00000 : hors de France)'
+                'label' => 'Code Postal'
             ))
             ->add('ville', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control',
-                    'id' => 'searchVille'
+                    'class' => 'form-control'
                 )
             ))
             ->add('prix', MoneyType::class, array(

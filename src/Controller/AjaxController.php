@@ -29,6 +29,18 @@ Class AjaxController extends AbstractController {
         }        
     }
 
-
+    /**
+     * @Route("/getVilles", name="ajax_getville", methods="POST")
+     * Permet de récupérer les ville par rapport à un char recherché
+     * @return  JSON | String
+     */
+    public function getVilles(Request $request) {
+        if(!empty($request->request->get('term'))) {
+            $villes = $this->getDoctrine()->getRepository(Ville::class)->findByTerm($request->request->get('term'));
+            return new Response(json_encode($villes));
+        } else {
+            return new Response("Erreur");
+        }        
+    }
 
 }
