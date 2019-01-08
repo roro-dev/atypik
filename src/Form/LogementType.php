@@ -55,15 +55,12 @@ class LogementType extends AbstractType
                 ),
                 'label' => 'Code Postal (00000 : hors de France)'
             ))
-            /*->add('ville', EntityType::class, array(
+            ->add('ville', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control',
                     'id' => 'searchVille'
-                ),
-                'label' => 'Ville',
-                'class' => Ville::class,
-                'choice_label' => 'nom'
-            ))*/
+                )
+            ))
             ->add('prix', MoneyType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
