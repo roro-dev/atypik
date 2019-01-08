@@ -4,6 +4,7 @@
 }
 
 #btnDeco{
+	margin-top: 0.5em;
 	margin-right: 1.825em;
 	color: white;
 	background-color: #C64300; 
@@ -14,6 +15,7 @@
 }
 
 #Utilisateur{
+	margin-top: 0.5em;
 	text-decoration:none; 
 	color: black;
 	font-weight: bold;
