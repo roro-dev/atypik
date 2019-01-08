@@ -12,6 +12,8 @@ use App\Entity\Reservation;
 use App\Form\LogementType;
 use App\Entity\Ville;
 use App\Entity\Photo;
+use App\Entity\ParametresLogement;
+use App\Entity\ParametresType;
 
 Class LogementController extends AbstractController {
 
