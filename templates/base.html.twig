@@ -32,21 +32,24 @@
 
       {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-         <ul class="nav navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/register"><img id="avatarLogin" src="/img/header/avatarLogin.png"></a>
-        </li>
-        <li class="nav-item">
-          <div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/register"><img id="cloche" src="/img/header/cloche.png"></a>
-        </li>
-        <li class="nav-item">
-          <button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'">
-              <p>Deconnexion</p>
-            </button>
-        </li>
+          <ul class="nav navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/register"><img id="avatarLogin" src="/img/header/avatarLogin.png"></a>
+            </li>
+            <li class="nav-item">
+              <div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/register"><img id="cloche" src="/img/header/cloche.png"></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('logement_ajout') }}">Ajouter un bien</a>
+            </li>
+            <li class="nav-item">
+              <button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'">
+                  <p>Deconnexion</p>
+                </button>
+            </li>
         </ul>
   
 
@@ -63,17 +66,7 @@
         </div>
       </div>
       {% else %}
-      {# <button id="btnInscrire" type="button" class="btn btn-success" onclick="location.href='/register'">
-        <p>S'inscrire</p>
-      </button>
-      <button id="btnConnecter" class="btn btn-primary" onclick="location.href='/login'">
-        <p>Se connecter</p>
-      </button> #}
-
-      <ul class="nav navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/register">Ajouter un bien</a>
-        </li>
+      <ul class="nav navbar-nav">        
         <li class="nav-item">
           <a class="nav-link" href="/register">Inscription</a>
         </li>

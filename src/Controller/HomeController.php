@@ -49,4 +49,12 @@ class HomeController extends AbstractController
             'logements' => $logements
         ]);
     }
+
+    /**
+     * @Route("/contact", name="contact")
+     */
+    public function contact()
+    {
+        return $this->render('home/contact.html.twig');
+    }
 }
