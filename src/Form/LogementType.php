@@ -55,11 +55,11 @@ class LogementType extends AbstractType
                 ),
                 'label' => 'Code Postal'
             ))
-            ->add('ville', TextType::class, array(
+            /*->add('ville', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
                 )
-            ))
+            ))*/
             ->add('prix', MoneyType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
@@ -72,13 +72,6 @@ class LogementType extends AbstractType
                 ),
                 'label' => 'Nombre de personne'
             ))
-            /*->add('id_proprietaire', EntityType::class, array(
-                'attr' => array(
-                    'class' => 'form-control'
-                ),
-                'label' => 'Propriétaire du logement',
-                'class' => Utilisateur::class
-            ))*/
             ->add('photosUploads', FileType::class, array(
                 'attr' => array(
                     'class' => 'form-control-file'

@@ -53,7 +53,11 @@ $(document).ready(function() {
                             })
                         );
                     }
+                    
                 });
+            },
+            select: function( event, ui ) {
+                console.log(ui);
             }
         });
     }
