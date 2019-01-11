@@ -380,3 +380,22 @@ ul.list-unstyled li a{
 		right:0;
 	}
 }
+
+/* Contact */
+h2.contactTitle {
+	position: absolute;
+	top: 14em;
+	left: 4em;
+	color: white;
+	font-weight: bold;
+}
+
+h3 {
+  padding: 1em 0 1em 0;
+}
+
+#map {
+	width: auto;
+	height: auto;
+	background-color: lightgray;
+}

@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\Request;
 use App\Repository\LogementRepository;
 use App\Entity\TypeLogement;
-use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Logement;
+use App\Form\ContactType;
 
 class HomeController extends AbstractController
 {
@@ -51,11 +53,49 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/contact", name="contact")
+     * @Route("/contact", name="contact_route")
      */
-    public function contact()
+    public function contact(Request $request, \Swift_Mailer $mailer) {        
+        $form = $this->createForm(ContactType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $data = $form->getData();
+            if(empty($data['captcha'])) {
+                $send = $this->sendMail($mailer, $data);
+                if($send) {
+                    $this->addFlash('success', 'Votre message a bien été envoyé.');                    
+                    return $this->redirectToRoute('contact_route');
+                } else {
+                    $this->addFlash('error', 'Une erreur est survenue lors de l\'envoi de votre message.');
+                }
+            }
+        }
+        return $this->render('home/contact.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    private function sendMail(\Swift_Mailer $mailer, $_data)
     {
-        return $this->render('home/contact.html.twig');
+        $message = (new \Swift_Message("Atypik'House - Formulaire de contact"))
+            ->setFrom('contact@atypikhouse.fr')
+            ->setTo('stefane.rodrigues@aefinfo.fr')
+            ->setBody(
+                $this->renderView(
+                    'emails/contact-mail.html.twig',
+                    array(
+                        'prenom' => $_data['prenom'],
+                        'nom' => $_data['nom'],
+                        'telephone' => $_data['telephone'],
+                        'email' => $_data['email'],
+                        'sujet' => $_data['sujet'],
+                        'message' => $_data['message'],
+                    )
+                ),
+                'text/html'
+            )
+        ;
+        return $mailer->send($message);
     }
 
     /**

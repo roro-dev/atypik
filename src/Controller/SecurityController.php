@@ -45,15 +45,14 @@ class SecurityController extends AbstractController
                 $user->setTokenUser(bin2hex(random_bytes(5)));
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
-                $entityManager->flush();
-                $this->addFlash('success', 'Votre compte à bien été crée. Vous allez recevoir un mail pour valider votre compte.');                
+                $entityManager->flush();                                
                 $result = $this->sendMail($mailer, array(
                     'email' => $user->getEmail(), 
                     'token' => $user->getTokenUser(), 
                     'prenom' => $user->getPrenom()
                 ));
                 if($result) {
-                    $this->addFlash('success', 'Mail good.');
+                    $this->addFlash('success', 'Votre compte à bien été crée. Vous allez recevoir un mail pour valider votre compte.');
                 } else {
                     $this->addFlash('error', 'Erreur mail.');
                 }
@@ -74,10 +73,10 @@ class SecurityController extends AbstractController
     /**
      * Permet d'envoyer le mail d'inscription afin de pouvoir se connecter
      */
-    public function sendMail(\Swift_Mailer $mailer, $_data)
+    private function sendMail(\Swift_Mailer $mailer, $_data)
     {
-        $message = (new \Swift_Message("Atypik\'House - Confirmation d\'adresse mail"))
-            ->setFrom('stefanedr.dev@gmail.com')
+        $message = (new \Swift_Message("Atypik'House - Confirmation d\'adresse mail"))
+            ->setFrom('contact@atypikhouse.fr')
             ->setTo($_data['email'])
             ->setBody(
                 $this->renderView(
