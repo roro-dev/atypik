@@ -57,4 +57,14 @@ class HomeController extends AbstractController
     {
         return $this->render('home/contact.html.twig');
     }
+
+    /**
+     * @Route("/profil", name="profile_route")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function profil() {
+        return $this->render('home/profil.html.twig', [
+            'user' => $this->getUser()
+        ]);
+    }
 }
