@@ -75,7 +75,7 @@ class SecurityController extends AbstractController
      */
     private function sendMail(\Swift_Mailer $mailer, $_data)
     {
-        $message = (new \Swift_Message("Atypik'House - Confirmation d\'adresse mail"))
+        $message = (new \Swift_Message("Atypik'House - Confirmation d'adresse mail"))
             ->setFrom('contact@atypikhouse.fr')
             ->setTo($_data['email'])
             ->setBody(
