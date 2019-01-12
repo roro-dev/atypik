@@ -93,8 +93,6 @@ Class LogementController extends AbstractController {
                         $logement->setVille($ville);
                     }
                 }
-                $em->persist($logement);
-                $em->flush();
                 //ajout des parametres
                 if(!empty($request->request->get('params'))) {
                     $params = $request->request->get('params');
@@ -103,9 +101,9 @@ Class LogementController extends AbstractController {
                         $p->setLogement($logement);
                         $p->setParametre($this->getDoctrine()->getRepository(ParametresType::class)->findOneBy(['id' => $k]));
                         $p->setValeur($v);
-                        $logement->addParametre($p);
                         $em->persist($p);
-                        $em->flush();                   
+                        $em->flush();
+                        $logement->addParametre($p);                   
                     }
                 }
                 //ajout des photos
@@ -120,16 +118,16 @@ Class LogementController extends AbstractController {
                     $photo->setIdLogement($logement);
                     $em->persist($photo);
                     $em->flush();
-                }
-                
+                    $logement->addPhoto($photo);
+                }                
+                $em->persist($logement);
+                $em->flush();
                 $this->addFlash('success', 'Logement ajouté avec succès. Vous allez recevoir un mail dés lors que votre bien sera validé par notre équipe.');
-               /* 
-               //envoi de mail ?
+               //envoi de mail
                $result = $this->sendMail($mailer, array(
-                    'email' => $user->getEmail(), 
-                    'token' => $user->getTokenUser(), 
+                    'email' => $user->getEmail(),
                     'prenom' => $user->getPrenom()
-                ));*/
+                ));
                 return $this->redirectToRoute('home');
             } else {
                 $this->addFlash('error', 'L\'ajout du logement a rencontré un problème.');
@@ -146,7 +144,7 @@ Class LogementController extends AbstractController {
      */
     public function sendMail(\Swift_Mailer $mailer, $_data)
     {
-        $message = (new \Swift_Message("Atypik\'House - Vous avez ajouté un logement"))
+        $message = (new \Swift_Message("Atypik'House - Vous avez ajouté un logement"))
             ->setFrom('equipe@atypikhouse.fr')
             ->setTo($_data['email'])
             ->setBody(

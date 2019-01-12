@@ -107,7 +107,7 @@ class SecurityController extends AbstractController
             $this->addFlash('success', 'Votre compte a été validé. Vous pouvez vous connecter.');
             return $this->redirectToRoute('login_route');
         } else {
-            $this->addFlash('error', 'La validation du compte a connu certains problèmes ...<br>Veuillez contactez l\'administrateur du site.');
+            $this->addFlash('error', 'La validation du compte a connu certains problèmes ...<br>Veuillez <a href="/contact">contactez</a> l\'administrateur du site.');
             return $this->render('home/index.html.twig');
         }        
     }
