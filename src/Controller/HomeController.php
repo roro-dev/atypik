@@ -38,7 +38,7 @@ class HomeController extends AbstractController
         $data = array(
             'type' => (!empty($request->request->get('type'))) ? $request->request->get('type') : 0,
             'ville' => (!empty($request->request->get('ville'))) ? $request->request->get('ville') : '',
-            'nb' => (!empty($request->request->get('nb'))) ? $request->request->get('nb') : '',
+            'nb' => (!empty($request->request->get('nb'))) ? $request->request->get('nb') : 1,
             'depart' => (!empty($request->request->get('depart'))) ? $request->request->get('depart') : date('d/m/Y'),
             'arrivee' => (!empty($request->request->get('arrivee'))) ? $request->request->get('arrivee') : date('d/m/Y', strtotime('+1 day'))
         );

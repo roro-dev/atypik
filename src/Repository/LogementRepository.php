@@ -31,7 +31,7 @@ class LogementRepository extends ServiceEntityRepository
             $query = 'SELECT l.*
                 FROM logement l
                 WHERE l.id_type_id = :type 
-                AND l.nb_personne <= :nb';
+                AND l.nb_personne >= :nb';
             $stmt = $conn->prepare($query);
             $stmt->execute(['type' => $_data['type'], 'nb' => $_data['nb']]);
             $result = $stmt->fetchAll();
