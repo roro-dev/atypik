@@ -72,6 +72,12 @@ class LogementType extends AbstractType
                 ),
                 'label' => 'Nombre de personne'
             ))
+            ->add('nbCouchage', NumberType::class, array(
+                'attr' => array(
+                    'class' => 'form-control'
+                ),
+                'label' => 'Nombre de couchages'
+            ))
             ->add('photosUploads', FileType::class, array(
                 'attr' => array(
                     'class' => 'form-control-file'
