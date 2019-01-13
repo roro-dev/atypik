@@ -20,12 +20,9 @@ class SecurityController extends AbstractController
      * @Route("/login", name="login_route")
      */
     public function login(AuthenticationUtils $authenticationUtils) {
-	    $error = $authenticationUtils->getLastAuthenticationError();
-	    $lastUsername = $authenticationUtils->getLastUsername();
-
 	    return $this->render('security/login.html.twig', array(
-	        'last_username' => $lastUsername,
-	        'error'         => $error,
+	        'last_username' => $authenticationUtils->getLastUsername(),
+	        'error'         => $authenticationUtils->getLastAuthenticationError()
 	    ));
 	}
 
@@ -54,14 +51,13 @@ class SecurityController extends AbstractController
                 if($result) {
                     $this->addFlash('success', 'Votre compte à bien été crée. Vous allez recevoir un mail pour valider votre compte.');
                 } else {
-                    $this->addFlash('error', 'Erreur mail.');
+                    $this->addFlash('error', 'Une erreur est survenue lors de l\'envoi de mail.');
                 }
                 return $this->redirectToRoute('home');
             } else {
                 $this->addFlash('error', 'La création de compte a connu certains problèmes.');
             }
         }
-
         return $this->render(
             'security/register.html.twig',
             array(
