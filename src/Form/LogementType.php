@@ -53,16 +53,12 @@ class LogementType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control'
                 ),
-                'label' => 'Code Postal (00000 : hors de France)'
+                'label' => 'Code Postal'
             ))
-            /*->add('ville', EntityType::class, array(
+            /*->add('ville', TextType::class, array(
                 'attr' => array(
-                    'class' => 'form-control',
-                    'id' => 'searchVille'
-                ),
-                'label' => 'Ville',
-                'class' => Ville::class,
-                'choice_label' => 'nom'
+                    'class' => 'form-control'
+                )
             ))*/
             ->add('prix', MoneyType::class, array(
                 'attr' => array(
@@ -76,13 +72,12 @@ class LogementType extends AbstractType
                 ),
                 'label' => 'Nombre de personne'
             ))
-            /*->add('id_proprietaire', EntityType::class, array(
+            ->add('nbCouchage', NumberType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
                 ),
-                'label' => 'Propriétaire du logement',
-                'class' => Utilisateur::class
-            ))*/
+                'label' => 'Nombre de couchages'
+            ))
             ->add('photosUploads', FileType::class, array(
                 'attr' => array(
                     'class' => 'form-control-file'

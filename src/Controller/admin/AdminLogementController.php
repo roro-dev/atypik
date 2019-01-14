@@ -46,8 +46,6 @@ class AdminLogementController extends AbstractController
         if ($form->isSubmitted()) {
             if($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($logement);
-                $em->flush();
                 foreach($logement->getPhotosUploads() as $file) {
                     $fileName = md5(uniqid()).'.'.$file->guessExtension();
                     $file->move(
@@ -72,6 +70,8 @@ class AdminLogementController extends AbstractController
                         $em->flush();                   
                     }
                 }
+                $em->persist($logement);
+                $em->flush();
                 $this->addFlash('success', 'Logement crée avec succès.');
                 return $this->redirectToRoute('logement_liste');
             } else {                
@@ -115,9 +115,6 @@ class AdminLogementController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="logement_delete", methods="DELETE")
-     */
     public function delete(Request $request, Logement $logement): Response
     {
         if ($this->isCsrfTokenValid('delete'.$logement->getId(), $request->request->get('_token'))) {
@@ -126,5 +123,37 @@ class AdminLogementController extends AbstractController
             $em->flush();
         }
         return $this->redirectToRoute('logement_index');
+    }
+
+    /**
+     * @Route("/desactiver/{id}", name="logement_desactiver", methods="GET|POST")
+     */
+    public function desastiverLogement(Logement $logement): Response {
+        if($logement->getEtat() === true) {
+            $logement->setEtat(false);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($logement);
+            $em->flush();
+            $this->addFlash('success', 'Le logement "' . $logement->getNom() . '" a bien été désactivé.');
+        } else {                
+            $this->addFlash('error', 'Ce logement n\'est pas validé.');
+        }        
+        return $this->redirectToRoute('logement_index');
+    }
+
+    /**
+     * @Route("/valider/{id}", name="logement_valider", methods="GET|POST")
+     */
+    public function validerLogement(Logement $logement) : Response {
+        if($logement->getEtat() === false) {
+            $logement->setEtat(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($logement);
+            $em->flush();
+            $this->addFlash('success', 'Le logement "' . $logement->getNom() . '" a bien été validé.');
+        } else {                
+            $this->addFlash('error', 'Ce logement est déjà validé.');
+        }        
+        return $this->redirectToRoute('logement_liste');
     }
 }

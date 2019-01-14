@@ -2,22 +2,101 @@
 {% block title %}Inscription{% endblock %}    
 {% block body %}
     <div class="container">
-        {% for flash_message in app.session.flashBag.get('error') %}
-            <div class="alert alert-danger">
-                {{ flash_message }}
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Inscrivez-vous</h3>
+                {% for flash_message in app.session.flashBag.get('error') %}
+                    <div class="alert alert-danger">
+                        {{ flash_message }}
+                    </div>
+                {% endfor %}
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="col">
+                        {{ form_label(form.nom, 'Nom') }}
+                    </div>
+                    <div class="col">
+                        {{ form_label(form.prenom, 'Prénom') }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_widget(form.nom) }}
+                    </div>
+                    <div class="col">
+                        {{ form_widget(form.prenom) }}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        {{ form_label(form.email, 'E-mail') }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_widget(form.email) }}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        {{ form_label(form.telephone, 'Numéro de téléphone') }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_widget(form.telephone) }}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        {{ form_label(form.adresse, 'Adresse (Numéro et Rue)') }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_widget(form.adresse) }}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        {{ form_label(form.plainPassword.first, 'Mot de passe') }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_widget(form.plainPassword.first) }}
+                    </div>
+                </div>  
+                <br>
+                <div class="row">
+                    <div class="col">
+                        {{ form_label(form.plainPassword.second, 'Répéter le mot de passe') }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_widget(form.plainPassword.second) }}
+                    </div>
+                </div>                
+                <br>
+                <div class="row">
+                    <div class="col">
+                        {{ form_widget(form.cgv) }}&nbsp;&nbsp; J'accepte les <a href="/downloads/cgu.pdf" target="_blank">Condiions Générale d'Utilisation.</a>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-success btn-block btn-lg" style="height: initial;">S'inscrire !</button>
+                    </div>
+                </div>
+                
+                {{ form_end(form) }}
             </div>
-        {% endfor %}
-        {{ form_start(form) }}
-            {{ form_row(form.nom) }}
-            {{ form_row(form.prenom) }}
-            {{ form_row(form.email) }}
-            {{ form_row(form.telephone)}}
-            {{ form_row(form.adresse)}}
-            {{ form_row(form.plainPassword.first) }}
-            {{ form_row(form.plainPassword.second) }}            
-            {{ form_row(form.cgv) }}
-            <br>
-            <button type="submit" class="btn btn-success" style="height: initial;">S'inscrire !</button>
-        {{ form_end(form) }}
+        </div>
     </div>
 {% endblock %}

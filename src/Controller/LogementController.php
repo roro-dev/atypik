@@ -12,6 +12,8 @@ use App\Entity\Reservation;
 use App\Form\LogementType;
 use App\Entity\Ville;
 use App\Entity\Photo;
+use App\Entity\ParametresLogement;
+use App\Entity\ParametresType;
 
 Class LogementController extends AbstractController {
 
@@ -84,8 +86,27 @@ Class LogementController extends AbstractController {
         if ($form->isSubmitted()) {
             if($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($logement);
-                $em->flush();
+                //ajout de la ville
+                if(!empty($request->request->get('logement_ville'))) {
+                    $ville = $this->getDoctrine()->getRepository(Ville::class)->findOneBy(['nom' => trim($request->request->get('logement_ville'))]);
+                    if(!empty($ville)) {
+                        $logement->setVille($ville);
+                    }
+                }
+                //ajout des parametres
+                if(!empty($request->request->get('params'))) {
+                    $params = $request->request->get('params');
+                    foreach($params as $k => $v) {
+                        $p = new ParametresLogement();
+                        $p->setLogement($logement);
+                        $p->setParametre($this->getDoctrine()->getRepository(ParametresType::class)->findOneBy(['id' => $k]));
+                        $p->setValeur($v);
+                        $em->persist($p);
+                        $em->flush();
+                        $logement->addParametre($p);                   
+                    }
+                }
+                //ajout des photos
                 foreach($logement->getPhotosUploads() as $file) {
                     $fileName = md5(uniqid()).'.'.$file->guessExtension();
                     $file->move(
@@ -97,25 +118,16 @@ Class LogementController extends AbstractController {
                     $photo->setIdLogement($logement);
                     $em->persist($photo);
                     $em->flush();
-                }
-                if(!empty($request->request->get('params'))) {
-                    $params = $request->request->get('params');
-                    foreach($params as $k => $v) {
-                        $p = new ParametresLogement();
-                        $p->setLogement($logement);
-                        $p->setParametre($this->getDoctrine()->getRepository(ParametresType::class)->findOneBy(['id' => $k]));
-                        $p->setValeur($v);
-                        $logement->addParametre($p);
-                        $em->persist($p);
-                        $em->flush();                   
-                    }
-                }
+                    $logement->addPhoto($photo);
+                }                
+                $em->persist($logement);
+                $em->flush();
                 $this->addFlash('success', 'Logement ajouté avec succès. Vous allez recevoir un mail dés lors que votre bien sera validé par notre équipe.');
-               /* $result = $this->sendMail($mailer, array(
-                    'email' => $user->getEmail(), 
-                    'token' => $user->getTokenUser(), 
+               //envoi de mail
+               $result = $this->sendMail($mailer, array(
+                    'email' => $user->getEmail(),
                     'prenom' => $user->getPrenom()
-                ));*/
+                ));
                 return $this->redirectToRoute('home');
             } else {
                 $this->addFlash('error', 'L\'ajout du logement a rencontré un problème.');
@@ -132,7 +144,7 @@ Class LogementController extends AbstractController {
      */
     public function sendMail(\Swift_Mailer $mailer, $_data)
     {
-        $message = (new \Swift_Message("Atypik\'House - Vous avez ajouté un logement"))
+        $message = (new \Swift_Message("Atypik'House - Vous avez ajouté un logement"))
             ->setFrom('equipe@atypikhouse.fr')
             ->setTo($_data['email'])
             ->setBody(

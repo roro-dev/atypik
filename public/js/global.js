@@ -21,7 +21,7 @@ $(document).ready(function() {
             minLength: 3,
             source: function (requete, reponse) {
                 $.ajax({
-                    url: '/ville/getVilles',
+                    url: '/ajax/getVilles',
                     dataType: 'JSON',
                     method: 'post',
                     data: {'term': $('#villeAuto').val()},
@@ -33,6 +33,31 @@ $(document).ready(function() {
                         );
                     }
                 });
+            }
+        });
+    }
+
+    if($('#logement_ville').length > 0) {
+        $('#logement_ville').autocomplete({
+            minLength: 3,
+            source: function (requete, reponse) {
+                $.ajax({
+                    url: '/ajax/getVilles',
+                    dataType: 'JSON',
+                    method: 'post',
+                    data: {'term': $('#logement_ville').val()},
+                    success: function (donnee) {
+                        reponse(
+                            $.map(donnee, function (objet) {
+                                return objet.nom;
+                            })
+                        );
+                    }
+                    
+                });
+            },
+            select: function( event, ui ) {
+                console.log(ui);
             }
         });
     }

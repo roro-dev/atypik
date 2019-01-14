@@ -104,6 +104,11 @@ class Logement
     private $nbPersonne;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $nbCouchage;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $etat;
@@ -386,6 +391,19 @@ class Logement
 
         return $this;
     }
+
+    public function getNbCouchage(): ?int
+    {
+        return $this->nbCouchage;
+    }
+
+    public function setNbCouchage(int $nbCouchage): self
+    {
+        $this->nbCouchage = $nbCouchage;
+
+        return $this;
+    }
+
 
     public function getPhotosUploads() {
         return $this->photosUploads;

@@ -454,3 +454,28 @@ ul.list-unstyled li a{
   .boxReservation:hover{
 	  box-shadow: 8px 8px 12px #aaa;
   }
+	@media (min-width: 576px) and (max-width: 767px)
+{
+    #avatarLogin{
+		right:0;
+	}
+}
+
+/* Contact */
+h2.contactTitle {
+	position: absolute;
+	top: 14em;
+	left: 4em;
+	color: white;
+	font-weight: bold;
+}
+
+h3 {
+  padding: 1em 0 1em 0;
+}
+
+#map {
+	width: auto;
+	height: auto;
+	background-color: lightgray;
+}

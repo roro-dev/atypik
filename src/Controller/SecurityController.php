@@ -20,12 +20,9 @@ class SecurityController extends AbstractController
      * @Route("/login", name="login_route")
      */
     public function login(AuthenticationUtils $authenticationUtils) {
-	    $error = $authenticationUtils->getLastAuthenticationError();
-	    $lastUsername = $authenticationUtils->getLastUsername();
-
 	    return $this->render('security/login.html.twig', array(
-	        'last_username' => $lastUsername,
-	        'error'         => $error,
+	        'last_username' => $authenticationUtils->getLastUsername(),
+	        'error'         => $authenticationUtils->getLastAuthenticationError()
 	    ));
 	}
 
@@ -45,24 +42,22 @@ class SecurityController extends AbstractController
                 $user->setTokenUser(bin2hex(random_bytes(5)));
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
-                $entityManager->flush();
-                $this->addFlash('success', 'Votre compte à bien été crée. Vous allez recevoir un mail pour valider votre compte.');                
+                $entityManager->flush();                                
                 $result = $this->sendMail($mailer, array(
                     'email' => $user->getEmail(), 
                     'token' => $user->getTokenUser(), 
                     'prenom' => $user->getPrenom()
                 ));
                 if($result) {
-                    $this->addFlash('success', 'Mail good.');
+                    $this->addFlash('success', 'Votre compte à bien été crée. Vous allez recevoir un mail pour valider votre compte.');
                 } else {
-                    $this->addFlash('error', 'Erreur mail.');
+                    $this->addFlash('error', 'Une erreur est survenue lors de l\'envoi de mail.');
                 }
                 return $this->redirectToRoute('home');
             } else {
                 $this->addFlash('error', 'La création de compte a connu certains problèmes.');
             }
         }
-
         return $this->render(
             'security/register.html.twig',
             array(
@@ -74,10 +69,10 @@ class SecurityController extends AbstractController
     /**
      * Permet d'envoyer le mail d'inscription afin de pouvoir se connecter
      */
-    public function sendMail(\Swift_Mailer $mailer, $_data)
+    private function sendMail(\Swift_Mailer $mailer, $_data)
     {
-        $message = (new \Swift_Message("Atypik\'House - Confirmation d\'adresse mail"))
-            ->setFrom('stefanedr.dev@gmail.com')
+        $message = (new \Swift_Message("Atypik'House - Confirmation d'adresse mail"))
+            ->setFrom('contact@atypikhouse.fr')
             ->setTo($_data['email'])
             ->setBody(
                 $this->renderView(
@@ -108,7 +103,7 @@ class SecurityController extends AbstractController
             $this->addFlash('success', 'Votre compte a été validé. Vous pouvez vous connecter.');
             return $this->redirectToRoute('login_route');
         } else {
-            $this->addFlash('error', 'La validation du compte a connu certains problèmes ...<br>Veuillez contactez l\'administrateur du site.');
+            $this->addFlash('error', 'La validation du compte a connu certains problèmes ...<br>Veuillez <a href="/contact">contactez</a> l\'administrateur du site.');
             return $this->render('home/index.html.twig');
         }        
     }
