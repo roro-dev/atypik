@@ -86,6 +86,7 @@ Class LogementController extends AbstractController {
         if ($form->isSubmitted()) {
             if($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
+                $em->persist($logement);
                 //ajout de la ville
                 if(!empty($request->request->get('logement_ville'))) {
                     $ville = $this->getDoctrine()->getRepository(Ville::class)->findOneBy(['nom' => trim($request->request->get('logement_ville'))]);
@@ -103,7 +104,8 @@ Class LogementController extends AbstractController {
                         $p->setValeur($v);
                         $em->persist($p);
                         $em->flush();
-                        $logement->addParametre($p);                   
+                        $logement->addParametre($p);
+                        $em->persist($logement);
                     }
                 }
                 //ajout des photos
