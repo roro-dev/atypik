@@ -278,10 +278,13 @@ ul.list-unstyled li a{
 	color: black;
 }
 
+.card{
+	margin: 10px;
+}
+
 .card-deck .card:hover{
 	box-shadow: 0.5em 0.5em 0.75em #555; 
 }
-
 
 /*Slider*/
 
