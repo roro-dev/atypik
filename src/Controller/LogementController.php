@@ -33,7 +33,7 @@ Class LogementController extends AbstractController {
      * @Security("has_role('ROLE_USER')")
      */
     public function reservation(Int $id) {
-        $logement = $this->getDoctrine()->getRepository(Logement::class)->findOneBy(['id' => $id]);    
+        $logement = $this->getDoctrine()->getRepository(Logement::class)->findOneBy(['id' => $id]);
         return $this->render('logement/reservation.html.twig', [
             'logement' => $logement
         ]);
@@ -44,11 +44,19 @@ Class LogementController extends AbstractController {
      * @Security("has_role('ROLE_USER')")
      */
     public function paiement(Request $request, Logement $logement, \Swift_Mailer $mailer) {
+        //var_dump($_POST);die;
         if(!empty($request->request->get('dateDebut')) && !empty($request->request->get('dateFin'))) {
             $dateDebut = new \DateTime($this->dateFrToIso($request->request->get('dateDebut')));
             $dateFin = new \DateTime($this->dateFrToIso($request->request->get('dateFin')) . ' 23:00:00');
             $today = new \DateTime(date('Y-m-d H:i:s'));
             if($dateDebut->diff($dateFin)->format('%R%a') > 0) {
+                /*\Stripe\Stripe::setApiKey("sk_test_3lLQ5AiZpJxagEIuatnEhiNe");                
+                \Stripe\Charge::create([
+                "amount" => $request->request->get('prixTotal') * 100,
+                "currency" => "eur",
+                "source" => $request->request->get('stripeToken'),
+                "description" => "Charge for jenny.rosen@example.com"
+                ]);*/
                 $res = new Reservation();
                 $res->setLogement($logement);
                 $res->setUtilisateur($this->getUser());
@@ -70,9 +78,15 @@ Class LogementController extends AbstractController {
                 return $this->redirectToRoute('logement_index', array('id' => $logement->getId()));
             } else {
                 $this->addFlash('error', 'Attention à la cohérence des dates.');
+                return $this->render('logement/reservation.html.twig', [
+                    'logement' => $logement
+                ]);
             }
         } else {
             $this->addFlash('error', 'Veuillez rentrez des dates de début et de fin.');
+            return $this->render('logement/reservation.html.twig', [
+                'logement' => $logement
+            ]);
         }
     }
 
