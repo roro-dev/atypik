@@ -1,9 +1,177 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon Profil{% endblock %}
+{% block title %}Contact{% endblock %}
 
 {% block body %}
-    {#
-    contenu html
-     #}
+<div id="formulaire">
+  <img src="/img/chair.jpeg">
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 navProfil">
+
+
+      <ul class="nav nav-tabs">
+        <li><a data-toggle="tab" href="#home" class="list-group-item list-group-item-action active">Tableau de bord</a></li>
+        <li><a data-toggle="tab" href="#voyages" class="list-group-item list-group-item-action">Voyages</a></li>
+        <li><a data-toggle="tab" href="#messages" class="list-group-item list-group-item-action">Messages</a></li>
+        <li><a data-toggle="tab" href="#profil" class="list-group-item list-group-item-action">Informations</a></li>
+      </ul>
+
+    </div>
+    <div class="col-md-9">
+      <div class="card noborder">
+        <div class="cardProfil">
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="tab-content">
+                <div class="tab-pane active" id="home">
+                 <div class="row">
+                  <div class="col-md-12">
+                    <h4>Tableau de bord</h4>
+                    <hr>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-pane" id="voyages">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4>Vos réservations</h4>
+                    <hr>
+                    <div id="accordion">
+                      <div class="card">
+                        <div class="card-header" id="headingOne">
+                          <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                              Voyages en cours ou à venir
+                            </button>
+                          </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                          <div class="card-body">
+                
+                            <div class="card-body">
+                              <div class="boxReservation">
+                              <img class="img" src="/img/cabane2.jpg">
+                              <h5 class="card-title">Logement 1</h5>
+                              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                            </div>
+                              
+                              <div class="card-body">
+                                <div class="boxReservation">
+                              <img class="img" src="/img/cabane.jpg">
+                              <h5 class="card-title">logement 2</h5>
+                              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                            </div>
+                    
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card">
+                      <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Historiques de vos séjours
+                          </button>
+                        </h5>
+                      </div>
+                      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                         <div class="card-body">
+                
+                            <div class="card-body">
+                              <div class="boxReservation">
+                              <img class="img" src="/img/cabane3.jpg">
+                              <h5 class="card-title">Historique 1</h5>
+                              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="tab-pane" id="profil">
+             <div class="row">
+              <div class="col-md-12">
+                <h4>Votre Profil</h4>
+                <hr>
+              </div>
+              <form>
+                <div class="form-group row">
+                  <label for="username" class="col-4 col-form-label">Nom*</label> 
+                  <div class="col-8">
+                    <input id="nom" name="nom" placeholder="Nom" class="form-control here" required="required" type="text">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="name" class="col-4 col-form-label">Prénom</label> 
+                  <div class="col-8">
+                    <input id="prenom" name="prenom" placeholder="Prenom" class="form-control here" required="required" type="text">
+                  </div>
+                </div>
+                <div class="form-group row">  
+                  <label for="name" class="col-4 col-form-label">Métier</label> 
+                  <div class="col-8">
+                    <input id="metier" name="metier" placeholder="Metier" class="form-control here" required="required" type="text">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="email" class="col-4 col-form-label">Email*</label> 
+                  <div class="col-8">
+                    <input id="email" name="email" placeholder="Email" class="form-control here" required="required" type="text">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="website" class="col-4 col-form-label">Adresse</label> 
+                  <div class="col-8">
+                    <input id="adresse" name="adresse" placeholder="Adresse" class="form-control here" type="text">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="publicinfo" class="col-4 col-form-label">Information</label> 
+                  <div class="col-8">
+                    <textarea id="publicinfo" name="publicinfo" cols="40" rows="4" class="form-control"></textarea>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="offset-4 col-8">
+                    <button name="submit" type="submit" class="btn btn-success">Mettre à jour mon profil</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="messages">
+           <div class="row">
+            <div class="col-md-12">
+              <h4>Messages</h4>
+              <hr>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
 {% endblock %}
