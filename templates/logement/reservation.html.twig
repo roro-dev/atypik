@@ -4,7 +4,12 @@
 <div class="container">
     <div class="row">
             <div class="col-12">
-                <form>
+                {% for flash_message in app.session.flashBag.get('error') %}
+                    <div class="alert alert-danger">
+                        {{ flash_message }}
+                    </div>
+                {% endfor %}
+                <form action="{{ path('paiement_route', {'id': logement.id}) }}" method="post">
                     {# Logement #}
                     <h3>1. Sélectionnez vos options :</h3>
                     <div class="form-group">
@@ -23,6 +28,10 @@
                     <div class="form-group">
                         <label for="dateFin" class="col">Date de fin</label>
                         <input type="text" class="form-control col" name="dateFin" id="dateFin" value="{{ "tomorrow + 1 day"|date("d/m/Y") }}"/>
+                    </div>                    
+                    <div class="form-group">
+                        <label for="dateFin" class="col">Prix Total</label>
+                        <input type="text" class="form-control col" name="dateFin" id="dateFin" value="0"/> €
                     </div>
                     {# Locataire #}
                     <h3>2. Vos informations :</h3>
@@ -45,6 +54,9 @@
                     <div class="form-group">
                         <label for="logement">Adresse</label>
                         <input type="text" id="adresse" name="logement" readonly class="form-control" value="{{ app.user.getAdresse() }}">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success" type="submit">Payer</button>
                     </div>
                 </form>
             </div>       

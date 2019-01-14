@@ -23,12 +23,6 @@ class Paiement
     private $utilisateur;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Reservation", inversedBy="paiement", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $reservation;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TypePaiement", inversedBy="paiements")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -47,18 +41,6 @@ class Paiement
     public function setUtilisateur(?Utilisateur $utilisateur): self
     {
         $this->utilisateur = $utilisateur;
-
-        return $this;
-    }
-
-    public function getReservation(): ?Reservation
-    {
-        return $this->reservation;
-    }
-
-    public function setReservation(Reservation $reservation): self
-    {
-        $this->reservation = $reservation;
 
         return $this;
     }

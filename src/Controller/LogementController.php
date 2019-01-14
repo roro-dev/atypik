@@ -41,8 +41,9 @@ Class LogementController extends AbstractController {
 
     /**
      * @Route("/payer/{id}", name="paiement_route")
+     * @Security("has_role('ROLE_USER')")
      */
-    public function paiement(Request $request, Logement $logement) {
+    public function paiement(Request $request, Logement $logement, \Swift_Mailer $mailer) {
         if(!empty($request->request->get('dateDebut')) && !empty($request->request->get('dateFin'))) {
             $dateDebut = new \DateTime($this->dateFrToIso($request->request->get('dateDebut')));
             $dateFin = new \DateTime($this->dateFrToIso($request->request->get('dateFin')) . ' 23:00:00');
@@ -54,23 +55,25 @@ Class LogementController extends AbstractController {
                 $res->setDateCreation($today);
                 $res->setDateDebut($dateDebut);
                 $res->setDateFin($dateFin);
-                $res->setNbPersonne($request->request->get('nbPersonne'));            
+                $res->setNbPersonne($request->request->get('nbPersonne'));
+                $res->setPrixTotal($request->request->get('prixTotal'));
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($res);
                 $entityManager->flush();
-                return $this->render('logement/reservation.html.twig', [
-                    'reservation' => $res,
-                    'logement' => $logement
-                ]);
+                $this->mailPayer($mailer,
+                    array(
+                        'resa' => $res,
+                        'email' => $this->getUser()->getEmail()
+                    )
+                );
+                $this->addFlash('success', 'Réservation enregistrée. Vous allez recevoir un récapitulatif d\'ici peu.');
+                return $this->redirectToRoute('logement_index', array('id' => $logement->getId()));
             } else {
                 $this->addFlash('error', 'Attention à la cohérence des dates.');
             }
         } else {
             $this->addFlash('error', 'Veuillez rentrez des dates de début et de fin.');
-        }        
-        $this->addFlash('success', 'Réservation enregistrée.');
-        return $this->redirectToRoute('logement_index', array('id' => $id));
-
+        }
     }
 
     /**
@@ -137,7 +140,7 @@ Class LogementController extends AbstractController {
                 $em->flush();
                 $this->addFlash('success', 'Logement ajouté avec succès. Vous allez recevoir un mail dés lors que votre bien sera validé par notre équipe.');
                //envoi de mail
-               $result = $this->sendMail($mailer, array(
+               $result = $this->mailAjout($mailer, array(
                     'email' => $user->getEmail(),
                     'prenom' => $user->getPrenom()
                 ));
@@ -155,7 +158,7 @@ Class LogementController extends AbstractController {
     /**
      * Permet d'envoyer un mail au proprio dés qu'un bien est proposé
      */
-    public function sendMail(\Swift_Mailer $mailer, $_data)
+    public function mailAjout(\Swift_Mailer $mailer, $_data)
     {
         $message = (new \Swift_Message("Atypik'House - Vous avez ajouté un logement"))
             ->setFrom('equipe@atypikhouse.fr')
@@ -174,10 +177,23 @@ Class LogementController extends AbstractController {
     }
 
     /**
-     * @Route("/types-logement/{id}", name="logement_type")
+     * Permet d'envoyer un mail récapitulatif au locataire
      */
-    public function typesLogements(int $id) {
-        
+    public function mailPayer(\Swift_Mailer $mailer, $_data)
+    {
+        $message = (new \Swift_Message("Atypik'House - Réservation n° " . $_data['resa']->getId()))
+            ->setFrom('equipe@atypikhouse.fr')
+            ->setTo($_data['email'])
+            ->setBody(
+                $this->renderView(
+                    'emails/reservation.html.twig',
+                    array(
+                        'resa' => $_data['resa']
+                    )
+                ),
+                'text/html'
+            )
+        ;
+        return $mailer->send($message);
     }
-
 }

@@ -1,0 +1,12 @@
+<h3>Réservation N° {{ id_resa }}</h3><br>
+Bonjour {{ prenom }}!<br>
+Voici un récapitulatif de votre réservation réalisé le {{ resa.getDateCreation() }}<br>
+<strong>Logement :</strong>{{ resa.getLogement().getNom() }}<br>
+<strong>Adresse : </strong>{{ resa.getLogement().getAdresse() }}<br>
+<strong>Date de début : </strong>{{ resa.getDateDebut() }}<br>
+<strong>Date de fin : </strong>{{ resa.getDateFin() }}<br>
+<strong>Prix : </strong>{{ resa.getPrixTotal() }}
+<br>
+Merci et à bientôt !
+<br>
+L'équipe Atypik'House.
