@@ -1,3 +1,87 @@
+h2.contactTitle {
+	position: absolute;
+	top: 14em;
+	left: 4em;
+	color: white;
+	font-weight: bold;
+}
+
+h3 {
+    padding: 1em 0 1em 0;
+}
+
+#nightDream {
+    margin-top: 3em;
+}
+
+#nightDream img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+}
+
+#nightDream .content {
+    width: 100%;
+    padding: 0 8em;
+}
+
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.no-gutters .col, [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.carousel-item img {
+    width: 33%;
+    position: relative;
+    height: 200px;
+    object-fit: cover;
+    padding: 0 5px;
+}
+
+@media (max-width: 768px) { 
+    .deuxiemeDiv{
+        flex-direction: column-reverse;
+    }
+    #nightDream .content {
+         width: 100%;
+        padding: 1rem;
+    }
+}
+
+.carousel-item img {
+    margin:10px;
+}
+.block4-wrap {
+    display:flex
+}
+.block4 {
+    flex:1 0 25%;
+    color:black;
+}
+.my-captions{
+    margin-top: -30px;
+    padding-left: 55px;
+    padding-bottom: 0em;
+    }
+    .my-captions h5{
+        padding-top: 30px;
+    }
+
+/* fix width and make user scroll with mouse/touch to see the items */
+@media screen and (max-width:768px){
+    .block4{max-width:280px;flex:1 0 100%;overflow:hidden}  
+    .carousel{overflow:hidden;}
+    .carousel-inner{overflow-x:visible;}
+}
+@media screen and (max-width:480px){
+    .block4{max-width:240px;}   
+}
+
 #title{
 	text-transform: uppercase;
 	font-weight: 600;

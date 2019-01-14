@@ -160,4 +160,11 @@ Class LogementController extends AbstractController {
         return $mailer->send($message);
     }
 
+    /**
+     * @Route("/types-logement/{id}", name="logement_type")
+     */
+    public function typesLogements(int $id) {
+        
+    }
+
 }

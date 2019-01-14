@@ -22,21 +22,21 @@
       <h1>Résultats de la recherche:</h1>
     </div>
   </div>
-  <div class="card-deck">
+  <div class="row">
     {% for lo in logements %}
-    <div class="card">
-      <img class="card-img-top" src="/img/cabane.jpg" alt="Card image cap">
-      <div class="card-body">
-        <h4 class="card-title ">{{ lo.nom }}</h4>
-        <h5 class="card-title">LIMOGES - {{ lo.prix }}€/nuit </h5>
-        <p class="card-text">{{ lo.description }}</p>
-        <button type="button" class="btn btn-consulter"><a href="{{ path('logement_index', {'id': lo.id}) }}" class="a-consulter">Consulter</a></button>
+      <div class="col-sm-4">
+        <div class="card">
+          <img class="card-img-top" src="/img/cabane.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title ">{{ lo.nom }}</h4>
+            <h5 class="card-title">LIMOGES - {{ lo.prix }}€/nuit </h5>
+            <p class="card-text">{{ lo.description }}</p>
+            <button type="button" class="btn btn-consulter"><a href="{{ path('logement_index', {'id': lo.id}) }}" class="a-consulter">Consulter</a></button>
+          </div>
+        </div>
       </div>
-    </div>
     {% endfor %}
     {% endif %}
   </div>
 </div>
-
-
 {% endblock %}

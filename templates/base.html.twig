@@ -21,7 +21,7 @@
     Atypik'House
   </a>
   {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if 'ROLE_ADMIN' in app.user.getRoles() %}
         | 
         <a id="title" class="navbar" href="{{ path('logement_liste') }}">
         Accès BackOffice
