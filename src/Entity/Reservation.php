@@ -47,6 +47,11 @@ class Reservation
      */
     private $nbPersonne;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Paiement", mappedBy="reservation", cascade={"persist", "remove"})
+     */
+    private $paiement;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -130,5 +135,22 @@ class Reservation
      */
     public function getPrixResa() {
         return $this->date_debut->diff($this->date_fin)->format('%a') * $this->getLogement()->getPrix();
+    }
+
+    public function getPaiement(): ?Paiement
+    {
+        return $this->paiement;
+    }
+
+    public function setPaiement(Paiement $paiement): self
+    {
+        $this->paiement = $paiement;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $paiement->getReservation()) {
+            $paiement->setReservation($this);
+        }
+
+        return $this;
     }
 }

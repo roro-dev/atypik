@@ -30,19 +30,27 @@ Class LogementController extends AbstractController {
 
     /**
      * @Route("/logement/{id}/reservation", name="logement_reservation")
+     * @Security("has_role('ROLE_USER')")
      */
-    public function reservation(Int $id, Request $request) {
-        $repo = $this->getDoctrine()->getRepository(Logement::class);
-        $logement = $repo->findOneBy(['id' => $id]);
+    public function reservation(Int $id) {
+        $logement = $this->getDoctrine()->getRepository(Logement::class)->findOneBy(['id' => $id]);    
+        return $this->render('logement/reservation.html.twig', [
+            'logement' => $logement
+        ]);
+    }
+
+    /**
+     * @Route("/payer/{id}", name="paiement_route")
+     */
+    public function paiement(Request $request, Logement $logement) {
         if(!empty($request->request->get('dateDebut')) && !empty($request->request->get('dateFin'))) {
             $dateDebut = new \DateTime($this->dateFrToIso($request->request->get('dateDebut')));
             $dateFin = new \DateTime($this->dateFrToIso($request->request->get('dateFin')) . ' 23:00:00');
             $today = new \DateTime(date('Y-m-d H:i:s'));
             if($dateDebut->diff($dateFin)->format('%R%a') > 0) {
-                $user = $this->getUser();
                 $res = new Reservation();
                 $res->setLogement($logement);
-                $res->setUtilisateur($user);
+                $res->setUtilisateur($this->getUser());
                 $res->setDateCreation($today);
                 $res->setDateDebut($dateDebut);
                 $res->setDateFin($dateFin);
@@ -50,6 +58,10 @@ Class LogementController extends AbstractController {
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($res);
                 $entityManager->flush();
+                return $this->render('logement/reservation.html.twig', [
+                    'reservation' => $res,
+                    'logement' => $logement
+                ]);
             } else {
                 $this->addFlash('error', 'Attention à la cohérence des dates.');
             }
@@ -58,6 +70,7 @@ Class LogementController extends AbstractController {
         }        
         $this->addFlash('success', 'Réservation enregistrée.');
         return $this->redirectToRoute('logement_index', array('id' => $id));
+
     }
 
     /**

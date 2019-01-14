@@ -62,11 +62,6 @@ class Utilisateur implements UserInterface
     private $commentaires;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Payer", mappedBy="id_utilisateur", orphanRemoval=true)
-     */
-    private $paiements;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="id_utilisateur")
      */
     private $reservations;
@@ -107,12 +102,18 @@ class Utilisateur implements UserInterface
      */
     private $newsletter;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Paiement", mappedBy="utilisateur")
+     */
+    private $paiements;
+
     public function __construct() {
         $this->valideUser = 0;
         $this->commentaires = new ArrayCollection();
         $this->paiements = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->logements = new ArrayCollection();
+        $this->paiements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -217,37 +218,6 @@ class Utilisateur implements UserInterface
             // set the owning side to null (unless already changed)
             if ($commentaire->getIdUtilisateur() === $this) {
                 $commentaire->setIdUtilisateur(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Payer[]
-     */
-    public function getPaiements(): Collection
-    {
-        return $this->paiements;
-    }
-
-    public function addPaiement(Payer $paiement): self
-    {
-        if (!$this->paiements->contains($paiement)) {
-            $this->paiements[] = $paiement;
-            $paiement->setIdUtilisateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removePaiement(Payer $paiement): self
-    {
-        if ($this->paiements->contains($paiement)) {
-            $this->paiements->removeElement($paiement);
-            // set the owning side to null (unless already changed)
-            if ($paiement->getIdUtilisateur() === $this) {
-                $paiement->setIdUtilisateur(null);
             }
         }
 
@@ -407,6 +377,37 @@ class Utilisateur implements UserInterface
     public function setNewsletter(bool $newsletter): self
     {
         $this->newsletter = $newsletter;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Paiement[]
+     */
+    public function getPaiements(): Collection
+    {
+        return $this->paies;
+    }
+
+    public function addPaiement(Paiement $paie): self
+    {
+        if (!$this->paies->contains($paie)) {
+            $this->paies[] = $paie;
+            $paie->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removePaiement(Paiement $paie): self
+    {
+        if ($this->paies->contains($paie)) {
+            $this->paies->removeElement($paie);
+            // set the owning side to null (unless already changed)
+            if ($paie->getUtilisateur() === $this) {
+                $paie->setUtilisateur(null);
+            }
+        }
 
         return $this;
     }
