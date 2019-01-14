@@ -102,6 +102,11 @@ class Utilisateur implements UserInterface
      */
     private $cgv;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $newsletter;
+
     public function __construct() {
         $this->valideUser = 0;
         $this->commentaires = new ArrayCollection();
@@ -390,6 +395,18 @@ class Utilisateur implements UserInterface
     public function setCgv(bool $cgv): self
     {
         $this->cgv = $cgv;
+
+        return $this;
+    }
+
+    public function getNewsletter(): ?bool
+    {
+        return $this->newsletter;
+    }
+
+    public function setNewsletter(bool $newsletter): self
+    {
+        $this->newsletter = $newsletter;
 
         return $this;
     }
