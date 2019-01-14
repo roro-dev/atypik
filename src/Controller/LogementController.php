@@ -127,8 +127,8 @@ Class LogementController extends AbstractController {
                 $this->addFlash('success', 'Logement ajouté avec succès. Vous allez recevoir un mail dés lors que votre bien sera validé par notre équipe.');
                //envoi de mail
                $result = $this->sendMail($mailer, array(
-                    'email' => $user->getEmail(),
-                    'prenom' => $user->getPrenom()
+                    'email' => $this->getUser()->getEmail(),
+                    'prenom' => $this->getUser()->getPrenom()
                 ));
                 return $this->redirectToRoute('home');
             } else {
