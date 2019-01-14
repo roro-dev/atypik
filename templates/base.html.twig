@@ -32,9 +32,10 @@
 
       {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
+        <div class="d-none d-lg-block">
          <ul class="nav navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="/register"><img id="avatarLogin" src="/img/header/avatarLogin.png"></a>
+          <a class="nav-link" href="/profil/#voyages"><img id="avatarLogin" src="/img/header/avatarLogin.png"></a>
         </li>
         <li class="nav-item">
           <div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div>
@@ -48,19 +49,30 @@
             </button>
         </li>
         </ul>
-  
+      </div>
 
-      <div class="d-flex justify-content-end d-none d-md-block d-lg-none">
-        <div class="d-flex bd-highlight flex-column">
-          <div class="p-3 justify-content-end"><img id="avatarLogin" src="/img/header/avatarLogin.png"></div>
-          <div class="p-3 flex-fill bd-highlight">
-            <div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div>
-          </div>
-          <div class="p-3 flex-fill bd-highlight"><img id="cloche" src="/img/header/cloche.png"></div>
-          <div class="p-3 flex-fill bd-highlight"><button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'">
+      <div class="d-block d-lg-none">
+
+         <ul class="nav navbar-nav">
+        <li class="nav-item">
+         <a class="nav-link sousMenu" href=""><div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div></a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link sousMenu" href="/profil#voyages"><div id="Utilisateur">Mon Profil</div></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link sousMenu" href="/recherche"><div id="Utilisateur">Rechercher un logement</div></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link sousMenu" href="/contact"><div id="Utilisateur">Contact</div></a>
+        </li>
+
+        <li class="nav-item">
+          <button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'">
               <p>Deconnexion</p>
-            </button></div>
-        </div>
+            </button>
+        </li>
+        </ul>
       </div>
       {% else %}
       {# <button id="btnInscrire" type="button" class="btn btn-success" onclick="location.href='/register'">
