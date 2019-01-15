@@ -1,10 +1,17 @@
+// Calcul du prix total
+$(document).ready(function() {
+    showPrixTotal();
+    $('#dateDebut').change(function() {
+      showPrixTotal();
+    });
+    $('#dateFin').change(function() {
+      showPrixTotal();
+    });
+});
+
 // Create a Stripe client.
 var stripe = Stripe('pk_test_yQUEcQZrvOTtFqpP7MfNbKG6');
-
-// Create an instance of Elements.
 var elements = stripe.elements();
-
-
 var displayError = document.getElementById('card-errors');
 displayError.hidden = true;
 
@@ -73,4 +80,31 @@ function stripeTokenHandler(token) {
 
   // Submit the form
   form.submit();
+}
+
+/**
+ * Permet de calculer le prix total
+ */
+function calculTotal() {
+  var prix = document.getElementById('prixUni').value;
+  if(prix > 0) {
+    var valDebut = document.getElementById('dateDebut').value;
+    var valFin = document.getElementById('dateFin').value;
+    var dateDebut = new Date(dateFrToIso(valDebut));
+    var dateFin = new Date(dateFrToIso(valFin));
+    var nbDays = Math.round((dateFin - dateDebut)/(1000*60*60*24));
+    return nbDays * prix;
+  }
+  return 0;
+}
+
+function dateFrToIso(date) {
+  var dateArr = date.split('/');
+  dateArr.reverse();
+  return dateArr.join('-');
+}
+
+function showPrixTotal() {  
+  $('#prixTotal').val(calculTotal());
+  $('#spanTotal').html(calculTotal() + ' €');
 }
