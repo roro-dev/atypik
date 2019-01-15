@@ -1,14 +1,12 @@
 // Calcul du prix total
 $(document).ready(function() {
-  $('#prixTotal').val(calculTotal());
-  $('#dateDebut').change(function() {
-      console.log('debut');
-      $('#prixTotal').val(calculTotal());
-  });
-  $('#dateFin').change(function() {
-      console.log('fin');
-      $('#prixTotal').val(calculTotal());
-  });
+    showPrixTotal();
+    $('#dateDebut').change(function() {
+      showPrixTotal();
+    });
+    $('#dateFin').change(function() {
+      showPrixTotal();
+    });
 });
 
 // Create a Stripe client.
@@ -92,8 +90,8 @@ function calculTotal() {
   if(prix > 0) {
     var valDebut = document.getElementById('dateDebut').value;
     var valFin = document.getElementById('dateFin').value;
-    var dateDebut = new Date(dateFrToIso(valDebut) + ' 00:00:00');
-    var dateFin = new Date(dateFrToIso(valFin) + ' 23:00:00');
+    var dateDebut = new Date(dateFrToIso(valDebut));
+    var dateFin = new Date(dateFrToIso(valFin));
     var nbDays = Math.round((dateFin - dateDebut)/(1000*60*60*24));
     return nbDays * prix;
   }
@@ -104,4 +102,9 @@ function dateFrToIso(date) {
   var dateArr = date.split('/');
   dateArr.reverse();
   return dateArr.join('-');
+}
+
+function showPrixTotal() {  
+  $('#prixTotal').val(calculTotal());
+  $('#spanTotal').html(calculTotal() + ' €');
 }
