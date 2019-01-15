@@ -102,11 +102,6 @@ class Utilisateur implements UserInterface
      */
     private $newsletter;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Paiement", mappedBy="utilisateur")
-     */
-    private $paiements;
-
     public function __construct() {
         $this->valideUser = 0;
         $this->commentaires = new ArrayCollection();
@@ -377,37 +372,6 @@ class Utilisateur implements UserInterface
     public function setNewsletter(bool $newsletter): self
     {
         $this->newsletter = $newsletter;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Paiement[]
-     */
-    public function getPaiements(): Collection
-    {
-        return $this->paies;
-    }
-
-    public function addPaiement(Paiement $paie): self
-    {
-        if (!$this->paies->contains($paie)) {
-            $this->paies[] = $paie;
-            $paie->setUtilisateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removePaiement(Paiement $paie): self
-    {
-        if ($this->paies->contains($paie)) {
-            $this->paies->removeElement($paie);
-            // set the owning side to null (unless already changed)
-            if ($paie->getUtilisateur() === $this) {
-                $paie->setUtilisateur(null);
-            }
-        }
 
         return $this;
     }

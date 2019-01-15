@@ -14,6 +14,7 @@ use App\Entity\Ville;
 use App\Entity\Photo;
 use App\Entity\ParametresLogement;
 use App\Entity\ParametresType;
+use App\Entity\TypePaiement;
 
 Class LogementController extends AbstractController {
 
@@ -44,50 +45,52 @@ Class LogementController extends AbstractController {
      * @Security("has_role('ROLE_USER')")
      */
     public function paiement(Request $request, Logement $logement, \Swift_Mailer $mailer) {
-        //var_dump($_POST);die;
         if(!empty($request->request->get('dateDebut')) && !empty($request->request->get('dateFin'))) {
             $dateDebut = new \DateTime($this->dateFrToIso($request->request->get('dateDebut')));
             $dateFin = new \DateTime($this->dateFrToIso($request->request->get('dateFin')) . ' 23:00:00');
             $today = new \DateTime(date('Y-m-d H:i:s'));
             if($dateDebut->diff($dateFin)->format('%R%a') > 0) {
-                /*\Stripe\Stripe::setApiKey("sk_test_3lLQ5AiZpJxagEIuatnEhiNe");                
-                \Stripe\Charge::create([
-                "amount" => $request->request->get('prixTotal') * 100,
-                "currency" => "eur",
-                "source" => $request->request->get('stripeToken'),
-                "description" => "Charge for jenny.rosen@example.com"
-                ]);*/
-                $res = new Reservation();
-                $res->setLogement($logement);
-                $res->setUtilisateur($this->getUser());
-                $res->setDateCreation($today);
-                $res->setDateDebut($dateDebut);
-                $res->setDateFin($dateFin);
-                $res->setNbPersonne($request->request->get('nbPersonne'));
-                $res->setPrixTotal($request->request->get('prixTotal'));
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($res);
-                $entityManager->flush();
-                $this->mailPayer($mailer,
-                    array(
-                        'resa' => $res,
-                        'email' => $this->getUser()->getEmail()
-                    )
-                );
-                $this->addFlash('success', 'Réservation enregistrée. Vous allez recevoir un récapitulatif d\'ici peu.');
-                return $this->redirectToRoute('logement_index', array('id' => $logement->getId()));
+                \Stripe\Stripe::setApiKey("sk_test_3lLQ5AiZpJxagEIuatnEhiNe");                
+                $charge = \Stripe\Charge::create([
+                    "amount" => $request->request->get('prixTotal') * 100,
+                    "currency" => "eur",
+                    "source" => $request->request->get('stripeToken'),
+                    "description" => "Réservation Atypik'House " . date('d/m/y H:i:s'),
+                    'receipt_email' => trim($this->getUser()->getEmail())
+                ]);
+                if(!empty($charge) && is_object($charge) && property_exists($charge, 'status') && $charge->status == 'succeeded') {
+                    $res = new Reservation();
+                    $res->setLogement($logement);
+                    $res->setUtilisateur($this->getUser());
+                    $res->setDateCreation($today);
+                    $res->setDateDebut($dateDebut);
+                    $res->setDateFin($dateFin);
+                    $res->setNbPersonne($request->request->get('nbPersonne'));
+                    $res->setPrixTotal($request->request->get('prixTotal'));
+                    $res->setTokenPaiement($charge->id);
+                    $res->setMode($this->getDoctrine()->getRepository(TypePaiement::class)->findOneBy(['id' => 1]));
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($res);
+                    $entityManager->flush();
+                    $this->mailPayer($mailer,
+                        array(
+                            'resa' => $res,
+                            'email' => $this->getUser()->getEmail()
+                        )
+                    );
+                    $this->addFlash('success', 'Réservation enregistrée. Vous allez recevoir un récapitulatif d\'ici peu.');
+                    return $this->redirectToRoute('logement_index', array('id' => $logement->getId()));
+                } else {
+                    $this->addFlash('error', 'Paiement refusé.');
+                }                
             } else {
                 $this->addFlash('error', 'Attention à la cohérence des dates.');
-                return $this->render('logement/reservation.html.twig', [
-                    'logement' => $logement
-                ]);
             }
-        } else {
-            $this->addFlash('error', 'Veuillez rentrez des dates de début et de fin.');
-            return $this->render('logement/reservation.html.twig', [
-                'logement' => $logement
-            ]);
         }
+        $this->addFlash('error', 'Veuillez rentrez des dates de début et de fin.');
+        return $this->render('logement/reservation.html.twig', [
+            'logement' => $logement
+        ]);        
     }
 
     /**
@@ -116,7 +119,6 @@ Class LogementController extends AbstractController {
         if ($form->isSubmitted()) {
             if($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($logement);
                 //ajout de la ville
                 if(!empty($request->request->get('logement_ville'))) {
                     $ville = $this->getDoctrine()->getRepository(Ville::class)->findOneBy(['nom' => trim($request->request->get('logement_ville'))]);
@@ -134,8 +136,7 @@ Class LogementController extends AbstractController {
                         $p->setValeur($v);
                         $em->persist($p);
                         $em->flush();
-                        $logement->addParametre($p);
-                        $em->persist($logement);
+                        $logement->addParametre($p);                   
                     }
                 }
                 //ajout des photos
@@ -156,10 +157,9 @@ Class LogementController extends AbstractController {
                 $em->flush();
                 $this->addFlash('success', 'Logement ajouté avec succès. Vous allez recevoir un mail dés lors que votre bien sera validé par notre équipe.');
                //envoi de mail
-               
                $result = $this->mailAjout($mailer, array(
-                    'email' => $this->getUser()->getEmail(),
-                    'prenom' => $this->getUser()->getPrenom()
+                    'email' => $user->getEmail(),
+                    'prenom' => $user->getPrenom()
                 ));
                 return $this->redirectToRoute('home');
             } else {
