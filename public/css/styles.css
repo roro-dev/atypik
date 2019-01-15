@@ -7,7 +7,7 @@ h2.contactTitle {
 }
 
 h3 {
-    padding: 1em 0 1em 0;
+    padding: 1rem 0 1rem 0;
 }
 
 #nightDream {
@@ -215,7 +215,6 @@ h3 {
 .btn-recherche{
 	background-color: #C64300;
 	color: white;
-	float: right;
 	width: 100%;
 }
 
@@ -427,37 +426,11 @@ ul.list-unstyled li a{
 
 	/*Fin Slider*/
 
-	.etoile{
-		float: right;
-		margin-right: 4em;
-		margin-bottom: 0.5em;
-	}
-
 	.rating a {
 		color: black;
 		text-decoration: none;
 		font-size: 1.5em;
-		transition: color .4s;
-		padding-bottom: 0.5em;
  }
-
-	.prix{
-		float: right;
-		margin-top: -0.5em;
-		margin-right: 4em;
-	}
-
-	.produit-desc{
-		padding-left: 2.5em;
-		margin-right: -0.7em;
-		margin-top: -0.5em;
-		padding-right: 3.5em;
-	}
-
-	.separate{
-		border-right: 1px solid rgb(126, 118, 118);
-		margin-bottom: 2em;
-	}
 
 	.picto_prod{
 		height: 3.75em;
@@ -555,10 +528,6 @@ h2.contactTitle {
 	font-weight: bold;
 }
 
-h3 {
-  padding: 1em 0 1em 0;
-}
-
 #map {
 	width: auto;
 	height: auto;
@@ -577,12 +546,30 @@ h3 {
 	width: 100%;
 }
 
-.btn-resa {
-	position: absolute;
-	background-color: #C64300;
-	color: white;
-	bottom: 5px;
-	right: 5px;
-	width: 35%;
-	text-transform: uppercase;
+h3.titreLogement {
+    margin: 0;
+    padding-bottom: 10px;
+}
+
+.resa{
+    margin: 50px 15px 0px 15px;
+    padding: 30px;
+    border: 1px solid #dee2e6;
+}
+
+.prix{
+	font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.titre_ville {
+    margin-bottom: 25px;
+}
+
+h4.sous-titre {
+    margin: 30px 0 15px 0px;
+}
+
+.adresse-location{
+	margin-bottom: 15px;
 }

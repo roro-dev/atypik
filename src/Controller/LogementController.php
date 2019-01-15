@@ -25,7 +25,8 @@ Class LogementController extends AbstractController {
         $repo = $this->getDoctrine()->getRepository(Logement::class);
         $logement = $repo->findOneBy(['id' => $id]);
         return $this->render('logement/index.html.twig', [
-            'logement' => $logement
+            'logement' => $logement,
+            'photos' => $logement->getPhotos()
         ]);
     }
 
