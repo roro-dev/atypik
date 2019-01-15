@@ -47,6 +47,11 @@ class Reservation
      */
     private $nbPersonne;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $prixTotal;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -130,5 +135,17 @@ class Reservation
      */
     public function getPrixResa() {
         return $this->date_debut->diff($this->date_fin)->format('%a') * $this->getLogement()->getPrix();
+    }
+
+    public function getPrixTotal(): ?float
+    {
+        return $this->prixTotal;
+    }
+
+    public function setPrixTotal(float $prixTotal): self
+    {
+        $this->prixTotal = $prixTotal;
+
+        return $this;
     }
 }

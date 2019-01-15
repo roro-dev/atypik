@@ -24,7 +24,7 @@ class TypePaiement
     private $mode_paiement;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Payer", mappedBy="id_paiement", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Paiement", mappedBy="id_paiement", orphanRemoval=true)
      */
     private $paiements;
 
@@ -46,38 +46,34 @@ class TypePaiement
     public function setModePaiement(string $mode_paiement): self
     {
         $this->mode_paiement = $mode_paiement;
-
         return $this;
     }
 
     /**
-     * @return Collection|Payer[]
+     * @return Collection|Paiement[]
      */
     public function getPaiements(): Collection
     {
         return $this->paiements;
     }
 
-    public function addPaiement(Payer $paiement): self
+    public function addPaiement(Paiement $paiement): self
     {
         if (!$this->paiements->contains($paiement)) {
             $this->paiements[] = $paiement;
             $paiement->setIdPaiement($this);
         }
-
         return $this;
     }
 
-    public function removePaiement(Payer $paiement): self
+    public function removePaiement(Paiement $paiement): self
     {
         if ($this->paiements->contains($paiement)) {
             $this->paiements->removeElement($paiement);
-            // set the owning side to null (unless already changed)
             if ($paiement->getIdPaiement() === $this) {
                 $paiement->setIdPaiement(null);
             }
         }
-
         return $this;
     }
 }

@@ -57,9 +57,8 @@ class UtilisateurType extends AbstractType
                     'class' => 'form-control'
                 )
             ))
-            ->add('cgv', CheckboxType::class,array(
-                'label' => 'J\'accepte les Conditions Générales d\'Utilisation.'
-            ))
+            ->add('cgv', CheckboxType::class)
+            ->add('newsletter', CheckboxType::class)
             ;
     }
 
