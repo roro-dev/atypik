@@ -564,3 +564,25 @@ h3 {
 	height: auto;
 	background-color: lightgray;
 }
+
+/* Page logement */
+#bandeau-logement {
+	position: relative;
+}
+
+#bandeau-logement > img {
+	height: 35rem;
+	background-attachment: fixed;
+	object-fit: cover;
+	width: 100%;
+}
+
+.btn-resa {
+	position: absolute;
+	background-color: #C64300;
+	color: white;
+	bottom: 5px;
+	right: 5px;
+	width: 35%;
+	text-transform: uppercase;
+}

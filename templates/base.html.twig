@@ -14,7 +14,6 @@
 </head>
 
 <body>
-
   <nav class="navbar navbar-expand-lg navbar-light">
   <a id="title" class="navbar-brand" href="/">
     <img src="/img/logo.png" height="30" width="30" />
@@ -22,10 +21,7 @@
   </a>
   {% if is_granted('IS_AUTHENTICATED_FULLY') %}
     {% if 'ROLE_ADMIN' in app.user.getRoles() %}
-        | 
-        <a id="title" class="navbar" href="{{ path('logement_liste') }}">
-        Accès BackOffice
-        </a>    
+        | <a class="navbar" href="{{ path('logement_liste') }}">Accès BackOffice</a>    
     {% endif %}
   {% endif %}  
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -34,38 +30,33 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-          <ul class="mr-auto"></ul>
-
+      <ul class="mr-auto"></ul>
       {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-
         <div class="d-none d-lg-block">
-         <ul class="nav navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('logement_ajout') }}">Ajouter un bien</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/profil/#voyages"><img id="avatarLogin" src="/img/header/avatarLogin.png"></a>
-        </li>
-        <li class="nav-item">
-          <div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/register"><img id="cloche" src="/img/header/cloche.png"></a>
-        </li>
-        <li class="nav-item">
-          <button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'">
-              <p>Deconnexion</p>
-            </button>
-        </li>
+          <ul class="nav navbar-nav">
+            <li class="nav-item">
+              <a class="btn btn-success" href="{{ path('logement_ajout') }}">Ajouter un bien</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/register"><img id="cloche" src="/img/header/cloche.png"></a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="Utilisateur" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img id="avatarLogin" src="/img/header/avatarLogin.png">Bienvenue {{ app.user.prenom }}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/profil#informations">Mes informations</a>
+                <a class="dropdown-item" href="/profil#reservations">Mes réservations</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/logout">Déconnexion</a>
+              </div>
+            </li>
         </ul>
-      </div>
-
-      <div class="d-block d-lg-none">
-
-         <ul class="nav navbar-nav">
+    </div>
+    <div class="d-block d-lg-none">
+      <ul class="nav navbar-nav">
         <li class="nav-item">
-         <a class="nav-link sousMenu" href=""><div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div></a>
+          <a class="nav-link sousMenu" href=""><div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div></a>
         </li>
          <li class="nav-item">
           <a class="nav-link sousMenu" href="/profil#voyages"><div id="Utilisateur">Mon Profil</div></a>
@@ -76,18 +67,17 @@
         <li class="nav-item">
           <a class="nav-link sousMenu" href="/contact"><div id="Utilisateur">Contact</div></a>
         </li>
-
         <li class="nav-item">
           <button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'">
               <p>Deconnexion</p>
             </button>
         </li>
-        </ul>
-      </div>
+      </ul>
+    </div>
       {% else %}
       <ul class="nav navbar-nav"> 
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('logement_ajout') }}">Ajouter un bien</a>
+            <a class="btn btn-success" href="{{ path('logement_ajout') }}">Ajouter un bien</a>
         </li>       
         <li class="nav-item">
           <a class="nav-link" href="/register">Inscription</a>
@@ -142,7 +132,7 @@
           <ul class="list-unstyled">
             <li><a href="">Mentions légales</a></li>
             <li><a href="">Qui sommes nous</a></li>
-            <li><a href="">Contactez nous</a></li>
+            <li><a href="{{ path('contact_route') }}">Contactez nous</a></li>
           </ul>
         </div>
       </div>

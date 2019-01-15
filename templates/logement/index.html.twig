@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Logement > {{ logement.nom }} {% endblock %}
+{% block title %}{{ logement.nom }} {% endblock %}
 
 {% block body %}
 
-<div id="formulaire">  
-  <form action="/logement/{{ logement.id }}/reservation" method="post">
+<div id="bandeau-logement">  
+  {#<form action="/logement/{{ logement.id }}/reservation" method="post">
     {% for flash_message in app.session.flashBag.get('error') %}
       <div class="alert alert-danger">
           {{ flash_message }}
@@ -21,8 +21,9 @@
         <input type="number" name="nbPersonne" class="form-control" min="1" max="{{ logement.nbPersonne }}" placeholder="Nombre de voyageurs" value="1"/>
     </div>
     <button type="submit" class="btn btn-recherche">Réserver</button>
-  </form>
+  </form>#}
   <button type="button" class="btn btn-photo"  onclick="openModal();currentSlide(1)">Voir les photos</button>
+  <button type="submit" class="btn btn-resa" onclick="location.href='{{ path('logement_reservation', {'id': logement.id }) }}'">Reserver</button>
   <img src="/img/cabane2.jpg"/>
 </div>
 
