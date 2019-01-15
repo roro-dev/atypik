@@ -38,7 +38,7 @@ class Logement
      * @ORM\Column(type="string", length=255)
      * @Assert\Type("string")
      * @Assert\NotBlank
-     * @Assert\Length(min=20)
+     * @Assert\Length(min=20, minMessage = "Votre description doit contenir au minimum 20 caractères")
      * 
      */
     private $description;
@@ -46,6 +46,8 @@ class Logement
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
+     * @Assert\Type("integer", message="bonjour")
+
      */
     private $prix;
 
@@ -91,12 +93,18 @@ class Logement
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="logements")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "Veuillez saisir une ville"
+     * )
      */
     private $ville;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Assert\NotBlank
      * @Assert\Type("string")
      * @Assert\Length(
      *      min = 10,
@@ -107,6 +115,7 @@ class Logement
 
     /**
      * @ORM\Column(type="string", length=5, nullable=false)
+     * @Assert\NotBlank
      * @Assert\Type("string")
      * @Assert\Regex(
      *     pattern="/^[0-9]{5,5}$/",
@@ -117,11 +126,12 @@ class Logement
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\Type("integer")
+     * @Assert\NotBlank
+     * @Assert\Type("integer", message="Pas la bonne valeur")
      * @Assert\Range(
      *      min = 1 ,
      *      max = 10,
-     *      minMessage = "le nombre de personne doit être au minimum {{ limit }}",
+     *      minMessage = "le nombre de personne doit être au minimum {{ limit }} et au maximum 10",
      *      maxMessage = "le nombre de personne ne peut pas dépasser {{ limit }}"
      * )
      */
@@ -129,6 +139,7 @@ class Logement
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank
      * @Assert\Type("integer")
      * @Assert\Range(
      *      min = 1 ,

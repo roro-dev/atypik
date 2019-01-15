@@ -59,7 +59,7 @@ Class LogementController extends AbstractController {
                     "description" => "Réservation Atypik'House " . date('d/m/y H:i:s'),
                     'receipt_email' => trim($this->getUser()->getEmail())
                 ]);
-                if(!empty($charge) && is_object($charge) && property_exists($charge, 'status') && $charge->status == 'succeeded') {
+                if(!empty($charge) && $charge->status == 'succeeded') {
                     $res = new Reservation();
                     $res->setLogement($logement);
                     $res->setUtilisateur($this->getUser());
