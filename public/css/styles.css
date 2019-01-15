@@ -588,6 +588,12 @@ h3 {
 }
 
 .form-group ul li{
-	color: #D8000C;
-	background-color: #FFBABA;
+	color: #721c24;
+    background-color: #f8d7da;
+	border-color: #f5c6cb;
+	list-style-type: none;
+	margin-left:-2.5em;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	padding-left: 1.2rem;
 }

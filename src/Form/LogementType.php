@@ -36,7 +36,8 @@ class LogementType extends AbstractType
             ->add('nom', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
-                )
+                ),
+                'label' => 'Nom du logement'
             ))
             ->add('description', TextareaType::class, array(
                 'attr' => array(
