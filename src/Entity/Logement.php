@@ -22,11 +22,24 @@ class Logement
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "Le nom doit avoir au minimum 2 lettres ?"
+     * )
+     * @Assert\Regex(
+     *     pattern="/^[a-z]+$/i",
+     *     message="Votre nom ne doit pas comporter de chiffre et ni de symbole"
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Type("string")
+     * @Assert\NotBlank
+     * @Assert\Length(min=20)
+     * 
      */
     private $description;
 
@@ -83,29 +96,48 @@ class Logement
     private $ville;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=false)
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *      min = 10,
+     *      minMessage = "Avez vous bien saisi votre adresse ?"
+     * )
      */
     private $adresse;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(
-     *      min = 5,
-     *      max = 5,
-     *      minMessage = "Le code postal doit faire {{ limit }} caractères de long",
-     *      maxMessage = "Le code postal ne peut pas dépasser {{ limit }} caractères"
+     * @ORM\Column(type="string", length=5, nullable=false)
+     * @Assert\Type("string")
+     * @Assert\Regex(
+     *     pattern="/^[0-9]{5,5}$/",
+     *     message="Le code postal doit être composé de 5 chiffres."
      * )
      */
     private $codePostal;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Type("integer")
+     * @Assert\Range(
+     *      min = 1 ,
+     *      max = 10,
+     *      minMessage = "le nombre de personne doit être au minimum {{ limit }}",
+     *      maxMessage = "le nombre de personne ne peut pas dépasser {{ limit }}"
+     * )
      */
     private $nbPersonne;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Type("integer")
+     * @Assert\Range(
+     *      min = 1 ,
+     *      max = 10,
+     *      minMessage = "le nombre de couchage doit être au minimum {{ limit }}",
+     *      maxMessage = "le nombre de couchage ne peut pas dépasser {{ limit }}"
+     * )
      */
+ 
     private $nbCouchage;
 
     /**
