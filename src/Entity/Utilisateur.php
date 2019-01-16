@@ -25,28 +25,63 @@ class Utilisateur implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "Le nom doit avoir au minimum 2 lettres ?"
+     * )
+     * @Assert\Regex(
+     *     pattern="/^[a-z]+$/i",
+     *     message="Votre nom ne doit pas comporter de chiffre et ni de symbole"
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "Le prénom doit avoir au minimum 2 lettres ?"
+     * )
+     * @Assert\Regex(
+     *     pattern="/^[a-z]+$/i",
+     *     message="Votre prénom ne doit pas comporter de chiffre et ni de symbole"
+     * )
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *      min = 10,
+     *      minMessage = "Avez vous bien saisi votre adresse ?"
+     * )
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
-     * @Assert\Email()
+     * @Assert\Email(strict=true, message="Le format de l'email est incorrect")
+     * @Assert\Email(checkMX=true, message="Aucun serveur mail n'a été trouvé pour ce domaine")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Type("integer", message="Ce n'est pas un numéro de téléphone")
+     * @Assert\Range(
+     *      min = 10,
+     *      minMessage = "Le numéro de téléphone est incorrecte, exemple à saisir : 0102030405",
+     *      max = 10,
+     *      maxMessage = "Le numéro de téléphone est incorrecte, exemple à saisir : 0102030405"
+     * )
      */
     private $telephone;
 
@@ -101,11 +136,6 @@ class Utilisateur implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $newsletter;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Paiement", mappedBy="utilisateur")
-     */
-    private $paiements;
 
     public function __construct() {
         $this->valideUser = 0;
@@ -377,37 +407,6 @@ class Utilisateur implements UserInterface
     public function setNewsletter(bool $newsletter): self
     {
         $this->newsletter = $newsletter;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Paiement[]
-     */
-    public function getPaiements(): Collection
-    {
-        return $this->paies;
-    }
-
-    public function addPaiement(Paiement $paie): self
-    {
-        if (!$this->paies->contains($paie)) {
-            $this->paies[] = $paie;
-            $paie->setUtilisateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removePaiement(Paiement $paie): self
-    {
-        if ($this->paies->contains($paie)) {
-            $this->paies->removeElement($paie);
-            // set the owning side to null (unless already changed)
-            if ($paie->getUtilisateur() === $this) {
-                $paie->setUtilisateur(null);
-            }
-        }
 
         return $this;
     }

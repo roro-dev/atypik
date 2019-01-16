@@ -29,7 +29,7 @@
           <img class="card-img-top" src="/img/cabane.jpg" alt="Card image cap">
           <div class="card-body">
             <h4 class="card-title ">{{ lo.nom }}</h4>
-            <h5 class="card-title">LIMOGES - {{ lo.prix }}€/nuit </h5>
+            <h5 class="card-title">{{ lo.getVille().getNom() }} - {{ lo.prix }}€/nuit </h5>
             <p class="card-text">{{ lo.description }}</p>
             <button type="button" class="btn btn-consulter"><a href="{{ path('logement_index', {'id': lo.id}) }}" class="a-consulter">Consulter</a></button>
           </div>
