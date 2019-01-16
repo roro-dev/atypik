@@ -89,14 +89,4 @@ class HomeController extends AbstractController
         ;
         return $mailer->send($message);
     }
-
-    /**
-     * @Route("/profil", name="profile_route")
-     * @Security("has_role('ROLE_USER')")
-     */
-    public function profil() {
-        return $this->render('home/profil.html.twig', [
-            'user' => $this->getUser()
-        ]);
-    }
 }
