@@ -151,7 +151,7 @@ class Logement
  
     private $nbCouchage;
 
-        /**
+    /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Type("string")
      * @Assert\NotBlank
@@ -159,6 +159,24 @@ class Logement
      * 
      */
     private $commodites;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Type("string")
+     * @Assert\NotBlank
+     * @Assert\Length(min=20, minMessage = "Votre réglement contenir au minimum 20 caractères")
+     * 
+     */
+    private $reglement;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Type("string")
+     * @Assert\NotBlank
+     * @Assert\Length(min=20, minMessage = "Vos activités doivent contenir au minimum 20 caractères")
+     * 
+     */
+    private $activiteAproximite;
 
     /**
      * @ORM\Column(type="boolean")
@@ -213,6 +231,30 @@ class Logement
     public function setCommodites(string $commodites): self
     {
         $this->commodites = $commodites;
+
+        return $this;
+    }
+
+    public function getReglement(): ?string
+    {
+        return $this->reglement;
+    }
+
+    public function setReglement(string $reglement): self
+    {
+        $this->reglement = $reglement;
+
+        return $this;
+    }
+
+    public function getActiviteAproximite(): ?string
+    {
+        return $this->activiteAproximite;
+    }
+
+    public function setActiviteAproximite(string $activiteAproximite): self
+    {
+        $this->activiteAproximite = $activiteAproximite;
 
         return $this;
     }

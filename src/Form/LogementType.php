@@ -77,7 +77,20 @@ class LogementType extends AbstractType
             ->add('commodites', TextareaType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
-                )
+                ),
+                'label' => 'Commodités de votre logement'
+            ))
+            ->add('reglement', TextareaType::class, array(
+                'attr' => array(
+                    'class' => 'form-control'
+                ),
+                'label' => 'Réglement de votre logement'
+            ))
+            ->add('activiteAproximite', TextareaType::class, array(
+                'attr' => array(
+                    'class' => 'form-control'
+                ),
+                'label' => 'Activités à proximité de votre bien'
             ))
             ->add('photosUploads', FileType::class, array(
                 'attr' => array(
