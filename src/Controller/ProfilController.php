@@ -13,6 +13,8 @@ Class ProfilController extends AbstractController {
      * @Route("/profil", name="profil")
      */
     public function index() {
-        return $this->render('home/profil.html.twig');
+        return $this->render('home/profil.html.twig', [
+            'reservations' => $this->getUser()->getReservations()
+        ]);
     }
 }
