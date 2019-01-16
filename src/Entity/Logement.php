@@ -151,6 +151,15 @@ class Logement
  
     private $nbCouchage;
 
+        /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Type("string")
+     * @Assert\NotBlank
+     * @Assert\Length(min=20, minMessage = "Vos commoditées doivent contenir au minimum 20 caractères")
+     * 
+     */
+    private $commodites;
+
     /**
      * @ORM\Column(type="boolean")
      */
@@ -192,6 +201,18 @@ class Logement
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getCommodites(): ?string
+    {
+        return $this->commodites;
+    }
+
+    public function setCommodites(string $commodites): self
+    {
+        $this->commodites = $commodites;
 
         return $this;
     }

@@ -74,6 +74,11 @@ class LogementType extends AbstractType
                 ),
                 'label' => 'Nombre de couchages'
             ))
+            ->add('commodites', TextareaType::class, array(
+                'attr' => array(
+                    'class' => 'form-control'
+                )
+            ))
             ->add('photosUploads', FileType::class, array(
                 'attr' => array(
                     'class' => 'form-control-file'
