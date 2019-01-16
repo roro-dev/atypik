@@ -450,6 +450,10 @@ ul.list-unstyled li a{
 }
 /*Profil*/
 
+.dashboard{
+	color:black;
+}
+
 .menuProfil{
 	height: 2em;
 }

@@ -53,6 +53,40 @@ class HomeController extends AbstractController
     }
 
     /**
+     * @Route("/categorie-logement/{type}", name="rechercheCategorie_route")
+     */
+    public function rechercheLogement(Request $request, string $type){
+        try{
+        $data = array(
+            'type' => (!empty($request->request->get('type'))) ? $request->request->get('type') : 0,
+            'ville' => (!empty($request->request->get('ville'))) ? $request->request->get('ville') : '',
+            'nb' => (!empty($request->request->get('nb'))) ? $request->request->get('nb') : 1,
+            'depart' => (!empty($request->request->get('depart'))) ? $request->request->get('depart') : date('d/m/Y'),
+            'arrivee' => (!empty($request->request->get('arrivee'))) ? $request->request->get('arrivee') : date('d/m/Y', strtotime('+1 day'))
+        );
+        $repo = $this->getDoctrine()->getRepository(TypeLogement::class);
+        $repoSearch = $this->getDoctrine()->getRepository(Logement::class);
+        $logements = $repoSearch->findByCriteres(array('type' => $request->request->get('type'), 'nb' => $request->request->get('nb')));
+        return $this->render('home/categorie-logement.html.twig', [
+            'types' => $repo->findAll(),
+            'data' => $data,
+            'logements' => $logements
+        ]);
+        }
+        catch(EntityNotFoundException $e){
+            var_dump($e);
+        }
+        
+    }
+
+
+
+
+
+
+
+
+    /**
      * @Route("/contact", name="contact_route")
      */
     public function contact(Request $request, \Swift_Mailer $mailer) {        
