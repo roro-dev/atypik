@@ -557,6 +557,13 @@ h3.titreLogement {
     border: 1px solid #dee2e6;
 }
 
+.hote{
+    margin: 30px 15px 0px 15px;
+    padding: 0px 30px 30px 30px;
+	border: 1px solid #dee2e6;
+	text-align: center;
+}
+
 .prix{
 	font-size: 1.5rem;
     font-weight: 500;
@@ -572,6 +579,19 @@ h4.sous-titre {
 
 .adresse-location{
 	margin-bottom: 15px;
+}
+
+.nom-hote {
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.logement-hote {
+    font-style: italic;
+}
+
+.icone-proprio{
+	margin-bottom: 10px;
 }
 
 .form-group ul li{
