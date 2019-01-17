@@ -214,4 +214,22 @@ Class LogementController extends AbstractController {
         ;
         return $mailer->send($message);
     }
+
+    /**
+     * @Route("/categorie-logement/{type}", name="rechercheCategorie_route")
+     */
+    public function rechercheLogement(int $type){
+        $data = array(
+            'type' => $type,
+            'ville' => '',
+            'nb' => 1,
+            'depart' => date('d/m/Y'),
+            'arrivee' => date('d/m/Y', strtotime('+1 day'))
+        );
+        return $this->render('logement/categorie-logement.html.twig', [
+            'types' => $this->getDoctrine()->getRepository(TypeLogement::class)->findAll(),
+            'data' => $data,
+            'logements' => $this->getDoctrine()->getRepository(Logement::class)->findByCriteres(array('type' => $type, 'nb' => 1))
+        ]);
+    }
 }
