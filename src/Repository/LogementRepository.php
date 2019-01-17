@@ -32,9 +32,11 @@ class LogementRepository extends ServiceEntityRepository
                 FROM App\Entity\Logement l
                 WHERE l.id_type = :type 
                 AND l.nbPersonne >= :nb
+                AND l.etat >= :etat
                 ')
             ->setParameter('type', $_data['type'])
-            ->setParameter('nb', $_data['nb']);
+            ->setParameter('nb', $_data['nb'])
+            ->setParameter('etat', $_data['etat']);
             $result = $query->execute();
         }        
         return $result;

@@ -21,6 +21,9 @@ class ReservationRepository extends ServiceEntityRepository
 
     /**
      * Permet de récupérer les anciennes réservations d'un utilisateur
+     * @param   Utilisateur $_utilisateur
+     * @param   string      $_date
+     * @return  Collection|Reservation[]
      */
     public function findAnciennesReservations($_user, $_date) {
         if(!empty($_user) && !empty($_date)) {
@@ -42,6 +45,9 @@ class ReservationRepository extends ServiceEntityRepository
 
     /**
      * Permet de récupérer les prochaines réservations d'un utilisateur
+     * @param   Utilisateur $_utilisateur
+     * @param   string      $_date
+     * @return  Collection|Reservation[]
      */
     public function findProchainesReservations($_user, $_date) {
         if(!empty($_user) && !empty($_date)) {
@@ -59,5 +65,30 @@ class ReservationRepository extends ServiceEntityRepository
             return $result;
         }
         return null;
+    }
+
+    /**
+     * Permet de récupérer les reservations d'un utilisateur et un logement donné
+     * @param   Logement    $_logement
+     * @param   Utilisateur $_utilisateur
+     * @param   string      $_date
+     * @return  Collection|Reservation[]
+     */
+    public function findResasBy($_logement, $_utilisateur, $_date) {
+        $result = array();
+        if(!empty($_logement) && !empty($_utilisateur) && !empty($_date)) {
+            $entityManager = $this->getEntityManager();
+            $query = $entityManager->createQuery('SELECT r
+                FROM App\Entity\Reservation r
+                WHERE r.id_logement = :logement
+                AND r.id_utilisateur = :user
+                AND r.date_fin < :date
+                ')
+                ->setParameter('logement', $_logement)
+                ->setParameter('user', $_utilisateur)
+                ->setParameter('date', $_date);
+            $result = $query->execute();
+        }        
+        return $result;
     }
 }
