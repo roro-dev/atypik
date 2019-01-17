@@ -170,15 +170,6 @@ class Logement
     private $reglement;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Type("string")
-     * @Assert\NotBlank
-     * @Assert\Length(min=20, minMessage = "Vos activités doivent contenir au minimum 20 caractères")
-     * 
-     */
-    private $activiteAproximite;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $etat;
@@ -243,18 +234,6 @@ class Logement
     public function setReglement(string $reglement): self
     {
         $this->reglement = $reglement;
-
-        return $this;
-    }
-
-    public function getActiviteAproximite(): ?string
-    {
-        return $this->activiteAproximite;
-    }
-
-    public function setActiviteAproximite(string $activiteAproximite): self
-    {
-        $this->activiteAproximite = $activiteAproximite;
 
         return $this;
     }

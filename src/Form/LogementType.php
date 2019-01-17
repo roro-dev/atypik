@@ -86,12 +86,6 @@ class LogementType extends AbstractType
                 ),
                 'label' => 'Réglement de votre logement'
             ))
-            ->add('activiteAproximite', TextareaType::class, array(
-                'attr' => array(
-                    'class' => 'form-control'
-                ),
-                'label' => 'Activités à proximité de votre bien'
-            ))
             ->add('photosUploads', FileType::class, array(
                 'attr' => array(
                     'class' => 'form-control-file'
