@@ -28,7 +28,9 @@ Class LogementController extends AbstractController {
             if($logement->getEtat() === true) {
             return $this->render('logement/index.html.twig', [
                 'logement' => $logement,
-                'photos' => $logement->getPhotos()
+                'photos' => $logement->getPhotos(),
+                'reservations' => $this->getDoctrine()->getRepository(Reservation::class)->findResasBy($logement, $this->getUser(), date('Y-m-d H:i:s')),
+                'commentaires' => $logement->getCommentaires()
             ]);
             } else {
                 return $this->redirectToRoute('rechercheCategorie_route', array('type' => $logement->getIdType()->getId()));
