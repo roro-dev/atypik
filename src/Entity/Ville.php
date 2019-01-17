@@ -33,6 +33,16 @@ class Ville
      */
     private $logements;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $codePostal;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $departement;
+
     public function __construct()
     {
         $this->logements = new ArrayCollection();
@@ -94,6 +104,30 @@ class Ville
                 $logement->setVille(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCodePostal(): ?string
+    {
+        return $this->codePostal;
+    }
+
+    public function setCodePostal(string $codePostal): self
+    {
+        $this->codePostal = $codePostal;
+
+        return $this;
+    }
+
+    public function getDepartement(): ?string
+    {
+        return $this->departement;
+    }
+
+    public function setDepartement(string $departement): self
+    {
+        $this->departement = $departement;
 
         return $this;
     }

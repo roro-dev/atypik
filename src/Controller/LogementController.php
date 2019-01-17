@@ -140,16 +140,17 @@ Class LogementController extends AbstractController {
         $form = $this->createForm(LogementType::class, $logement);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
+            //ajout de la ville
+            if(!empty($request->request->get('logement_ville'))) {
+                $ville = $this->getDoctrine()->getRepository(Ville::class)->findOneBy(['nom' => trim($request->request->get('logement_ville'))]);
+                if(!empty($ville)) {
+                    $logement->setVille($ville);
+                    $logement->setCodePostal($ville->getCodePostal());
+                }
+            }
             if($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($logement);
-                //ajout de la ville
-                if(!empty($request->request->get('logement_ville'))) {
-                    $ville = $this->getDoctrine()->getRepository(Ville::class)->findOneBy(['nom' => trim($request->request->get('logement_ville'))]);
-                    if(!empty($ville)) {
-                        $logement->setVille($ville);
-                    }
-                }
+                $em->persist($logement);                
                 //ajout des parametres
                 if(!empty($request->request->get('params'))) {
                     $params = $request->request->get('params');
@@ -186,7 +187,7 @@ Class LogementController extends AbstractController {
                     'email' => $this->getUser()->getEmail(),
                     'prenom' => $this->getUser()->getPrenom()
                 ));
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('home_route');
             } else {
                 $this->addFlash('error', 'L\'ajout du logement a rencontré un problème.');
             }
