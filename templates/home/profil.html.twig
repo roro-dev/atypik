@@ -8,10 +8,10 @@
   <div class="row">
     <div class="col-md-3 navProfil">
       <ul class="nav nav-tabs">
-        <li><a data-toggle="tab" href="#dashboard" class="list-group-item list-group-item-action active">Tableau de bord</a></li>
-        <li><a data-toggle="tab" href="#reservations" class="list-group-item list-group-item-action">Mes réservations</a></li>
-        <li><a data-toggle="tab" href="#messages" class="list-group-item list-group-item-action">Messages</a></li>
-        <li><a data-toggle="tab" href="#informations" class="list-group-item list-group-item-action">Mon Profil</a></li>
+        <li><a id="link_dashboard" data-toggle="tab" href="#dashboard" class="list-group-item list-group-item-action active">Tableau de bord</a></li>
+        <li><a id="link_reservations" data-toggle="tab" href="#reservations" class="list-group-item list-group-item-action">Mes réservations</a></li>
+        <li><a id="link_messages" data-toggle="tab" href="#messages" class="list-group-item list-group-item-action">Messages</a></li>
+        <li><a id="link_informations" data-toggle="tab" href="#informations" class="list-group-item list-group-item-action">Mon Profil</a></li>
       </ul>
     </div>
     <div class="col-md-8 offset-md-1">
@@ -20,7 +20,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="tab-content">
-                <div class="tab-pane active" id="dashboard">
+                <div class="tab-pane" id="dashboard">
                  <div class="row">
                   <div class="col-md-12">
                     <h4>Tableau de bord</h4>
@@ -165,4 +165,9 @@
 </div>
 </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script type="text/javascript" src="/js/profil.js"></script>  
 {% endblock %}
