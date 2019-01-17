@@ -15,11 +15,12 @@ use App\Entity\Photo;
 use App\Entity\ParametresLogement;
 use App\Entity\ParametresType;
 use App\Entity\TypePaiement;
+use App\Entity\TypeLogement;
 
 Class LogementController extends AbstractController {
 
     /**
-     * @Route("/logement/{id}", name="logement_index")
+     * @Route("/logement/{id}", name="logement_index")con
      */
     public function index(Int $id, Request $request) {
         $repo = $this->getDoctrine()->getRepository(Logement::class);
