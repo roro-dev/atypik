@@ -7,4 +7,4 @@
 npm-debug.log
 ###< symfony/webpack-encore-bundle ###
 /public/uploads/
-/src/Migrations
+/src/Migrations/
