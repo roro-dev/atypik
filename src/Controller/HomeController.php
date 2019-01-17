@@ -17,6 +17,10 @@ class HomeController extends AbstractController
      * @Route("/", name="home_route")
      */
     public function index(Request $request) {
+        $dateDebut = new \DateTime('2019-02-18 23:00:00');
+        $dateFin = new \DateTime('2019-01-18 23:00:00');
+        $today = new \DateTime(date('Y-m-d H:i:s'));
+        var_dump($today < $dateDebut);
         return $this->render('home/index.html.twig', [
             'types' => $this->getDoctrine()->getRepository(TypeLogement::class)->findAll(),
             'data' => array('type' => 0, 'ville' => '', 'nb' => 1, 'depart' => date('d/m/Y'),'arrivee' => date('d/m/Y', strtotime('+1 day')))
