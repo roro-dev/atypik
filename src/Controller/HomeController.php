@@ -18,17 +18,6 @@ class HomeController extends AbstractController
      * @Route("/", name="home_route")
      */
     public function index(Request $request) {
-        $t = $this->getDoctrine()->getRepository(Logement::class)->findOneBy(['id' => 4]);
-        echo count($t->getReservations());
-        $today = new \DateTime(date('Y-m-d H:i:s'));
-        foreach($t->getReservations() as $r) {
-            if($today >= $r->getDateDebut() && $today <= $r->getDateFin()) {
-                echo 'c"est diie';
-                break;
-            } else {
-                echo 'c"est good';
-            }
-        }
         return $this->render('home/index.html.twig', [
             'types' => $this->getDoctrine()->getRepository(TypeLogement::class)->findAll(),
             'data' => array('type' => 0, 'ville' => '', 'nb' => 1, 'depart' => date('d/m/Y'),'arrivee' => date('d/m/Y', strtotime('+1 day')))
