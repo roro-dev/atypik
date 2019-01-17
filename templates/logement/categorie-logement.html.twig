@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche{% endblock %}
+
+{% block body %}
+
+<div id="formulaire">
+  {% include 'form-recherche.html.twig' %}
+  <img src="/img/chair.jpeg" />
+</div>
+
+<div class="container">
+  {% if logements is empty %}
+  <div class="row">
+    <div class="col-sm3">
+      <h3>Aucun résultat</h3>
+    </div>
+  </div>
+  {% else %}
+  <div class="row">
+    <div class="col-sm3">
+      <h3>Résultats de la recherche:</h3>
+    </div>
+  </div>
+  <div class="row">
+    {% for lo in logements %}
+      <div class="col-sm-4">
+        <div class="card">
+          <img class="card-img-top" src="/img/cabane.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title ">{{ lo.nom }}</h4>
+            <h5 class="card-title">{{ lo.getVille().getNom() }} - {{ lo.prix }}€/nuit </h5>
+            <p class="card-text">{{ lo.description }}</p>
+            <button type="button" class="btn btn-consulter"><a href="{{ path('logement_index', {'id': lo.id}) }}" class="a-consulter">Consulter</a></button>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -32,7 +32,7 @@ class Utilisateur implements UserInterface
      *      minMessage = "Le nom doit avoir au minimum 2 lettres ?"
      * )
      * @Assert\Regex(
-     *     pattern="/^[a-z]+$/i",
+     *     pattern="/^[a-z\s+a-z]+$/i",
      *     message="Votre nom ne doit pas comporter de chiffre et ni de symbole"
      * )
      */
@@ -47,7 +47,7 @@ class Utilisateur implements UserInterface
      *      minMessage = "Le prénom doit avoir au minimum 2 lettres ?"
      * )
      * @Assert\Regex(
-     *     pattern="/^[a-z]+$/i",
+     *     pattern="/^[a-z\s+a-z]+$/i",
      *     message="Votre prénom ne doit pas comporter de chiffre et ni de symbole"
      * )
      */
@@ -75,10 +75,12 @@ class Utilisateur implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Type("integer", message="Ce n'est pas un numéro de téléphone")
-     * @Assert\Range(
+     * @Assert\Regex(
+     *     pattern="/^[0-9]+$/i",
+     *     message="Veuillez saisir seulement des chiffres"
+     * )
+     * @Assert\Length(
      *      min = 10,
-     *      minMessage = "Le numéro de téléphone est incorrecte, exemple à saisir : 0102030405",
      *      max = 10,
      *      maxMessage = "Le numéro de téléphone est incorrecte, exemple à saisir : 0102030405"
      * )

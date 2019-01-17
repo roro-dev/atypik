@@ -15,11 +15,12 @@ use App\Entity\Photo;
 use App\Entity\ParametresLogement;
 use App\Entity\ParametresType;
 use App\Entity\TypePaiement;
+use App\Entity\TypeLogement;
 
 Class LogementController extends AbstractController {
 
     /**
-     * @Route("/logement/{id}", name="logement_index")
+     * @Route("/logement/{id}", name="logement_index")con
      */
     public function index(Int $id, Request $request) {
         $repo = $this->getDoctrine()->getRepository(Logement::class);
@@ -120,6 +121,7 @@ Class LogementController extends AbstractController {
         if ($form->isSubmitted()) {
             if($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
+                $em->persist($logement);
                 //ajout de la ville
                 if(!empty($request->request->get('logement_ville'))) {
                     $ville = $this->getDoctrine()->getRepository(Ville::class)->findOneBy(['nom' => trim($request->request->get('logement_ville'))]);
@@ -137,7 +139,8 @@ Class LogementController extends AbstractController {
                         $p->setValeur($v);
                         $em->persist($p);
                         $em->flush();
-                        $logement->addParametre($p);                   
+                        $logement->addParametre($p); 
+                        $em->persist($logement);                  
                     }
                 }
                 //ajout des photos
@@ -153,14 +156,14 @@ Class LogementController extends AbstractController {
                     $em->persist($photo);
                     $em->flush();
                     $logement->addPhoto($photo);
-                }                
-                $em->persist($logement);
+                }           
+                $em->persist($logement);     
                 $em->flush();
                 $this->addFlash('success', 'Logement ajouté avec succès. Vous allez recevoir un mail dés lors que votre bien sera validé par notre équipe.');
                //envoi de mail
                $result = $this->mailAjout($mailer, array(
-                    'email' => $user->getEmail(),
-                    'prenom' => $user->getPrenom()
+                    'email' => $this->getUser()->getEmail(),
+                    'prenom' => $this->getUser()->getPrenom()
                 ));
                 return $this->redirectToRoute('home');
             } else {
@@ -213,5 +216,23 @@ Class LogementController extends AbstractController {
             )
         ;
         return $mailer->send($message);
+    }
+
+    /**
+     * @Route("/categorie-logement/{type}", name="rechercheCategorie_route")
+     */
+    public function rechercheLogement(int $type){
+        $data = array(
+            'type' => $type,
+            'ville' => '',
+            'nb' => 1,
+            'depart' => date('d/m/Y'),
+            'arrivee' => date('d/m/Y', strtotime('+1 day'))
+        );
+        return $this->render('logement/categorie-logement.html.twig', [
+            'types' => $this->getDoctrine()->getRepository(TypeLogement::class)->findAll(),
+            'data' => $data,
+            'logements' => $this->getDoctrine()->getRepository(Logement::class)->findByCriteres(array('type' => $type, 'nb' => 1))
+        ]);
     }
 }
