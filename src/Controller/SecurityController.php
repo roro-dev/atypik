@@ -53,7 +53,7 @@ class SecurityController extends AbstractController
                 } else {
                     $this->addFlash('error', 'Une erreur est survenue lors de l\'envoi de mail.');
                 }
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('login_route');
             } else {
                 $this->addFlash('error', 'La création de compte a connu certains problèmes.');
             }
