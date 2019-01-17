@@ -5,8 +5,8 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'fr'
-
     uploads_directory: '%kernel.project_dir%/public/uploads/logements'
+    api_token: 'eTpU6yFAERv9g5q7Pi3t498'
 
 services:
     # default configuration for services in *this* file

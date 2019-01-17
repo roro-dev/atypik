@@ -229,7 +229,7 @@ Class LogementController extends AbstractController {
             'depart' => date('d/m/Y'),
             'arrivee' => date('d/m/Y', strtotime('+1 day'))
         );
-        return $this->render('logement/categorie-logement.html.twig', [
+        return $this->render('home/recherche.html.twig', [
             'types' => $this->getDoctrine()->getRepository(TypeLogement::class)->findAll(),
             'data' => $data,
             'logements' => $this->getDoctrine()->getRepository(Logement::class)->findByCriteres(array('type' => $type, 'nb' => 1))
