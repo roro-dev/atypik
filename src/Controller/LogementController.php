@@ -61,38 +61,42 @@ Class LogementController extends AbstractController {
             if(($dateDebut > $today) && ($dateFin > $today)) {
                 if ($dateDebut->diff($dateFin)->format('%R%a') > 0) {
                     if($this->checkValidity($logement, $dateDebut, $dateFin) === true) {
-                        \Stripe\Stripe::setApiKey("sk_test_3lLQ5AiZpJxagEIuatnEhiNe");                
-                        $charge = \Stripe\Charge::create([
-                            "amount" => $request->request->get('prixTotal') * 100,
-                            "currency" => "eur",
-                            "source" => $request->request->get('stripeToken'),
-                            "description" => "Réservation Atypik'House " . date('d/m/y H:i:s'),
-                            'receipt_email' => trim($this->getUser()->getEmail())
-                        ]);
-                        if(!empty($charge) && $charge->status == 'succeeded') {
-                            $res = new Reservation();
-                            $res->setLogement($logement);
-                            $res->setUtilisateur($this->getUser());
-                            $res->setDateCreation($today);
-                            $res->setDateDebut($dateDebut);
-                            $res->setDateFin($dateFin);
-                            $res->setNbPersonne($request->request->get('nbPersonne'));
-                            $res->setPrixTotal($request->request->get('prixTotal'));
-                            $res->setTokenPaiement($charge->id);
-                            $res->setMode($this->getDoctrine()->getRepository(TypePaiement::class)->findOneBy(['id' => 1]));
-                            $entityManager = $this->getDoctrine()->getManager();
-                            $entityManager->persist($res);
-                            $entityManager->flush();
-                            $this->mailPayer($mailer,
-                                array(
-                                    'resa' => $res,
-                                    'email' => $this->getUser()->getEmail()
-                                )
-                            );
-                            $this->addFlash('success', 'Réservation enregistrée. Vous allez recevoir un récapitulatif d\'ici peu.');
-                            return $this->redirectToRoute('logement_index', array('id' => $logement->getId()));
+                        if($request->request->get('nbPersonne') <= $logement->getNbPersonne()) {
+                            \Stripe\Stripe::setApiKey("sk_test_3lLQ5AiZpJxagEIuatnEhiNe");                
+                            $charge = \Stripe\Charge::create([
+                                "amount" => $request->request->get('prixTotal') * 100,
+                                "currency" => "eur",
+                                "source" => $request->request->get('stripeToken'),
+                                "description" => "Réservation Atypik'House " . date('d/m/y H:i:s'),
+                                'receipt_email' => trim($this->getUser()->getEmail())
+                            ]);
+                            if(!empty($charge) && $charge->status == 'succeeded') {
+                                $res = new Reservation();
+                                $res->setLogement($logement);
+                                $res->setUtilisateur($this->getUser());
+                                $res->setDateCreation($today);
+                                $res->setDateDebut($dateDebut);
+                                $res->setDateFin($dateFin);
+                                $res->setNbPersonne($request->request->get('nbPersonne'));
+                                $res->setPrixTotal($request->request->get('prixTotal'));
+                                $res->setTokenPaiement($charge->id);
+                                $res->setMode($this->getDoctrine()->getRepository(TypePaiement::class)->findOneBy(['id' => 1]));
+                                $entityManager = $this->getDoctrine()->getManager();
+                                $entityManager->persist($res);
+                                $entityManager->flush();
+                                $this->mailPayer($mailer,
+                                    array(
+                                        'resa' => $res,
+                                        'email' => $this->getUser()->getEmail()
+                                    )
+                                );
+                                $this->addFlash('success', 'Réservation enregistrée. Vous allez recevoir un récapitulatif d\'ici peu.');
+                                return $this->redirectToRoute('logement_index', array('id' => $logement->getId()));
+                            } else {
+                                $this->addFlash('error', 'Paiement refusé.');
+                            }
                         } else {
-                            $this->addFlash('error', 'Paiement refusé.');
+                            $this->addFlash('error', 'Attention : veuillez saisir un nombre inférieur ou égal au nombre de personnes maximum du logement.');
                         }
                     } else {
                         $this->addFlash('error', 'Attention : ce logement est déjà réservé à ces dates là.');
@@ -262,7 +266,7 @@ Class LogementController extends AbstractController {
         $valid = true;
         $reservations = $logement->getReservations();
         if(!empty($reservations)) {
-            foreach($reservations as $res) {
+            foreach($reservations as $r) {
                 if(($debut >= $r->getDateDebut() && $debut <= $r->getDateFin()) || ($fin >= $r->getDateDebut() && $fin <= $r->getDateFin())) {
                     $valid = false;
                     break;
