@@ -14,7 +14,7 @@ use App\Form\ContactType;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/", name="home_route")
      */
     public function index(Request $request) {
         return $this->render('home/index.html.twig', [
@@ -36,7 +36,7 @@ class HomeController extends AbstractController
         );
         $repo = $this->getDoctrine()->getRepository(TypeLogement::class);
         $repoSearch = $this->getDoctrine()->getRepository(Logement::class);
-        $logements = $repoSearch->findByCriteres(array('type' => $request->request->get('type'), 'nb' => $request->request->get('nb')));
+        $logements = $repoSearch->findByCriteres(array('type' => $request->request->get('type'), 'nb' => $request->request->get('nb'), 'etat' => 1));
         return $this->render('home/recherche.html.twig', [
             'types' => $repo->findAll(),
             'data' => $data,

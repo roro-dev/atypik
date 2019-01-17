@@ -26,7 +26,7 @@
     {% for logement in logements %}
       <div class="col-sm-4">
         <div class="card">
-          <img class="card-img-top" src="/uploads/logements/{{logement.id}}/{{logement.getPhotos()[0].photo}}" alt="{{ logement.getNom() }}">
+          <img class="card-img-top" src="{% if logement.getPhotos() is not empty %}/uploads/logements/{{logement.id ~ '/' ~ logement.getPhotos()[0].photo}} {% else %}/img/types-habitat/{{ logement.getIdType().getPathImg()}} {% endif %}" alt="{{ logement.getNom() }}">
           <div class="card-body">
             <h4 class="card-title ">{{ logement.nom }}</h4>
             <h5 class="card-title">{{ logement.getVille().getNom() }} - {{ logement.prix }}€/nuit </h5>

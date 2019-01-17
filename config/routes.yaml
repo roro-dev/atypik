@@ -1,10 +1,2 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
-
-home_route:
-  path: /
-  controller: App\Controller\HomeController::index
-
 logout_route:
   path: /logout

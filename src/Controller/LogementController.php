@@ -23,12 +23,19 @@ Class LogementController extends AbstractController {
      * @Route("/logement/{id}", name="logement_index")con
      */
     public function index(Int $id, Request $request) {
-        $repo = $this->getDoctrine()->getRepository(Logement::class);
-        $logement = $repo->findOneBy(['id' => $id]);
-        return $this->render('logement/index.html.twig', [
-            'logement' => $logement,
-            'photos' => $logement->getPhotos()
-        ]);
+        $logement = $this->getDoctrine()->getRepository(Logement::class)->findOneBy(['id' => $id]);
+        if(!empty($logement)) {
+            if($logement->getEtat() === true) {
+            return $this->render('logement/index.html.twig', [
+                'logement' => $logement,
+                'photos' => $logement->getPhotos()
+            ]);
+            } else {
+                return $this->redirectToRoute('rechercheCategorie_route', array('type' => $logement->getIdType()->getId()));
+            }
+        } else {
+            return $this->redirectToRoute('home_route');
+        }    
     }
 
     /**
@@ -232,7 +239,7 @@ Class LogementController extends AbstractController {
         return $this->render('home/recherche.html.twig', [
             'types' => $this->getDoctrine()->getRepository(TypeLogement::class)->findAll(),
             'data' => $data,
-            'logements' => $this->getDoctrine()->getRepository(Logement::class)->findByCriteres(array('type' => $type, 'nb' => 1))
+            'logements' => $this->getDoctrine()->getRepository(Logement::class)->findByCriteres(array('type' => $type, 'nb' => 1, 'etat' => 1))
         ]);
     }
 }
