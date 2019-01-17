@@ -75,10 +75,12 @@ class Utilisateur implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Type("integer", message="Ce n'est pas un numéro de téléphone")
-     * @Assert\Range(
+     * @Assert\Regex(
+     *     pattern="/^[0-9]+$/i",
+     *     message="Veuillez saisir seulement des chiffres"
+     * )
+     * @Assert\Length(
      *      min = 10,
-     *      minMessage = "Le numéro de téléphone est incorrecte, exemple à saisir : 0102030405",
      *      max = 10,
      *      maxMessage = "Le numéro de téléphone est incorrecte, exemple à saisir : 0102030405"
      * )
