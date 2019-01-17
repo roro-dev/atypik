@@ -3,26 +3,13 @@
 {% block title %}{{ logement.nom }} {% endblock %}
 
 {% block body %}
+{% for flash_message in app.session.flashBag.get('success') %}
+<div class="alert alert-success">
+  {{ flash_message }}
+</div>
+{% endfor %}
 
 <div id="bandeau-logement">
-  {#<form action="/logement/{{ logement.id }}/reservation" method="post">
-    {% for flash_message in app.session.flashBag.get('error') %}
-    <div class="alert alert-danger">
-      {{ flash_message }}
-    </div>
-    {% endfor %}
-    <div class="form-group">
-      <input type="text" class="form-control" name="dateDebut" id="dateDebut" value="{{ "now"|date("d/m/Y") }}" />
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control" name="dateFin" id="dateFin" value="{{ "tomorrow"|date("d/m/Y") }}" />
-    </div>
-    <div class="form-group">
-      <input type="number" name="nbPersonne" class="form-control" min="1" max="{{ logement.nbPersonne }}" placeholder="Nombre de voyageurs"
-        value="1" />
-    </div>
-    <button type="submit" class="btn btn-recherche">Réserver</button>
-  </form>#}
   <button type="button" class="btn btn-photo" onclick="openModal();currentSlide(1)">Voir les photos</button>
   <img src="/uploads/logements/{{logement.id}}/{{photos[0].photo}}" />
 </div>
@@ -116,12 +103,12 @@
       <h4>Localisez l'hébergement</h4>
 
       <div class="adresse-location">
-      {{ logement.adresse ~ ' ' ~ logement.codePostal }}
-      {% if logement.getVille() is not empty %}
-      {{ logement.getVille().getNom() }}
-      {% endif %}
+        {{ logement.adresse ~ ' ' ~ logement.codePostal }}
+        {% if logement.getVille() is not empty %}
+        {{ logement.getVille().getNom() }}
+        {% endif %}
 
-       </div>
+      </div>
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5737941.053577054!2d-0.5600409326626958!3d45.39463663443821!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12ab22a7cd2b8547%3A0xe10e3cdc7f734cdc!2sLes+cabanes+dans+les+arbres!5e0!3m2!1sfr!2sfr!4v1544963589952"
         height="400" frameborder="0" style="border:0; width: 100%" allowfullscreen></iframe>
 
@@ -133,7 +120,7 @@
     <div class="col">
       <div class="resa">
         <div class="prix">
-          {{ logement.prix }} € 
+          {{ logement.prix }} €
           <small>par nuit</small>
         </div>
         <div class="etoile">
@@ -170,74 +157,26 @@
           <button type="submit" class="btn btn-recherche " onclick="location.href='{{ path('logement_reservation', {'id': logement.id }) }}'">Réserver</button>
         </form>
       </div>
+
+      <div class="hote">
+        <h4 class="sous-titre"> Votre hôte </h4>
+
+        <img class="icone-proprio" src="/img/picto/proprio.svg" />
+        <p class="nom-hote">Nom de l'hôte</p>
+        <p class="logement-hote">Hôte {{ logement.nom }}</p>
+        <button type="submit" class="btn btn-recherche">Contacter</button>
+
+
+      </div>
     </div>
   </div>
 </div>
 
-<!--<div class="container">
-  <hr />
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="container">
-        <div class="row">
-          <div class="comments col-md-12" id="comments">
-            <h3 class="mb-2">Commentaires</h3>
-            <div class="comment mb-2 row">
-                <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
-                    <a href=""><img class="mx-auto rounded-circle img-fluid" src="http://demos.themes.guide/bodeo/assets/images/users/m103.jpg" alt="avatar"></a>
-                </div>
-                <div class="comment-content col-md-11 col-sm-10">
-                    <h6 class="small comment-meta"><a href="#">admin</a> Today, 2:38</h6>
-                    <div class="comment-body">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod <a href>http://wwwwww.com</a> tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
-                            <br>
-                            <a href="" class="text-right small"><i class="ion-reply"></i> Reply</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="comment-reply col-md-11 offset-md-1 col-sm-10 offset-sm-2">
-                    <div class="row">
-                        <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
-                            <a href=""><img class="mx-auto rounded-circle img-fluid" src="http://demos.themes.guide/bodeo/assets/images/users/m101.jpg" alt="avatar"></a>
-                        </div>
-                        <div class="comment-content col-md-11 col-sm-10 col-12">
-                            <h6 class="small comment-meta"><a href="#">phildownney</a> Today, 12:31</h6>
-                            <div class="comment-body">
-                                <p>Really?? Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.
-                                    <br>
-                                    <a href="" class="text-right small"><i class="ion-reply"></i> Reply</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-               </div>
-            </div>
-            <div class="comment mb-2 row">
-                <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
-                    <a href=""><img class="mx-auto rounded-circle img-fluid" src="http://demos.themes.guide/bodeo/assets/images/users/w102.jpg" alt="avatar"></a>
-                </div>
-                <div class="comment-content col-md-11 col-sm-10">
-                    <h6 class="small comment-meta"><a href="#">maslarino</a> Yesterday, 5:03 PM</h6>
-                    <div class="comment-body">
-                        <p>Sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
-                            <br>
-                            <a href="" class="text-right small"><i class="ion-reply"></i> Reply</a>
-                        </p>
-                    </div>
-                </div>
-            </div>-->
-            <div class="row pt-2">
-              <div class="col-12">
-                <a href="" class="btn btn-sm btn-primary">Comment</a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 {% endblock %}
