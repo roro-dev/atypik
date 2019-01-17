@@ -53,25 +53,20 @@
                 <br>
                 <div class="row">
                     <div class="col">
-                        {{ form_label(form.plainPassword.first, 'Mot de passe') }}
+                         <div class="form-group" >
+                        {{ form_row(form.plainPassword.first) }}
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        {{ form_widget(form.plainPassword.first) }}
-                    </div>
-                </div>  
                 <br>
                 <div class="row">
                     <div class="col">
-                        {{ form_label(form.plainPassword.second, 'Répéter le mot de passe') }}
+                     <div class="form-group" >
+                        {{ form_row(form.plainPassword.second) }}
+                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        {{ form_widget(form.plainPassword.second) }}
-                    </div>
-                </div>                
+                       
                 <br>
                 <div class="row">
                     <div class="col">

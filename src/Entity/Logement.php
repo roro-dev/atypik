@@ -28,7 +28,7 @@ class Logement
      *      minMessage = "Le nom doit avoir au minimum 2 lettres ?"
      * )
      * @Assert\Regex(
-     *     pattern="/^[a-z]+$/i",
+     *     pattern="/^[a-z\s+a-z]+$/i"
      *     message="Votre nom ne doit pas comporter de chiffre et ni de symbole"
      * )
      */
@@ -94,11 +94,6 @@ class Logement
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="logements")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank
-     * @Assert\Length(
-     *      min = 2,
-     *      minMessage = "Veuillez saisir une ville"
-     * )
      */
     private $ville;
 
@@ -127,7 +122,10 @@ class Logement
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
-     * @Assert\Type("integer", message="Pas la bonne valeur")
+      * @Assert\Regex(
+     *     pattern="/^[0-9]+$/i",
+     *     message="Veuillez saisir seulement un nombre entre 1 et 10"
+     * )
      * @Assert\Range(
      *      min = 1 ,
      *      max = 10,
@@ -140,7 +138,10 @@ class Logement
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank
-     * @Assert\Type("integer")
+     * @Assert\Regex(
+     *     pattern="/^[0-9]+$/i",
+     *     message="Veuillez saisir seulement un nombre entre 1 et 10"
+     * )
      * @Assert\Range(
      *      min = 1 ,
      *      max = 10,

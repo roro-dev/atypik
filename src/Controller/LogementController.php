@@ -121,6 +121,7 @@ Class LogementController extends AbstractController {
         if ($form->isSubmitted()) {
             if($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
+                $em->persist($logement);
                 //ajout de la ville
                 if(!empty($request->request->get('logement_ville'))) {
                     $ville = $this->getDoctrine()->getRepository(Ville::class)->findOneBy(['nom' => trim($request->request->get('logement_ville'))]);
@@ -138,7 +139,8 @@ Class LogementController extends AbstractController {
                         $p->setValeur($v);
                         $em->persist($p);
                         $em->flush();
-                        $logement->addParametre($p);                   
+                        $logement->addParametre($p); 
+                        $em->persist($logement);                  
                     }
                 }
                 //ajout des photos
@@ -154,14 +156,14 @@ Class LogementController extends AbstractController {
                     $em->persist($photo);
                     $em->flush();
                     $logement->addPhoto($photo);
-                }                
-                $em->persist($logement);
+                }           
+                $em->persist($logement);     
                 $em->flush();
                 $this->addFlash('success', 'Logement ajouté avec succès. Vous allez recevoir un mail dés lors que votre bien sera validé par notre équipe.');
                //envoi de mail
                $result = $this->mailAjout($mailer, array(
-                    'email' => $user->getEmail(),
-                    'prenom' => $user->getPrenom()
+                    'email' => $this->getUser()->getEmail(),
+                    'prenom' => $this->getUser()->getPrenom()
                 ));
                 return $this->redirectToRoute('home');
             } else {
