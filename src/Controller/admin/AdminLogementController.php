@@ -144,12 +144,27 @@ class AdminLogementController extends AbstractController
     /**
      * @Route("/valider/{id}", name="logement_valider", methods="GET|POST")
      */
-    public function validerLogement(Logement $logement) : Response {
+    public function validerLogement(Logement $logement, \Swift_Mailer $mailer) : Response {
         if($logement->getEtat() === false) {
             $logement->setEtat(true);
             $em = $this->getDoctrine()->getManager();
             $em->persist($logement);
             $em->flush();
+            $message = (new \Swift_Message("Atypik'House - Votre bien est en ligne !"))
+                ->setFrom('contact@atypikhouse.fr')
+                ->setTo($logement->getIdProprietaire()->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'emails/logement-valide.html.twig',
+                        array(
+                            'prenom' => $logement->getIdProprietaire()->getPrenom(),
+                            'id' => $logement->getId()
+                        )
+                    ),
+                    'text/html'
+                )
+            ;
+            $mailer->send($message);
             $this->addFlash('success', 'Le logement "' . $logement->getNom() . '" a bien été validé.');
         } else {                
             $this->addFlash('error', 'Ce logement est déjà validé.');
