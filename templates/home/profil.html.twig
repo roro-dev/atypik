@@ -44,16 +44,20 @@
                           </h5>
                         </div>
                         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                          {% for r in newResas %}
-                            <div class="card-body">
-                              <div class="boxReservation">
-                                <img class="img" src="/uploads/logements/{{ r.getLogement().getId() ~ '/' ~ r.getLogement().getPhotos[0].getPhoto() }}">
-                                <h5 class="card-title">{{ r.getLogement().getNom() }} du {{ r.getDateDebut()|date('d/m/Y') }} au {{ r.getDateFin()|date('d/m/Y') }}</h5>
-                                <p class="card-text">{{ r.getLogement().getDescription() }}</p>
-                                <p class="card-text"><small class="text-muted">Réservé le {{ r.getDateCreation()|date('d/m/Y') }}</small></p>
+                          {% if newResas is not empty %}
+                            {% for r in newResas %}
+                              <div class="card-body">
+                                <div class="boxReservation">
+                                  <img class="img" src="/uploads/logements/{{ r.getLogement().getId() ~ '/' ~ r.getLogement().getPhotos[0].getPhoto() }}">
+                                  <h5 class="card-title">{{ r.getLogement().getNom() }} du {{ r.getDateDebut()|date('d/m/Y') }} au {{ r.getDateFin()|date('d/m/Y') }}</h5>
+                                  <p class="card-text">{{ r.getLogement().getDescription() }}</p>
+                                  <p class="card-text"><small class="text-muted">Réservé le {{ r.getDateCreation()|date('d/m/Y') }}</small></p>
+                                </div>
                               </div>
-                            </div>
-                          {% endfor %}
+                            {% endfor %}
+                          {% else %}
+                            <div class="card-body">Aucun voyage en cours et/ou à venir.</div>
+                          {% endif %}
                         </div>
                       </div>
                       <div class="card">
@@ -65,6 +69,7 @@
                           </h5>
                         </div>
                         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                          {% if newResas is not empty %}
                           {% for r in oldResas %}
                             <div class="card-body">
                               <div class="boxReservation">
@@ -75,6 +80,9 @@
                               </div>
                             </div>
                           {% endfor %}
+                          {% else %}
+                            <div class="card-body">Aucun voyage dans l'historique.</div>                            
+                          {% endif %}
                         </div>
                       </div>
                     </div>
