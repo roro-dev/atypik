@@ -32,7 +32,7 @@ class Utilisateur implements UserInterface
      *      minMessage = "Le nom doit avoir au minimum 2 lettres ?"
      * )
      * @Assert\Regex(
-     *     pattern="/^[a-z]+$/i",
+     *     pattern="/^[a-z\s+a-z]+$/i",
      *     message="Votre nom ne doit pas comporter de chiffre et ni de symbole"
      * )
      */
@@ -47,7 +47,7 @@ class Utilisateur implements UserInterface
      *      minMessage = "Le prénom doit avoir au minimum 2 lettres ?"
      * )
      * @Assert\Regex(
-     *     pattern="/^[a-z]+$/i",
+     *     pattern="/^[a-z\s+a-z]+$/i",
      *     message="Votre prénom ne doit pas comporter de chiffre et ni de symbole"
      * )
      */
