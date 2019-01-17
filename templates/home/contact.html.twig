@@ -4,11 +4,11 @@
 
 {% block body %}
 <div id="formulaire">
-  <img src="/img/imageFormRecherche.png">
+  <img src="/img/chair.jpeg">
 </div>
 <div class="container">
   <div class="row">
-      <div class="col-sm-8">
+      <div class="col-sm-7">
         <h3>Contactez-nous :</h3>
         {% for flash_message in app.session.flashBag.get('success') %}
           <div class="alert alert-success">
@@ -75,7 +75,7 @@
           </div>
         {{ form_end(form) }}
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-4 offset-sm-1">
         <h3>Adresse :</h3>
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d83280.71776938635!2d2.8671825886990967!3d49.28544588451889!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e883b6e52c4f35%3A0x910e94dfdbb0b056!2s55+Rue+Gustave+Eiffel%2C+60800+Cr%C3%A9py-en-Valois!5e0!3m2!1sfr!2sfr!4v1547210381301" width="400" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
         <p>55, Rue Gustave Eiffel<br />60800 Crépy-en-Valois<br />France</p>

@@ -47,6 +47,22 @@ class Reservation
      */
     private $nbPersonne;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $prixTotal;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $tokenPaiement;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\TypePaiement", inversedBy="reservations")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $mode;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -130,5 +146,41 @@ class Reservation
      */
     public function getPrixResa() {
         return $this->date_debut->diff($this->date_fin)->format('%a') * $this->getLogement()->getPrix();
+    }
+
+    public function getPrixTotal(): ?float
+    {
+        return $this->prixTotal;
+    }
+
+    public function setPrixTotal(float $prixTotal): self
+    {
+        $this->prixTotal = $prixTotal;
+
+        return $this;
+    }
+
+    public function getTokenPaiement(): ?string
+    {
+        return $this->tokenPaiement;
+    }
+
+    public function setTokenPaiement(string $tokenPaiement): self
+    {
+        $this->tokenPaiement = $tokenPaiement;
+
+        return $this;
+    }
+
+    public function getMode(): ?TypePaiement
+    {
+        return $this->mode;
+    }
+
+    public function setMode(?TypePaiement $mode): self
+    {
+        $this->mode = $mode;
+
+        return $this;
     }
 }

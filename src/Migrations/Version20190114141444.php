@@ -8,14 +8,14 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190102192508 extends AbstractMigration
+final class Version20190114141444 extends AbstractMigration
 {
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE logement ADD etat TINYINT(1) NOT NULL');
+        $this->addSql('ALTER TABLE logement ADD nb_couchage INT NOT NULL, CHANGE etat etat TINYINT(1) NOT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -23,6 +23,6 @@ final class Version20190102192508 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE logement DROP etat');
+        $this->addSql('ALTER TABLE logement DROP nb_couchage, CHANGE etat etat TINYINT(1) NOT NULL COMMENT \'0 - à valider, 1 - validé\'');
     }
 }

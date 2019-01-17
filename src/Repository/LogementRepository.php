@@ -27,45 +27,16 @@ class LogementRepository extends ServiceEntityRepository
     public function findByCriteres($_data) {
         $result = array();
         if(!empty($_data) && is_array($_data)) {
-            $conn = $this->getEntityManager()->getConnection();
-            $query = 'SELECT l.*
-                FROM logement l
-                WHERE l.id_type_id = :type 
-                AND l.nb_personne <= :nb';
-            $stmt = $conn->prepare($query);
-            $stmt->execute(['type' => $_data['type'], 'nb' => $_data['nb']]);
-            $result = $stmt->fetchAll();
+            $entityManager = $this->getEntityManager();
+            $query = $entityManager->createQuery('SELECT l
+                FROM App\Entity\Logement l
+                WHERE l.id_type = :type 
+                AND l.nbPersonne >= :nb
+                ')
+            ->setParameter('type', $_data['type'])
+            ->setParameter('nb', $_data['nb']);
+            $result = $query->execute();
         }        
         return $result;
     }
-
-
-//    /**
-//     * @return Logement[] Returns an array of Logement objects
-//     */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Logement
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

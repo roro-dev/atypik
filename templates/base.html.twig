@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Atypik'House > {% block title %}{% endblock %}</title>
+  <title>{% block title %}{% endblock %} &bull; Atypik'House</title>
   <link rel="icon" type="image/png" href="/img/logo.png" />
   {% block stylesheet %}
   <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -14,59 +14,71 @@
 </head>
 
 <body>
-
   <nav class="navbar navbar-expand-lg navbar-light">
   <a id="title" class="navbar-brand" href="/">
     <img src="/img/logo.png" height="30" width="30" />
     Atypik'House
   </a>
-  
+  {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% if 'ROLE_ADMIN' in app.user.getRoles() %}
+        | <a class="navbar" href="{{ path('logement_liste') }}">Accès BackOffice</a>    
+    {% endif %}
+  {% endif %}  
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-          <ul class="mr-auto"></ul>
-
+      <ul class="mr-auto"></ul>
       {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-
+        <div class="d-none d-lg-block">
           <ul class="nav navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="/register"><img id="avatarLogin" src="/img/header/avatarLogin.png"></a>
-            </li>
-            <li class="nav-item">
-              <div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div>
+              <a class="btn btn-success" href="{{ path('logement_ajout') }}">Ajouter un bien</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/register"><img id="cloche" src="/img/header/cloche.png"></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ path('logement_ajout') }}">Ajouter un bien</a>
-            </li>
-            <li class="nav-item">
-              <button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'">
-                  <p>Deconnexion</p>
-                </button>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="Utilisateur" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img id="avatarLogin" src="/img/header/avatarLogin.png">Bienvenue {{ app.user.prenom }}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/profil#informations">Mes informations</a>
+                <a class="dropdown-item" href="/profil#reservations">Mes réservations</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/logout">Déconnexion</a>
+              </div>
             </li>
         </ul>
-  
-
-      <div class="d-flex justify-content-end d-none d-md-block d-lg-none">
-        <div class="d-flex bd-highlight flex-column">
-          <div class="p-3 justify-content-end"><img id="avatarLogin" src="/img/header/avatarLogin.png"></div>
-          <div class="p-3 flex-fill bd-highlight">
-            <div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div>
-          </div>
-          <div class="p-3 flex-fill bd-highlight"><img id="cloche" src="/img/header/cloche.png"></div>
-          <div class="p-3 flex-fill bd-highlight"><button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'">
+    </div>
+    <div class="d-block d-lg-none">
+      <ul class="nav navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link sousMenu" href=""><div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div></a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link sousMenu" href="/profil#voyages"><div id="Utilisateur">Mon Profil</div></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link sousMenu" href="/recherche"><div id="Utilisateur">Rechercher un logement</div></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link sousMenu" href="/contact"><div id="Utilisateur">Contact</div></a>
+        </li>
+        <li class="nav-item">
+          <button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'">
               <p>Deconnexion</p>
-            </button></div>
-        </div>
-      </div>
+            </button>
+        </li>
+      </ul>
+    </div>
       {% else %}
-      <ul class="nav navbar-nav">        
+      <ul class="nav navbar-nav"> 
+        <li class="nav-item">
+            <a class="btn btn-success" href="{{ path('logement_ajout') }}">Ajouter un bien</a>
+        </li>       
         <li class="nav-item">
           <a class="nav-link" href="/register">Inscription</a>
         </li>
@@ -86,7 +98,7 @@
         <div class="col-md-4 mx-auto">
           <h5 class="font-weight-bold text-uppercase mt-3 mb-4">A PROPOS...</h5>
           <p>Atypik'House est un site mis en place pour faciliter les démarches entre propriétaires de
-            logements atypiques, et rêveurs qui désirent passer une ou plusieurs nuit dans un endroit hors du commun...
+            logements atypiques, et rêveurs qui désirent passer une ou plusieurs nuits dans un endroit hors du commun...
             En espérant que vous trouverez votre bonheur, nous vous souhaitons une excellente visite.</p>
         </div>
         <hr class="w-100 d-md-none">
@@ -120,7 +132,7 @@
           <ul class="list-unstyled">
             <li><a href="">Mentions légales</a></li>
             <li><a href="">Qui sommes nous</a></li>
-            <li><a href="">Contactez nous</a></li>
+            <li><a href="{{ path('contact_route') }}">Contactez nous</a></li>
           </ul>
         </div>
       </div>

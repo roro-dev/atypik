@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Back Office - {% block title %}{% endblock %}</title>
+        <title>{% block title %}{% endblock %} &bull; Atypik'House - Back Office</title>
         <link rel="icon" type="image/png" href="/img/logo.png" />
         {% block stylesheets %}
             <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -17,12 +17,15 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a href="/" class="nav-link">Retourner au site Atypik'House</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Logements
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ path('logement_liste') }}">Liste des logements</a>
+                                <a class="dropdown-item" href="{{ path('logement_liste') }}">Liste de tous les logements</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ path('reservation_liste') }}">Réservations</a>
                                 <div class="dropdown-divider"></div>

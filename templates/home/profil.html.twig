@@ -1,9 +1,147 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Mon Profil{% endblock %}
-
 {% block body %}
-    {#
-    contenu html
-     #}
+<div id="formulaire">
+  <img src="/img/chair.jpeg">
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 navProfil">
+      <ul class="nav nav-tabs">
+        <li><a data-toggle="tab" href="#dashboard" class="list-group-item list-group-item-action active">Tableau de bord</a></li>
+        <li><a data-toggle="tab" href="#reservations" class="list-group-item list-group-item-action">Mes réservations</a></li>
+        <li><a data-toggle="tab" href="#messages" class="list-group-item list-group-item-action">Messages</a></li>
+        <li><a data-toggle="tab" href="#informations" class="list-group-item list-group-item-action">Mes informations</a></li>
+      </ul>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <div class="card noborder">
+        <div class="cardProfil">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="tab-content">
+                <div class="tab-pane active" id="dashboard">
+                 <div class="row">
+                  <div class="col-md-12">
+                    <h4>Tableau de bord</h4>
+                    <hr>
+                  </div>
+                </div>
+              </div>
+              {# Mes réservations #}
+              <div class="tab-pane" id="reservations">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4>Mes réservations</h4>
+                    <hr>
+                    <div id="accordion">
+                      <div class="card">
+                        <div class="card-header" id="headingOne">
+                          <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                              Voyages en cours ou à venir
+                            </button>
+                          </h5>
+                        </div>
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                          {% for r in newResas %}
+                            <div class="card-body">
+                              <div class="boxReservation">
+                                <img class="img" src="/uploads/logements/{{ r.getLogement().getId() ~ '/' ~ r.getLogement().getPhotos[0].getPhoto() }}">
+                                <h5 class="card-title">{{ r.getLogement().getNom() }} du {{ r.getDateDebut()|date('d/m/Y') }} au {{ r.getDateFin()|date('d/m/Y') }}</h5>
+                                <p class="card-text">{{ r.getLogement().getDescription() }}</p>
+                                <p class="card-text"><small class="text-muted">Réservé le {{ r.getDateCreation()|date('d/m/Y') }}</small></p>
+                              </div>
+                            </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header" id="headingTwo">
+                          <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                              Historiques de vos séjours
+                            </button>
+                          </h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                          {% for r in oldResas %}
+                            <div class="card-body">
+                              <div class="boxReservation">
+                                <img class="img" src="/uploads/logements/{{ r.getLogement().getId() ~ '/' ~ r.getLogement().getPhotos[0].getPhoto() }}">
+                                <h5 class="card-title">{{ r.getLogement().getNom() }} du {{ r.getDateDebut()|date('d/m/Y') }} au {{ r.getDateFin()|date('d/m/Y') }}</h5>
+                                <p class="card-text">{{ r.getLogement().getDescription() }}</p>
+                                <p class="card-text"><small class="text-muted">Réservé le {{ r.getDateCreation()|date('d/m/Y') }}</small></p>
+                              </div>
+                            </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            {# Informations #}
+            <div class="tab-pane" id="informations">
+             <div class="row">
+              <div class="col-md-12">
+                <h4>Mes informations</h4>
+                <hr>
+              </div>
+              <form>
+                <div class="form-group row">
+                  <label for="username" class="col-4 col-form-label">Nom*</label> 
+                  <div class="col-8">
+                    <input value="{{ app.user.getNom() }}"  id="nom" name="nom" placeholder="Nom" class="form-control here" required="required" type="text">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="name" class="col-4 col-form-label">Prénom</label> 
+                  <div class="col-8">
+                    <input value="{{ app.user.getPrenom() }}"  id="prenom" name="prenom" placeholder="Prenom" class="form-control here" required="required" type="text">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="email" class="col-4 col-form-label">Email*</label> 
+                  <div class="col-8">
+                    <input value="{{ app.user.getTelephone() }}"  id="email" name="email" placeholder="Email" class="form-control here" required="required" type="text">
+                  </div>
+                </div>
+                <div class="form-group row">  
+                  <label for="name" class="col-4 col-form-label">Téléphone</label> 
+                  <div class="col-8">
+                    <input value="{{ app.user.getTelephone() }}" id="metier" name="metier" placeholder="Metier" class="form-control here" required="required" type="text">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="website" class="col-4 col-form-label">Adresse</label> 
+                  <div class="col-8">
+                    <input value="{{ app.user.getAdresse() }}"  id="adresse" name="adresse" placeholder="Adresse" class="form-control here" type="text">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="offset-4 col-8">
+                    <button name="submit" type="submit" class="btn btn-success">Mettre à jour mon profil</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          {# Messages #}
+          <div class="tab-pane" id="messages">
+           <div class="row">
+            <div class="col-md-12">
+              <h4>Messages</h4>
+              <hr>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
 {% endblock %}

@@ -25,28 +25,63 @@ class Utilisateur implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "Le nom doit avoir au minimum 2 lettres ?"
+     * )
+     * @Assert\Regex(
+     *     pattern="/^[a-z]+$/i",
+     *     message="Votre nom ne doit pas comporter de chiffre et ni de symbole"
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "Le prénom doit avoir au minimum 2 lettres ?"
+     * )
+     * @Assert\Regex(
+     *     pattern="/^[a-z]+$/i",
+     *     message="Votre prénom ne doit pas comporter de chiffre et ni de symbole"
+     * )
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *      min = 10,
+     *      minMessage = "Avez vous bien saisi votre adresse ?"
+     * )
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
-     * @Assert\Email()
+     * @Assert\Email(strict=true, message="Le format de l'email est incorrect")
+     * @Assert\Email(checkMX=true, message="Aucun serveur mail n'a été trouvé pour ce domaine")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Type("integer", message="Ce n'est pas un numéro de téléphone")
+     * @Assert\Range(
+     *      min = 10,
+     *      minMessage = "Le numéro de téléphone est incorrecte, exemple à saisir : 0102030405",
+     *      max = 10,
+     *      maxMessage = "Le numéro de téléphone est incorrecte, exemple à saisir : 0102030405"
+     * )
      */
     private $telephone;
 
@@ -60,11 +95,6 @@ class Utilisateur implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="id_utilisateur", orphanRemoval=true)
      */
     private $commentaires;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Payer", mappedBy="id_utilisateur", orphanRemoval=true)
-     */
-    private $paiements;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="id_utilisateur")
@@ -102,12 +132,18 @@ class Utilisateur implements UserInterface
      */
     private $cgv;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $newsletter;
+
     public function __construct() {
         $this->valideUser = 0;
         $this->commentaires = new ArrayCollection();
         $this->paiements = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->logements = new ArrayCollection();
+        $this->paiements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -212,37 +248,6 @@ class Utilisateur implements UserInterface
             // set the owning side to null (unless already changed)
             if ($commentaire->getIdUtilisateur() === $this) {
                 $commentaire->setIdUtilisateur(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Payer[]
-     */
-    public function getPaiements(): Collection
-    {
-        return $this->paiements;
-    }
-
-    public function addPaiement(Payer $paiement): self
-    {
-        if (!$this->paiements->contains($paiement)) {
-            $this->paiements[] = $paiement;
-            $paiement->setIdUtilisateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removePaiement(Payer $paiement): self
-    {
-        if ($this->paiements->contains($paiement)) {
-            $this->paiements->removeElement($paiement);
-            // set the owning side to null (unless already changed)
-            if ($paiement->getIdUtilisateur() === $this) {
-                $paiement->setIdUtilisateur(null);
             }
         }
 
@@ -390,6 +395,18 @@ class Utilisateur implements UserInterface
     public function setCgv(bool $cgv): self
     {
         $this->cgv = $cgv;
+
+        return $this;
+    }
+
+    public function getNewsletter(): ?bool
+    {
+        return $this->newsletter;
+    }
+
+    public function setNewsletter(bool $newsletter): self
+    {
+        $this->newsletter = $newsletter;
 
         return $this;
     }

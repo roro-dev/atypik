@@ -33,9 +33,20 @@
                         <td>{{ logement.getIdType().getType() }}</td>
                         <td>{{ logement.prix }} €</td>
                         <td>
-                            <a href="{{ path('utilisateur_edit', {'id': logement.getIdProprietaire().getId()}) }}" class="btn btn-primary" title="Voir le propriétaire du logement">V</a>
-                            <a href="{{ path('logement_edit', {'id': logement.id}) }}" class="btn btn-success" title="Modifier le logement">M</a>
-                            <a href="{{ path('logement_delete', {'id': logement.id}) }}" class="btn btn-danger" title="Supprimer le logement">S</a>
+                            <a href="{{ path('utilisateur_edit', {'id': logement.getIdProprietaire().getId()}) }}" class="btn btn-warning" title="Voir le propriétaire du logement">
+                                <img src="/img/picto/owner.svg" /></a>
+                            <a href="{{ path('logement_edit', {'id': logement.id}) }}" class="btn btn-info" title="Modifier le logement">
+                                <img src="/img/picto/pencil.svg" />
+                            </a>
+                            {% if logement.etat == true %}
+                                <a href="{{ path('logement_desactiver', {'id': logement.id}) }}" class="btn btn-danger" title="Désactiver le logement">
+                                    <img src="/img/picto/uncheck.svg" />
+                                </a>
+                            {% else %}
+                                <a href="{{ path('logement_valider', {'id': logement.id}) }}" class="btn btn-success" title="Valider le logement">
+                                    <img src="/img/picto/check.svg" />
+                                </a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% else %}

@@ -24,13 +24,14 @@ class TypePaiement
     private $mode_paiement;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Payer", mappedBy="id_paiement", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="mode")
      */
-    private $paiements;
+    private $reservations;
 
     public function __construct()
     {
         $this->paiements = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -46,35 +47,34 @@ class TypePaiement
     public function setModePaiement(string $mode_paiement): self
     {
         $this->mode_paiement = $mode_paiement;
-
         return $this;
     }
 
     /**
-     * @return Collection|Payer[]
+     * @return Collection|Reservation[]
      */
-    public function getPaiements(): Collection
+    public function getReservations(): Collection
     {
-        return $this->paiements;
+        return $this->reservations;
     }
 
-    public function addPaiement(Payer $paiement): self
+    public function addReservation(Reservation $reservation): self
     {
-        if (!$this->paiements->contains($paiement)) {
-            $this->paiements[] = $paiement;
-            $paiement->setIdPaiement($this);
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setMode($this);
         }
 
         return $this;
     }
 
-    public function removePaiement(Payer $paiement): self
+    public function removeReservation(Reservation $reservation): self
     {
-        if ($this->paiements->contains($paiement)) {
-            $this->paiements->removeElement($paiement);
+        if ($this->reservations->contains($reservation)) {
+            $this->reservations->removeElement($reservation);
             // set the owning side to null (unless already changed)
-            if ($paiement->getIdPaiement() === $this) {
-                $paiement->setIdPaiement(null);
+            if ($reservation->getMode() === $this) {
+                $reservation->setMode(null);
             }
         }
 
