@@ -155,17 +155,12 @@ class Logement
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Type("string")
-     * @Assert\NotBlank
-     * @Assert\Length(min=20, minMessage = "Vos commoditées doivent contenir au minimum 20 caractères")
-     * 
      */
     private $commodites;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Type("string")
-     * @Assert\NotBlank
-     * @Assert\Length(min=20, minMessage = "Votre réglement contenir au minimum 20 caractères")
      * 
      */
     private $reglement;
