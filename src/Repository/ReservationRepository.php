@@ -19,32 +19,45 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
-//    /**
-//     * @return Reservation[] Returns an array of Reservation objects
-//     */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+    /**
+     * Permet de récupérer les anciennes réservations d'un utilisateur
+     */
+    public function findAnciennesReservations($_user, $_date) {
+        if(!empty($_user) && !empty($_date)) {
+            $entityManager = $this->getEntityManager();
+            $query = $entityManager->createQuery(
+                'SELECT r
+                FROM App\Entity\Reservation r
+                WHERE r.id_utilisateur = :user
+                AND r.date_debut <= :date
+                ORDER BY r.date_debut'
+            )
+            ->setParameter('user', $_user)
+            ->setParameter('date', $_date);
+            $result = $query->execute();
+            return $result;
+        }
+        return null;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Reservation
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+    /**
+     * Permet de récupérer les prochaines réservations d'un utilisateur
+     */
+    public function findProchainesReservations($_user, $_date) {
+        if(!empty($_user) && !empty($_date)) {
+            $entityManager = $this->getEntityManager();
+            $query = $entityManager->createQuery(
+                'SELECT r
+                FROM App\Entity\Reservation r
+                WHERE r.id_utilisateur = :user
+                AND r.date_debut > :date
+                ORDER BY r.date_debut'
+            )
+            ->setParameter('user', $_user)
+            ->setParameter('date', $_date);
+            $result = $query->execute();
+            return $result;
+        }
+        return null;
     }
-    */
 }
