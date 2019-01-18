@@ -30,9 +30,6 @@
                 {{ form_row(form.adresse) }}
             </div>
             <div class="form-group">
-                {{ form_row(form.codePostal) }}
-            </div>
-            <div class="form-group">
                 <label for="logement_ville">Ville</label>
                 <input type="text" class="form-control" autocomplete="off" id="logement_ville" name="logement_ville" required="required"/>
             </div>
@@ -44,6 +41,12 @@
             </div>
             <div class="form-group">
                 {{ form_row(form.nbCouchage) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.commodites) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.reglement) }}
             </div>
             <div class="form-group">
                 {{ form_row(form.photosUploads) }}

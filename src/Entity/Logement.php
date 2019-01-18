@@ -28,7 +28,7 @@ class Logement
      *      minMessage = "Le nom doit avoir au minimum 2 lettres ?"
      * )
      * @Assert\Regex(
-     *     pattern="/^[a-z\s+a-z]+$/i",
+     *     pattern="/^[a-z\s+a-z+ÖØ-öø-ÿ]+$/i",
      *     message="Votre nom ne doit pas comporter de chiffre et ni de symbole"
      * )
      */
@@ -38,7 +38,7 @@ class Logement
      * @ORM\Column(type="string", length=255)
      * @Assert\Type("string")
      * @Assert\NotBlank
-     * @Assert\Length(min=20, minMessage = "Votre description doit contenir au minimum 20 caractères")
+     * @Assert\Length(max=255, maxMessage = "Votre description ne doit pas dépasser 255 caractères")
      * 
      */
     private $description;
@@ -110,12 +110,7 @@ class Logement
 
     /**
      * @ORM\Column(type="string", length=5, nullable=false)
-     * @Assert\NotBlank
      * @Assert\Type("string")
-     * @Assert\Regex(
-     *     pattern="/^[0-9]{5,5}$/",
-     *     message="Le code postal doit être composé de 5 chiffres."
-     * )
      */
     private $codePostal;
 
@@ -128,7 +123,7 @@ class Logement
      * )
      * @Assert\Range(
      *      min = 1 ,
-     *      max = 10,
+     *      max = 20,
      *      minMessage = "le nombre de personne doit être au minimum {{ limit }} et au maximum 10",
      *      maxMessage = "le nombre de personne ne peut pas dépasser {{ limit }}"
      * )
@@ -144,13 +139,26 @@ class Logement
      * )
      * @Assert\Range(
      *      min = 1 ,
-     *      max = 10,
+     *      max = 20,
      *      minMessage = "le nombre de couchage doit être au minimum {{ limit }}",
      *      maxMessage = "le nombre de couchage ne peut pas dépasser {{ limit }}"
      * )
      */
  
     private $nbCouchage;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Type("string")
+     */
+    private $commodites;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Type("string")
+     * 
+     */
+    private $reglement;
 
     /**
      * @ORM\Column(type="boolean")
@@ -193,6 +201,30 @@ class Logement
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getCommodites(): ?string
+    {
+        return $this->commodites;
+    }
+
+    public function setCommodites(string $commodites): self
+    {
+        $this->commodites = $commodites;
+
+        return $this;
+    }
+
+    public function getReglement(): ?string
+    {
+        return $this->reglement;
+    }
+
+    public function setReglement(string $reglement): self
+    {
+        $this->reglement = $reglement;
 
         return $this;
     }

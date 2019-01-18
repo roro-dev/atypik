@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recherche{% endblock %}
+{% block title %}Recherche de logements{% endblock %}
 
 {% block body %}
 
@@ -19,19 +19,19 @@
   {% else %}
   <div class="row">
     <div class="col-sm3">
-      <h3>Résultats de la recherche:</h3>
+      <h3>Résultats de la recherche :</h3>
     </div>
   </div>
   <div class="row">
-    {% for lo in logements %}
+    {% for logement in logements %}
       <div class="col-sm-4">
         <div class="card">
-          <img class="card-img-top" src="/img/cabane.jpg" alt="Card image cap">
+          <img class="card-img-top" src="{% if logement.getPhotos() is not empty %}/uploads/logements/{{logement.id ~ '/' ~ logement.getPhotos()[0].photo}} {% else %}/img/types-habitat/{{ logement.getIdType().getPathImg()}} {% endif %}" alt="{{ logement.getNom() }}">
           <div class="card-body">
-            <h4 class="card-title ">{{ lo.nom }}</h4>
-            <h5 class="card-title">{{ lo.getVille().getNom() }} - {{ lo.prix }}€/nuit </h5>
-            <p class="card-text">{{ lo.description }}</p>
-            <button type="button" class="btn btn-consulter"><a href="{{ path('logement_index', {'id': lo.id}) }}" class="a-consulter">Consulter</a></button>
+            <h4 class="card-title ">{{ logement.nom }}</h4>
+            <h5 class="card-title">{{ logement.getVille().getNom() }} - {{ logement.prix }}€/nuit </h5>
+            <p class="card-text">{{ logement.description }}</p>
+            <button type="button" class="btn btn-consulter"><a href="{{ path('logement_index', {'id': logement.id}) }}" class="a-consulter">Consulter</a></button>
           </div>
         </div>
       </div>
