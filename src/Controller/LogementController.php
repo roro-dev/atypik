@@ -16,6 +16,7 @@ use App\Entity\ParametresLogement;
 use App\Entity\ParametresType;
 use App\Entity\TypePaiement;
 use App\Entity\TypeLogement;
+use App\Entity\Commentaire;
 
 Class LogementController extends AbstractController {
 
@@ -277,5 +278,24 @@ Class LogementController extends AbstractController {
             }
         }
         return $valid;
+    }
+
+    /**
+     * Permet de commenter un logement
+     * @Route("/commenter/{id}", name="commenter_route", methods="post")
+     */
+    public function commenterLogement(Logement $logement, Request $request) {
+        if(!empty($request->request->get('id_user')) && !empty($request->request->get('titre')) && !empty($request->request->get('contenu'))) {
+            $comm = new Commentaire();$em = $this->getDoctrine()->getManager();            
+            $comm->setIdLogement($logement);
+            $comm->setIdUtilisateur($this->getUser());
+            $comm->setTitre($request->request->get('titre'));
+            $comm->setContenu($request->request->get('contenu'));
+            $comm->setNote($request->request->get('note'));
+            $comm->setDateCommentaire(date('Y-m-d H:i:s'));
+            $em->persist($comm);
+            $em->flush();
+            $this->addFlash('success', 'Votre commentaire a bien été ajouté.');
+        }
     }
 }
