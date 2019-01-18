@@ -48,7 +48,7 @@
                             {% for r in newResas %}
                               <div class="card-body">
                                 <div class="boxReservation">
-                                  <img class="img" src="/uploads/logements/{{ r.getLogement().getId() ~ '/' ~ r.getLogement().getPhotos[0].getPhoto() }}">
+                                  <img class="img" src="{% if r.getLogement().getPhotos() is not empty %}/uploads/logements/{{ r.getLogement().getId() ~ '/' ~ r.getLogement().getPhotos[0].getPhoto() }}{% else %}/img/types-habitats/{{ r.getLogement().getIdType().getPathImg()}}{% endif %}">
                                   <h5 class="card-title">{{ r.getLogement().getNom() }} du {{ r.getDateDebut()|date('d/m/Y') }} au {{ r.getDateFin()|date('d/m/Y') }}</h5>
                                   <p class="card-text">{{ r.getLogement().getDescription() }}</p>
                                   <p class="card-text"><small class="text-muted">Réservé le {{ r.getDateCreation()|date('d/m/Y') }}</small></p>
@@ -73,7 +73,7 @@
                           {% for r in oldResas %}
                             <div class="card-body">
                               <div class="boxReservation">
-                                <img class="img" src="/uploads/logements/{{ r.getLogement().getId() ~ '/' ~ r.getLogement().getPhotos[0].getPhoto() }}">
+                                <img class="img" src="{% if r.getLogement().getPhotos() is not empty %}/uploads/logements/{{ r.getLogement().getId() ~ '/' ~ r.getLogement().getPhotos[0].getPhoto() }}{% else %}/img/types-habitats/{{ r.getLogement().getIdType().getPathImg()}}{% endif %}">
                                 <h5 class="card-title">{{ r.getLogement().getNom() }} du {{ r.getDateDebut()|date('d/m/Y') }} au {{ r.getDateFin()|date('d/m/Y') }}</h5>
                                 <p class="card-text">{{ r.getLogement().getDescription() }}</p>
                                 <p class="card-text"><small class="text-muted">Réservé le {{ r.getDateCreation()|date('d/m/Y') }}</small></p>
