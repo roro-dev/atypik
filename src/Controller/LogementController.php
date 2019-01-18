@@ -285,17 +285,20 @@ Class LogementController extends AbstractController {
      * @Route("/commenter/{id}", name="commenter_route", methods="post")
      */
     public function commenterLogement(Logement $logement, Request $request) {
-        if(!empty($request->request->get('id_user')) && !empty($request->request->get('titre')) && !empty($request->request->get('contenu'))) {
+        if(!empty($request->request->get('titre')) && !empty($request->request->get('contenu'))) {
             $comm = new Commentaire();$em = $this->getDoctrine()->getManager();            
             $comm->setIdLogement($logement);
             $comm->setIdUtilisateur($this->getUser());
             $comm->setTitre($request->request->get('titre'));
             $comm->setContenu($request->request->get('contenu'));
             $comm->setNote($request->request->get('note'));
-            $comm->setDateCommentaire(date('Y-m-d H:i:s'));
+            $today = new \DateTime(date('Y-m-d H:i:s'));
+            $comm->setDateCommentaire($today);
+            $comm->setPhoto('ok.png');
             $em->persist($comm);
             $em->flush();
-            $this->addFlash('success', 'Votre commentaire a bien été ajouté.');
+            $this->addFlash('success', 'Votre commentaire a bien été ajouté.');            
+            return $this->redirectToRoute('logement_index', array('id' => $logement->getId()));
         }
     }
 }
