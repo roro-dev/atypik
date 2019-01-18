@@ -68,6 +68,20 @@ $(document).ready(function() {
             getParams();
         })
     }
+
+    $('.star-note').click(function() {
+        var val = $(this).attr('data-attr');
+        if(Number.isInteger(val)) {
+            $('#note').val(val);
+        }
+        $('.star-note').each(function(k, v) {
+            $(v).text('☆');
+            if($(v).attr('data-attr') <= val) {
+                $(v).text('★');
+            }
+        })
+    })
+
 })
 
 

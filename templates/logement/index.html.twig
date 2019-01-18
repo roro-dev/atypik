@@ -138,10 +138,44 @@
           {% endif %}
           {% if reservations is not empty %}
             <div class="row pt-2">
-              <div class="col-12">
-                <a href="" class="btn btn-sm btn-primary">Comment</a>
+              <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#commentaireForm" aria-expanded="false" aria-controls="collapseExample">
+                Ajouter un commentaire
+              </button>
+            </div>
+            <div class="row">
+              <div class="collapse col-sm-12" id="commentaireForm">
+                <div class="card card-body">
+                  <form method="post" action="{{ path('commenter_route', {'id': logement.id }) }}">        
+                    <div class="form-group row">  
+                      <label for="note" class="col-sm-3 col-form-label">Note</label>
+                        <div class="col-sm-9">
+                          <a class="star-note" data-attr="1">☆</a>
+                          <a class="star-note" data-attr="2">☆</a>
+                          <a class="star-note" data-attr="3">☆</a>
+                          <a class="star-note" data-attr="4">☆</a>
+                          <a class="star-note" data-attr="5">☆</a>
+                          <input type="hidden" class="form-control" name="note" id="note" value="0"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="titre" class="col-sm-3 col-form-label">Titre *</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" name="titre" id="titre" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="contenu" class="col-sm-3 col-form-label">Contenu *</label>
+                        <div class="col-sm-9">
+                          <textarea class="form-control" name="contenu" id="contenu"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                      <button type="submit" class="btn btn-success">Commenter</button>
+                    </div>
+                  </form>
+                </div>
               </div>
-          </div>
+            </div>
           {% endif %}
         </div>
       </div>
