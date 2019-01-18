@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Repository\LogementRepository;
 use App\Entity\TypeLogement;
 use App\Entity\Logement;
+use App\Entity\Ville;
 use App\Form\ContactType;
 use Symfony\Component\Validator\Constraints\DateTime;
 
@@ -30,16 +31,23 @@ class HomeController extends AbstractController
     public function recherche(Request $request) {
         $data = array(
             'type' => (!empty($request->request->get('type'))) ? $request->request->get('type') : 0,
-            'ville' => (!empty($request->request->get('ville'))) ? $request->request->get('ville') : '',
+            'ville' => '',
             'nb' => (!empty($request->request->get('nb'))) ? $request->request->get('nb') : 1,
             'depart' => (!empty($request->request->get('depart'))) ? $request->request->get('depart') : date('d/m/Y'),
             'arrivee' => (!empty($request->request->get('arrivee'))) ? $request->request->get('arrivee') : date('d/m/Y', strtotime('+1 day'))
-        );
-        $repo = $this->getDoctrine()->getRepository(TypeLogement::class);
+        );        
         $repoSearch = $this->getDoctrine()->getRepository(Logement::class);
-        $logements = $repoSearch->findByCriteres(array('type' => $request->request->get('type'), 'nb' => $request->request->get('nb'), 'etat' => 1));
+        if(!empty($request->request->get('ville'))) {
+            $data['ville'] = $request->request->get('ville');
+            $ville = $this->getDoctrine()->getRepository(Ville::class)->findOneBy(['nom' => $data['ville']]);
+            if(!empty($ville)) {
+                $logements = $repoSearch->findByCriteresAndVille(array('type' => $data['type'], 'nb' => $data['nb'], 'etat' => 1, 'ville' => $ville));
+            }
+        } else {
+            $logements = $repoSearch->findByCriteres(array('type' => $data['type'], 'nb' => $data['nb'], 'etat' => 1));
+        }        
         return $this->render('home/recherche.html.twig', [
-            'types' => $repo->findAll(),
+            'types' => $this->getDoctrine()->getRepository(TypeLogement::class)->findAll(),
             'data' => $data,
             'logements' => $logements
         ]);
