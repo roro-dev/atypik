@@ -109,16 +109,42 @@
       </div>
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5737941.053577054!2d-0.5600409326626958!3d45.39463663443821!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12ab22a7cd2b8547%3A0xe10e3cdc7f734cdc!2sLes+cabanes+dans+les+arbres!5e0!3m2!1sfr!2sfr!4v1544963589952"
         height="400" frameborder="0" style="border:0; width: 100%" allowfullscreen></iframe>
-      
-      <h4 class="sous-titre"> Avis des voyageurs</h4>
-      {% if commentaires is not empty %}
-        boucle commentaires
-      {% else %}
-          Aucun avis n'a ajouté
-      {% endif %}
-      {% if reservations is not empty %}
-        Ajouter comm
-      {% endif %}
+      <div class="row">
+        <div class="comments col-md-11 offset-md-1" id="comments">
+          <h4 class="sous-titre mb-2"> Avis des voyageurs</h4>
+          <hr>
+          {% if commentaires is not empty %}
+            {% for c in commentaires %}
+              <div class="comment mb-2 row">
+                <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
+                    <a href=""><img class="mx-auto rounded-circle img-fluid" src="/img/header/avatarLogin.png" alt="avatar"></a>
+                </div>
+                <div class="comment-content col-md-11 col-sm-10">
+                    <h6 class="small comment-meta">{{ c.getIdUtilisateur() }} - {{ c.getDateCommentaire()|date('d/m/Y H:i:s') }}</h6>
+                    <div class="comment-title">
+                      <strong>{{ c.getTitre() }}</strong>
+                    </div>
+                    <div class="comment-body">
+                        <p>
+                          {{ c.getContenu() }}
+                        </p>
+                    </div>
+                </div>
+              </div>
+              <hr>
+            {% endfor %} 
+          {% else %}
+              Aucun avis n'a été ajouté
+          {% endif %}
+          {% if reservations is not empty %}
+            <div class="row pt-2">
+              <div class="col-12">
+                <a href="" class="btn btn-sm btn-primary">Comment</a>
+              </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
     </div>
     <div class="col">
       <div class="resa">
