@@ -263,6 +263,11 @@ a.a-consulter:hover{
 
 } 
 
+.card-img-top{
+	height: 15rem;
+	object-fit: cover;
+}
+
 /* FOOTER CSS */
 
 .page-footer li.list-inline-item img{
@@ -512,6 +517,9 @@ ul.list-unstyled li a{
 	  color: white;
   }
   
+  .btnReservation{
+	  width: 20%;
+  }
   
   .boxReservation{
 	  padding-bottom: 30px;

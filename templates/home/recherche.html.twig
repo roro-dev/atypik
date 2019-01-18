@@ -30,7 +30,8 @@
           <div class="card-body">
             <h4 class="card-title ">{{ logement.nom }}</h4>
             <h5 class="card-title">{{ logement.getVille().getNom() }} - {{ logement.prix }}€/nuit </h5>
-            <p class="card-text">{{ logement.description }}</p>
+            <p class="card-text">{{ logement.description |slice(0, 40) }} ...
+            </p>
             <button type="button" class="btn btn-consulter"><a href="{{ path('logement_index', {'id': logement.id}) }}" class="a-consulter">Consulter</a></button>
           </div>
         </div>
