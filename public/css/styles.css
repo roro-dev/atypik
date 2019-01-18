@@ -90,6 +90,11 @@ h3 {
 	right: 0;
 }
 
+.ajouterBien
+{
+	padding-right: 3rem;
+}
+
 #btnDeco{
 	margin-top: 0.5em;
 	margin-right: 1.825em;
@@ -443,7 +448,7 @@ ul.list-unstyled li a{
 		font-size: 1.2em;
 	}
 
-	/*Mobile*/
+/*Mobile*/
 
 .sousMenu{
 	border-bottom: 1px solid #C64300;
