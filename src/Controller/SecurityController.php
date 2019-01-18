@@ -55,7 +55,7 @@ class SecurityController extends AbstractController
                 }
                 return $this->redirectToRoute('login_route');
             } else {
-                $this->addFlash('error', 'La création de compte a connu certains problèmes.');
+                // On a la possibilité d'afficher un message d'erreur avec addFlash mais nous le gérons avec les Assert
             }
         }
         return $this->render(

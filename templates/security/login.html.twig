@@ -15,10 +15,10 @@
         {% endif %}
 
         <h3 class="h3 mb-3 font-weight-normal">Connectez-vous !</h3>
-        <label for="inputEmail">Adresse Email</label>
+        <label for="inputEmail">Adresse Email *</label>
         <input type="email" value="{{ last_username }}" name="_username" id="inputEmail" class="form-control" placeholder="Votre adresse e-mail" required autofocus>
         <br>
-        <label for="inputPassword">Mot de passe</label>
+        <label for="inputPassword">Mot de passe *</label>
         <input type="password" name="_password" id="inputPassword" class="form-control" placeholder="Votre mot de passe" required>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         <br>

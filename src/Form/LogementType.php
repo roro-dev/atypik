@@ -29,7 +29,7 @@ class LogementType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control'
                 ),
-                'label' => 'Type de logement',
+                'label' => 'Type de logement *',
                 'class' => TypeLogement::class,
                 'choice_label' => 'type'
             ))
@@ -37,9 +37,10 @@ class LogementType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control'
                 ),
-                'label' => 'Nom du logement'
+                'label' => 'Nom du logement *'
             ))
             ->add('description', TextareaType::class, array(
+                'label' => 'Description *',
                 'attr' => array(
                     'class' => 'form-control'
                 )
@@ -48,7 +49,7 @@ class LogementType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control'
                 ),
-                'label' => 'Adresse'
+                'label' => 'Adresse *'
             ))
             /*->add('codePostal', TextType::class, array(
                 'attr' => array(
@@ -60,38 +61,38 @@ class LogementType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control'
                 ),
-                'label' => 'Prix / nuit (en euros)'
+                'label' => 'Prix / nuit (en euros) *'
             ))
             ->add('nbPersonne', NumberType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
                 ),
-                'label' => 'Nombre de personne'
+                'label' => 'Nombre de personne *'
             ))
             ->add('nbCouchage', NumberType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
                 ),
-                'label' => 'Nombre de couchages'
+                'label' => 'Nombre de couchages *'
             ))
             ->add('commodites', TextareaType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
                 ),
-                'label' => 'Commodités de votre logement'
+                'label' => 'Commodités de votre logement *'
             ))
             ->add('reglement', TextareaType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
                 ),
-                'label' => 'Réglement de votre logement'
+                'label' => 'Réglement de votre logement *'
             ))
             ->add('photosUploads', FileType::class, array(
                 'attr' => array(
                     'class' => 'form-control-file'
                 ),
                 'multiple' => true,                
-                'label' => 'Prises de vue'
+                'label' => 'Prises de vue, veuillez sélectionner au moins une photo *'
             ))
         ;
     }

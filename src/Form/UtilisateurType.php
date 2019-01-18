@@ -18,16 +18,19 @@ class UtilisateurType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, array(
+                'label'=>'Nom *',
                 'attr' => array(
-                    'class' => 'form-control'
+                    'class' => 'form-control',
                 )
             ))
             ->add('prenom', TextType::class, array(
+                'label'=>'Prenom *',
                 'attr' => array(
                     'class' => 'form-control'
                 )
             ))
             ->add('email', EmailType::class, array(
+                'label'=>'Email *',
                 'attr' => array(
                     'class' => 'form-control'
                 )
@@ -35,24 +38,26 @@ class UtilisateurType extends AbstractType
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'first_options'  => array(
-                    'label' => 'Mot de passe',
+                    'label' => 'Mot de passe *',
                     'attr' => array(
                         'class' => 'form-control'
                     )
                 ),
                 'second_options' => array(
-                    'label' => 'Répéter mot de passe',
+                    'label' => 'Répéter mot de passe *',
                     'attr' => array(
                         'class' => 'form-control'
                     )
                 ),
             ))
             ->add('telephone', TextType::class, array(
+                'label' => 'Télephone *',
                 'attr' => array(
                     'class' => 'form-control'
                 )
             ))
             ->add('adresse', TextType::class, array(
+                'label' => 'Adresse *',
                 'attr' => array(
                     'class' => 'form-control'
                 )
