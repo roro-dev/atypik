@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Entity\Utilisateur;
 use App\Entity\Logement;
+use App\Entity\Ville;
 use App\Entity\TypeLogement;
 
 /**
@@ -29,7 +30,9 @@ class ApiController extends AbstractController
                 $user = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneBy(['email' => $request->request->get('username')]);
                 if(!empty($user) && !empty($request->request->get('password'))) {
                     if($passwordEncoder->isPasswordValid($user, $request->request->get('password'))) {
-                        $response->setContent(json_encode('Success'));
+                        $dataUser = ['id' => $user->getId(), 'nom' => $user->getNom(), 'prenom' => $user->getPrenom(), 'adresse' => $user->getAdresse(), 'email' => $user->getEmail()];
+                        $response->setStatusCode(200);
+                        $response->setContent(json_encode($dataUser));
                     } else {
                         $response->setContent(json_encode('Mot de passe erronné.'));
                     }
@@ -56,6 +59,7 @@ class ApiController extends AbstractController
         $response->headers->set('Content-Type', 'application/json');
         if(!empty($request->request->get('tokenApi')) && $request->request->get('tokenApi') === $this->getParameter('api_token')) {
             $types = $this->getDoctrine()->getRepository(TypeLogement::class)->findAllTypes();
+            $response->setStatusCode(200);
             $response->setContent(json_encode($types));
         } else {
             $response->setStatusCode(401);
@@ -72,7 +76,17 @@ class ApiController extends AbstractController
         $response = new Response();
         $response->headers->set('Content-Type', 'application/json');
         if(!empty($request->request->get('tokenApi')) && $request->request->get('tokenApi') === $this->getParameter('api_token')) {
-            $logements = $this->getDoctrine()->getRepository(Logement::class)->findByCriteres(array('type' => $request->request->get('type'), 'nb' => $request->request->get('nb')));
+            $repoSearch = $this->getDoctrine()->getRepository(Logement::class);
+            if(!empty($request->request->get('ville'))) {
+                $ville = $this->getDoctrine()->getRepository(Ville::class)->findOneBy(['nom' => $data['ville']]);
+                if(!empty($ville)) {
+                    $logements = $repoSearch->findByCriteresAndVille(array('type' => $request->request->get('type'), 'nb' => $request->request->get('nb'), 'etat' => 1, 'ville' => $ville));
+                } else {
+                    $logements = $repoSearch->findByCriteres(array('type' => $request->request->get('type'), 'nb' => $request->request->get('nb'), 'etat' => 1));
+                }
+            } else {
+                $logements = $repoSearch->findByCriteres(array('type' => $request->request->get('type'), 'nb' => $request->request->get('nb'), 'etat' => 1));
+            }
             $response->setContent(json_encode($logements));
             return $response;
         }
