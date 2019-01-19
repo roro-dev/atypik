@@ -23,7 +23,7 @@ Class ProfilController extends AbstractController {
             if($form->isValid()) {
                 $this->addFlash('success', 'Votre compte à bien été modifié.');
             } else {
-                $this->addFlash('error', 'Une erreur est survenue. Veuillez contactez l\'administrateur du site.');
+                //$this->addFlash('error', 'Une erreur est survenue. Veuillez contactez l\'administrateur du site.');
             }
         }
         return $this->render('home/profil.html.twig', [

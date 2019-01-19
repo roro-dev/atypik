@@ -621,3 +621,19 @@ h4.sous-titre {
 	padding-bottom: 0.5rem;
 	padding-left: 1.2rem;
 }
+
+@media (max-width: 647px)
+{
+    #formulaire form{
+	 right: auto;
+	 position: absolute;
+	 margin-top: 5rem;
+	 margin-bottom: 2rem;
+	 margin-left:10%;
+	 width: 80%;
+	}
+
+	#formulaire .form-control {
+		width: 100%;
+	}
+}
