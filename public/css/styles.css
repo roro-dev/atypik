@@ -621,3 +621,11 @@ h4.sous-titre {
 	padding-bottom: 0.5rem;
 	padding-left: 1.2rem;
 }
+
+a.star-note {
+	font-size: 1.5em;
+}
+
+a.star-note:hover {
+	cursor: pointer;
+}

@@ -123,11 +123,18 @@
                     <h6 class="small comment-meta">{{ c.getIdUtilisateur() }} - {{ c.getDateCommentaire()|date('d/m/Y H:i:s') }}</h6>
                     <div class="comment-title">
                       <strong>{{ c.getTitre() }}</strong>
+                      <script type="text/javascript">
+                          var nbEtoile = {{ c.getNote() }};
+                          for (var i = 1; i <= nbEtoile; i++) {
+                            document.write('<a id="i">★</a>');
+                          }
+                          for (var i = 1; i <= 5 - nbEtoile; i++) {
+                            document.write('<a id="i">☆</a>');
+                          }
+                        </script>
                     </div>
                     <div class="comment-body">
-                        <p>
-                          {{ c.getContenu() }}
-                        </p>
+                        <p>{{ c.getContenu() }}</p>
                     </div>
                 </div>
               </div>
