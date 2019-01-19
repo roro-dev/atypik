@@ -164,6 +164,11 @@ class Logement
      * @ORM\Column(type="boolean")
      */
     private $etat;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="logement")
+     */
+    private $messages;
     
 
     public function __construct()
@@ -174,6 +179,7 @@ class Logement
         $this->photos = new ArrayCollection();
         $this->parametresLogement = new ArrayCollection();
         $this->etat = 0;
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -498,6 +504,37 @@ class Logement
     public function setEtat(bool $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setLogement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getLogement() === $this) {
+                $message->setLogement(null);
+            }
+        }
 
         return $this;
     }
