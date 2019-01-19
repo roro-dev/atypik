@@ -141,7 +141,7 @@ class Utilisateur implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="destinataire")
      */
-    private $yes;
+    private $messages;
 
     public function __construct() {
         $this->valideUser = 0;
@@ -150,7 +150,7 @@ class Utilisateur implements UserInterface
         $this->reservations = new ArrayCollection();
         $this->logements = new ArrayCollection();
         $this->paiements = new ArrayCollection();
-        $this->yes = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -421,28 +421,28 @@ class Utilisateur implements UserInterface
     /**
      * @return Collection|Message[]
      */
-    public function getYes(): Collection
+    public function getMessages(): Collection
     {
-        return $this->yes;
+        return $this->messages;
     }
 
-    public function addYe(Message $ye): self
+    public function addMessage(Message $message): self
     {
-        if (!$this->yes->contains($ye)) {
-            $this->yes[] = $ye;
-            $ye->setDestinataire($this);
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setDestinataire($this);
         }
 
         return $this;
     }
 
-    public function removeYe(Message $ye): self
+    public function removeMessage(Message $message): self
     {
-        if ($this->yes->contains($ye)) {
-            $this->yes->removeElement($ye);
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
             // set the owning side to null (unless already changed)
-            if ($ye->getDestinataire() === $this) {
-                $ye->setDestinataire(null);
+            if ($message->getDestinataire() === $this) {
+                $message->setDestinataire(null);
             }
         }
 
