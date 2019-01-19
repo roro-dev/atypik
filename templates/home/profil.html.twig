@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block title %}Mon Profil{% endblock %}
 {% block body %}
+{% for flash_message in app.session.flashBag.get('success') %}
+<div class="alert alert-success">
+  {{ flash_message }}
+</div>
+{% endfor %}
 <div id="formulaire">
   <img src="/img/chair.jpeg">
 </div>
@@ -10,7 +15,7 @@
       <ul class="nav nav-tabs">
         <li><a id="link_dashboard" data-toggle="tab" href="#dashboard" class="list-group-item list-group-item-action active">Tableau de bord</a></li>
         <li><a id="link_reservations" data-toggle="tab" href="#reservations" class="list-group-item list-group-item-action">Mes réservations</a></li>
-        <li><a id="link_messages" data-toggle="tab" href="#messages" class="list-group-item list-group-item-action">Messages</a></li>
+        <li><a id="link_messages" data-toggle="tab" href="#messages" class="list-group-item list-group-item-action">Mes messages</a></li>
         <li><a id="link_informations" data-toggle="tab" href="#informations" class="list-group-item list-group-item-action">Mon Profil</a></li>
       </ul>
     </div>
@@ -48,10 +53,11 @@
                             {% for r in newResas %}
                               <div class="card-body">
                                 <div class="boxReservation">
-                                  <img class="img" src="{% if r.getLogement().getPhotos() is not empty %}/uploads/logements/{{ r.getLogement().getId() ~ '/' ~ r.getLogement().getPhotos[0].getPhoto() }}{% else %}/img/types-habitats/{{ r.getLogement().getIdType().getPathImg()}}{% endif %}">
+                                  <img class="img" src="{% if r.getLogement().getPhotos() is not empty %}/uploads/logements/{{ r.getLogement().getId() ~ '/' ~ r.getLogement().getPhotos[0].getPhoto() }}{% else %}/img/types-habitat/{{ r.getLogement().getIdType().getPathImg()}}{% endif %}">
                                   <h5 class="card-title">{{ r.getLogement().getNom() }} du {{ r.getDateDebut()|date('d/m/Y') }} au {{ r.getDateFin()|date('d/m/Y') }}</h5>
                                   <p class="card-text">{{ r.getLogement().getDescription() }}</p>
                                   <p class="card-text"><small class="text-muted">Réservé le {{ r.getDateCreation()|date('d/m/Y') }}</small></p>
+                                <button type="button" onclick="location.href = '/logement/{{ r.getLogement().getId() }}#commentaires'" class="btn btn-primary">Commenter</button>
                                 </div>
                               </div>
                             {% endfor %}
@@ -73,10 +79,11 @@
                           {% for r in oldResas %}
                             <div class="card-body">
                               <div class="boxReservation">
-                                <img class="img" src="{% if r.getLogement().getPhotos() is not empty %}/uploads/logements/{{ r.getLogement().getId() ~ '/' ~ r.getLogement().getPhotos[0].getPhoto() }}{% else %}/img/types-habitats/{{ r.getLogement().getIdType().getPathImg()}}{% endif %}">
+                                <img class="img" src="{% if r.getLogement().getPhotos() is not empty %}/uploads/logements/{{ r.getLogement().getId() ~ '/' ~ r.getLogement().getPhotos[0].getPhoto() }}{% else %}/img/types-habitat/{{ r.getLogement().getIdType().getPathImg()}}{% endif %}">
                                 <h5 class="card-title">{{ r.getLogement().getNom() }} du {{ r.getDateDebut()|date('d/m/Y') }} au {{ r.getDateFin()|date('d/m/Y') }}</h5>
                                 <p class="card-text">{{ r.getLogement().getDescription() }}</p>
                                 <p class="card-text"><small class="text-muted">Réservé le {{ r.getDateCreation()|date('d/m/Y') }}</small></p>
+                                <button type="button" onclick="location.href = '/logement/{{ r.getLogement().getId() }}#commentaires'" class="btn btn-primary">Commenter</button>
                               </div>
                             </div>
                           {% endfor %}
@@ -160,6 +167,47 @@
             <div class="col-md-12">
               <h4>Messages</h4>
               <hr>
+              {% if app.user.getMessages() is not empty %}
+                {% for m in app.user.getMessages() %}
+                  <div class="card text">
+                    <div class="card-header">{{ m.getExpediteur() }}</div>
+                    <div class="card-body">
+                      <h5 class="card-title">Bien concerné : <a href="{{ path('logement_index', {'id': m.getLogement().getId() }) }}">{{ m.getLogement().getNom() }}</a></h5><br>
+                      <h5 class="card-title">{{ m.objet }}</h5>
+                      <p class="card-text">{{ m.getContenu() }}</p>
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#reponseForm" aria-expanded="false" aria-controls="collapseExample">
+                        Répondre
+                      </button>
+                    </div>
+                    <div class="card-footer text-muted">Envoyé il y a {{ m.dateEnvoi.diff(date())|date("%d jours") }} - {{m.dateEnvoi|date('d/m/Y') }}</div>
+                  </div>
+                  <div class="collapse col-sm-12" id="reponseForm">
+                    <div class="card card-body">
+                      <form method="post" action="{{ path('reponse_route', {'id': m.id}) }}">
+                        <div class="form-group row">
+                          <label for="objet" class="col-sm-3 col-form-label">Objet</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" value="Re: {{ m.objet }}" name="objet" id="objet" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="contenu" class="col-sm-3 col-form-label">Contenu *</label>
+                            <div class="col-sm-9">
+                              <textarea class="form-control" name="contenu" id="contenu"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                          <button type="submit" class="btn btn-success">Envoyer</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                {% endfor %}
+              {% else %}
+                <div class="col-sm-12">
+                  Vous n'avez aucun message
+                </div>
+              {% endif %}
             </div>
           </div>
         </div>

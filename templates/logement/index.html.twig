@@ -110,7 +110,7 @@
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5737941.053577054!2d-0.5600409326626958!3d45.39463663443821!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12ab22a7cd2b8547%3A0xe10e3cdc7f734cdc!2sLes+cabanes+dans+les+arbres!5e0!3m2!1sfr!2sfr!4v1544963589952"
         height="400" frameborder="0" style="border:0; width: 100%" allowfullscreen></iframe>
       <div class="row">
-        <div class="comments col-md-11 offset-md-1" id="comments">
+        <div class="comments col-md-11 offset-md-1" id="commentaires">
           <h4 class="sous-titre mb-2"> Avis des voyageurs</h4>
           <hr>
           {% if commentaires is not empty %}
@@ -123,11 +123,18 @@
                     <h6 class="small comment-meta">{{ c.getIdUtilisateur() }} - {{ c.getDateCommentaire()|date('d/m/Y H:i:s') }}</h6>
                     <div class="comment-title">
                       <strong>{{ c.getTitre() }}</strong>
+                      <script type="text/javascript">
+                          var nbEtoile = {{ c.getNote() }};
+                          for (var i = 1; i <= nbEtoile; i++) {
+                            document.write('<a id="i">★</a>');
+                          }
+                          for (var i = 1; i <= 5 - nbEtoile; i++) {
+                            document.write('<a id="i">☆</a>');
+                          }
+                        </script>
                     </div>
                     <div class="comment-body">
-                        <p>
-                          {{ c.getContenu() }}
-                        </p>
+                        <p>{{ c.getContenu() }}</p>
                     </div>
                 </div>
               </div>
@@ -225,7 +232,42 @@
         <img class="icone-proprio" src="/img/picto/proprio.svg" />
         <p class="nom-hote">Nom de l'hôte</p>
         <p class="logement-hote">{{ logement.getIdProprietaire() }}</p>
-        <button type="submit" class="btn btn-recherche">Contacter</button>
+        <button type="button" class="btn btn-recherche" data-toggle="modal" data-target="#contactProprio">Contacter</button>
+        <div class="modal fade" id="contactProprio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Contacter le propriétaire - {{ logement.getIdProprietaire() }} </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="{{ path('contacter_proprio_route', {'id': logement.id}) }}" method="post">
+                <div class="modal-body">
+                  <div class="col-sm-12">
+                    
+                      <div class="form-group row">
+                          <label for="objet" class="col-sm-3 col-form-label">Objet *</label>
+                            <div class="col-sm-8">
+                              <input type="text" class="form-control" name="objet" id="objet" required />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="contenu" class="col-sm-3 col-form-label">Contenu *</label>
+                            <div class="col-sm-8">
+                              <textarea class="form-control" name="contenu" id="contenu" required ></textarea>
+                            </div>
+                        </div>
+                  </div>
+                </div>                
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                  <button type="submit" class="btn btn-success">Envoyer message</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -17,6 +17,7 @@ use App\Entity\ParametresType;
 use App\Entity\TypePaiement;
 use App\Entity\TypeLogement;
 use App\Entity\Commentaire;
+use App\Entity\Message;
 
 Class LogementController extends AbstractController {
 
@@ -286,7 +287,8 @@ Class LogementController extends AbstractController {
      */
     public function commenterLogement(Logement $logement, Request $request) {
         if(!empty($request->request->get('titre')) && !empty($request->request->get('contenu'))) {
-            $comm = new Commentaire();$em = $this->getDoctrine()->getManager();            
+            $comm = new Commentaire();
+            $em = $this->getDoctrine()->getManager();            
             $comm->setIdLogement($logement);
             $comm->setIdUtilisateur($this->getUser());
             $comm->setTitre($request->request->get('titre'));
@@ -298,6 +300,28 @@ Class LogementController extends AbstractController {
             $em->persist($comm);
             $em->flush();
             $this->addFlash('success', 'Votre commentaire a bien été ajouté.');            
+            return $this->redirectToRoute('logement_index', array('id' => $logement->getId()));
+        }
+    }
+
+    /**
+     * Permet de contacter le proprio d'un logement
+     * @Route("/contact-proprietaire/{id}", name="contacter_proprio_route", methods="post")
+     */
+    public function contacterProprio(Logement $logement, Request $request) {
+        if(!empty($request->request->get('objet')) && !empty($request->request->get('contenu'))) {
+            $em = $this->getDoctrine()->getManager();
+            $mess = new Message();
+            $mess->setDestinataire($logement->getIdProprietaire());
+            $mess->setExpediteur($this->getUser()->getEmail());
+            $mess->setLogement($logement);
+            $mess->setObjet($request->request->get('objet'));
+            $mess->setContenu($request->request->get('contenu'));
+            $today = new \DateTime(date('Y-m-d H:i:s'));
+            $mess->setDateEnvoi($today);
+            $em->persist($mess);
+            $em->flush();
+            $this->addFlash('success', 'Votre message a bien été envoyé.');            
             return $this->redirectToRoute('logement_index', array('id' => $logement->getId()));
         }
     }
