@@ -18,6 +18,7 @@ use App\Entity\ParametresLogement;
 use App\Entity\ParametresType;
 use App\Entity\Ville;
 use App\Entity\Photo;
+use App\Entity\RolesUtilisateur;
 
 /**
  * @Route("/admin/logement")
@@ -146,8 +147,12 @@ class AdminLogementController extends AbstractController
      */
     public function validerLogement(Logement $logement, \Swift_Mailer $mailer) : Response {
         if($logement->getEtat() === false) {
-            $logement->setEtat(true);
             $em = $this->getDoctrine()->getManager();
+            $proprio = $logement->getIdProprietaire();
+            $proprio->addRole($this->getDoctrine()->getRepository(RolesUtilisateur::class)->findOneBy(['role' => 'ROLE_PROPRIO']));
+            $em->persist($proprio);
+            $em->flush();
+            $logement->setEtat(true);
             $em->persist($logement);
             $em->flush();
             $message = (new \Swift_Message("Atypik'House - Votre bien est en ligne !"))

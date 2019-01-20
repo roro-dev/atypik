@@ -279,14 +279,6 @@ class Utilisateur implements UserInterface
 
         return $this;
     }
-
-    /**
-     * @return Collection|RolesUtilisateur[]
-     */
-    public function getRoles()
-    {
-        return $this->roles;
-    }
     
     public function getSalt()
     {
@@ -436,6 +428,19 @@ class Utilisateur implements UserInterface
         }
 
         return $this;
+    }
+
+    
+    /**
+     * @return Array
+     */
+    public function getRoles()
+    {
+        $roles = array();
+        foreach($this->roles as $r) {
+            $roles[] = $r->getRole();
+        }
+        return array_unique($roles);
     }
 
     public function addRole(RolesUtilisateur $role): self
