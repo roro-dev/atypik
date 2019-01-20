@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Utilisateur;
+use App\Entity\Message;
 
 /**
  * @Route("/admin/parametres-type")
