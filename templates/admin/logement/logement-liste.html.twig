@@ -33,7 +33,7 @@
                         <td>{{ logement.getIdType().getType() }}</td>
                         <td>{{ logement.prix }} €</td>
                         <td>
-                            <a href="{{ path('utilisateur_edit', {'id': logement.getIdProprietaire().getId()}) }}" class="btn btn-warning" title="Voir le propriétaire du logement">
+                            <a href="{{ path('utilisateur_show', {'id': logement.getIdProprietaire().getId()}) }}" class="btn btn-warning" title="Voir le propriétaire du logement">
                                 <img src="/img/picto/owner.svg" /></a>
                             <a href="{{ path('logement_edit', {'id': logement.id}) }}" class="btn btn-info" title="Modifier le logement">
                                 <img src="/img/picto/pencil.svg" />

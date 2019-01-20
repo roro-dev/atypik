@@ -547,7 +547,7 @@ class Logement
         $note  = 0;
         if(!empty($this->commentaires)) {
             foreach($this->commentaires as $c) {
-                $note = $c->getNote();
+                $note += $c->getNote();
             }
             $note = $note / count($this->commentaires);
         }

@@ -46,6 +46,21 @@ class AdminParametresTypeController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($parametresType);
                 $em->flush();
+                $logements = $parametresType->getType()->getLogements();
+                if(!empty($logements)) {
+                    foreach($logements as $l) {                        
+                        $mess = new Message();
+                        $mess->setDestinataire($l->getIdProprietaire());
+                        $mess->setExpediteur('administrateur@atypikhouse.fr');
+                        $mess->setLogement($l);
+                        $mess->setObjet('Paramètre d\'habitat ajouté');
+                        $mess->setContenu($request->request->get('Un paramètre d\'habitat a été ajouté. Veuillez vérifiez vos biens afin de les mettre à jour. Merci'));
+                        $today = new \DateTime(date('Y-m-d H:i:s'));
+                        $mess->setDateEnvoi($today);
+                        $em->persist($mess);
+                        $em->flush();
+                    }
+                }
                 $this->addFlash('success', 'Paramètre crée avec succès !');
                 return $this->redirectToRoute('parametres_type_index');
             } else {
@@ -77,6 +92,21 @@ class AdminParametresTypeController extends AbstractController
             if($form->isValid()) {
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('success', 'Paramètre modifié avec succès !');
+                $logements = $parametresType->getType()->getLogements();
+                if(!empty($logements)) {
+                    foreach($logements as $l) {                        
+                        $mess = new Message();
+                        $mess->setDestinataire($l->getIdProprietaire());
+                        $mess->setExpediteur('administrateur@atypikhouse.fr');
+                        $mess->setLogement($l);
+                        $mess->setObjet('Paramètre d\'habitat modifié');
+                        $mess->setContenu($request->request->get('Un paramètre d\'habitat a été modifié. Veuillez vérifiez vos biens afin de les mettre à jour. Merci'));
+                        $today = new \DateTime(date('Y-m-d H:i:s'));
+                        $mess->setDateEnvoi($today);
+                        $em->persist($mess);
+                        $em->flush();
+                    }
+                }
                 return $this->redirectToRoute('parametres_type_index', array('type' => $parametresType->getType()->getId()));
             } else {
                 $this->addFlash('error', 'Une erreur est survenue.');
@@ -93,19 +123,24 @@ class AdminParametresTypeController extends AbstractController
      */
     public function delete(Request $request, ParametresType $parametresType): Response
     {
-        var_dump($parametresType->getId());
-        /*$em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $em->remove($parametresType);
         $em->flush();
-
-        return $this->redirectToRoute('parametres_type_index');*/
-    }
-
-    /**
-     * Permet d'envoyer des alertes aux proprios
-     */
-    private function alerteProprio($_idParam) {
-        $proprios = $this->getDoctrine()->getRepository(Utilisateur::class)->findByParametre($_idParam);
-        var_dump($proprios);
+        $logements = $parametresType->getType()->getLogements();
+        if(!empty($logements)) {
+            foreach($logements as $l) {                        
+                $mess = new Message();
+                $mess->setDestinataire($l->getIdProprietaire());
+                $mess->setExpediteur('administrateur@atypikhouse.fr');
+                $mess->setLogement($l);
+                $mess->setObjet('Paramètre d\'habitat supprimé');
+                $mess->setContenu($request->request->get('Un paramètre d\'habitat a été supprimé. Veuillez vérifiez vos biens afin de les mettre à jour. Merci'));
+                $today = new \DateTime(date('Y-m-d H:i:s'));
+                $mess->setDateEnvoi($today);
+                $em->persist($mess);
+                $em->flush();
+            }
+        }
+        return $this->redirectToRoute('parametres_type_liste');
     }
 }
