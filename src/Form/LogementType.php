@@ -51,12 +51,6 @@ class LogementType extends AbstractType
                 ),
                 'label' => 'Adresse *'
             ))
-            /*->add('codePostal', TextType::class, array(
-                'attr' => array(
-                    'class' => 'form-control'
-                ),
-                'label' => 'Code Postal'
-            ))*/
             ->add('prix', MoneyType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
@@ -79,13 +73,13 @@ class LogementType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control'
                 ),
-                'label' => 'Commodités de votre logement *'
+                'label' => 'Commodités de votre logement * (veuillez séparez les différents points par des ";")'
             ))
             ->add('reglement', TextareaType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
                 ),
-                'label' => 'Réglement de votre logement *'
+                'label' => 'Réglement de votre logement * (veuillez séparez les différents points par des ";")'
             ))
             ->add('photosUploads', FileType::class, array(
                 'attr' => array(

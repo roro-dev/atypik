@@ -64,28 +64,32 @@
       </div>
 
       <div class="row">
-        <div class="col">
-          <h4 class="sous-titre"> Commodités </h4>
-          <div class="produit-desc">
-            <ul>
-              <li>Petit déjeuné offert</li>
-              <li>Toilette intérieures</li>
-              <li>Douche</li>
-              <li>Chauffage</li>
-              <li>Linge de bain</li>
-            </ul>
+        {% if logement.getCommodites() is not empty %}
+          <div class="col">
+            <h4 class="sous-titre"> Commodités </h4>
+            <div class="produit-desc">
+            {% set commodites = logement.getCommodites()|split(';') %}
+              <ul>
+                {% for c in commodites %}
+                  <li>{{ c }}</li>
+                {% endfor %}
+              </ul>
+            </div>
           </div>
-        </div>
-
+        {% endif %}
+        {% if logement.getReglement() is not empty %}
         <div class="col">
           <h4 class="sous-titre"> Réglement </h4>
           <div class="produit-desc">
-            <ul>
-              <li>Non fumeur</li>
-              <li>Pas d’animaux</li>
-            </ul>
+            {% set regles = logement.getReglement()|split(';') %}
+              <ul>
+                {% for r in regles %}
+                  <li>{{ r }}</li>
+                {% endfor %}
+              </ul>
           </div>
         </div>
+        {% endif %}
       </div>
 
       <h4 class="sous-titre"> Activité à proximité </h4>

@@ -27,13 +27,13 @@ Class LogementController extends AbstractController {
     public function index(Int $id, Request $request) {
         $logement = $this->getDoctrine()->getRepository(Logement::class)->findOneBy(['id' => $id]);
         if(!empty($logement)) {
-            if($logement->getEtat() === true) {
-            return $this->render('logement/index.html.twig', [
-                'logement' => $logement,
-                'photos' => $logement->getPhotos(),
-                'reservations' => $this->getDoctrine()->getRepository(Reservation::class)->findResasBy($logement, $this->getUser(), date('Y-m-d H:i:s')),
-                'commentaires' => $logement->getCommentaires()
-            ]);
+            if($logement->getEtat() === true) {                
+                return $this->render('logement/index.html.twig', [
+                    'logement' => $logement,
+                    'photos' => $logement->getPhotos(),
+                    'reservations' => $this->getDoctrine()->getRepository(Reservation::class)->findResasBy($logement, $this->getUser(), date('Y-m-d H:i:s')),
+                    'commentaires' => $logement->getCommentaires()
+                ]);
             } else {
                 return $this->redirectToRoute('rechercheCategorie_route', array('type' => $logement->getIdType()->getId()));
             }

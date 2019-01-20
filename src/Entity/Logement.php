@@ -553,4 +553,66 @@ class Logement
         }
         return $note;
     }
+
+    /**
+     * @return Collection|ActviteLogement[]
+     */
+    public function getActviteLogements(): Collection
+    {
+        return $this->actviteLogements;
+    }
+
+    public function addActviteLogement(ActviteLogement $actviteLogement): self
+    {
+        if (!$this->actviteLogements->contains($actviteLogement)) {
+            $this->actviteLogements[] = $actviteLogement;
+            $actviteLogement->setIdLogement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActviteLogement(ActviteLogement $actviteLogement): self
+    {
+        if ($this->actviteLogements->contains($actviteLogement)) {
+            $this->actviteLogements->removeElement($actviteLogement);
+            // set the owning side to null (unless already changed)
+            if ($actviteLogement->getIdLogement() === $this) {
+                $actviteLogement->setIdLogement(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ParametresLogement[]
+     */
+    public function getParametresLogement(): Collection
+    {
+        return $this->parametresLogement;
+    }
+
+    public function addParametresLogement(ParametresLogement $parametresLogement): self
+    {
+        if (!$this->parametresLogement->contains($parametresLogement)) {
+            $this->parametresLogement[] = $parametresLogement;
+            $parametresLogement->setLogement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParametresLogement(ParametresLogement $parametresLogement): self
+    {
+        if ($this->parametresLogement->contains($parametresLogement)) {
+            $this->parametresLogement->removeElement($parametresLogement);
+            // set the owning side to null (unless already changed)
+            if ($parametresLogement->getLogement() === $this) {
+                $parametresLogement->setLogement(null);
+            }
+        }
+
+        return $this;
+    }
 }
