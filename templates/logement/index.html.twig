@@ -197,7 +197,7 @@
           <div class="rating">
 
             <script type="text/javascript">
-              var nbEtoile = 3;
+              var nbEtoile = {{ logement.getNoteMoyenne() }};
               for (var i = 1; i <= nbEtoile; i++) {
                 document.write('<a id="i">★</a>');
               }

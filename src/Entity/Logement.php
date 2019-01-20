@@ -538,4 +538,19 @@ class Logement
 
         return $this;
     }
+
+    /**
+     * Permet d'obtenir la note moyenne d'un logement$
+     * @return  int
+     */
+    public function getNoteMoyenne() {
+        $note  = 0;
+        if(!empty($this->commentaires)) {
+            foreach($this->commentaires as $c) {
+                $note = $c->getNote();
+            }
+            $note = $note / count($this->commentaires);
+        }
+        return $note;
+    }
 }
