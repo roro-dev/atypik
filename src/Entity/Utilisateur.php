@@ -88,12 +88,6 @@ class Utilisateur implements UserInterface
     private $telephone;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\RolesUtilisateur", inversedBy="utilisateurs")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $role;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Commentaire", mappedBy="id_utilisateur", orphanRemoval=true)
      */
     private $commentaires;
@@ -143,6 +137,11 @@ class Utilisateur implements UserInterface
      */
     private $messages;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\RolesUtilisateur", inversedBy="utilisateurs")
+     */
+    private $roles;
+
     public function __construct() {
         $this->valideUser = 0;
         $this->commentaires = new ArrayCollection();
@@ -151,6 +150,7 @@ class Utilisateur implements UserInterface
         $this->logements = new ArrayCollection();
         $this->paiements = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->roles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -218,18 +218,6 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
-    public function getRole(): ?RolesUtilisateur
-    {
-        return $this->role;
-    }
-
-    public function setRole(?RolesUtilisateur $role): self
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Commentaire[]
      */
@@ -292,11 +280,12 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
+    /**
+     * @return Collection|RolesUtilisateur[]
+     */
     public function getRoles()
     {
-        $roles = array();
-        $roles[] = $this->role->getRole();
-        return array_unique($roles);
+        return $this->roles;
     }
     
     public function getSalt()
@@ -444,6 +433,24 @@ class Utilisateur implements UserInterface
             if ($message->getDestinataire() === $this) {
                 $message->setDestinataire(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function addRole(RolesUtilisateur $role): self
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles[] = $role;
+        }
+
+        return $this;
+    }
+
+    public function removeRole(RolesUtilisateur $role): self
+    {
+        if ($this->roles->contains($role)) {
+            $this->roles->removeElement($role);
         }
 
         return $this;

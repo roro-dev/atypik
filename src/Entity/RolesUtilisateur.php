@@ -24,9 +24,10 @@ class RolesUtilisateur
     private $role;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Utilisateur", mappedBy="role")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Utilisateur", mappedBy="roles")
      */
     private $utilisateurs;
+
 
     public function __construct()
     {
@@ -62,7 +63,7 @@ class RolesUtilisateur
     {
         if (!$this->utilisateurs->contains($utilisateur)) {
             $this->utilisateurs[] = $utilisateur;
-            $utilisateur->setIdRole($this);
+            $utilisateur->addRole($this);
         }
 
         return $this;
@@ -72,10 +73,7 @@ class RolesUtilisateur
     {
         if ($this->utilisateurs->contains($utilisateur)) {
             $this->utilisateurs->removeElement($utilisateur);
-            // set the owning side to null (unless already changed)
-            if ($utilisateur->getIdRole() === $this) {
-                $utilisateur->setIdRole(null);
-            }
+            $utilisateur->removeRole($this);
         }
 
         return $this;
