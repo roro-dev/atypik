@@ -23,7 +23,7 @@ Class ProfilController extends AbstractController {
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             if($form->isValid()) {
-                $this->addFlash('success', 'Votre compte à bien été modifié.');
+                $this->addFlash('success', 'Vos informations ont bien été mises à jour.');
             } else {
                 //$this->addFlash('error', 'Une erreur est survenue. Veuillez contactez l\'administrateur du site.');
             }

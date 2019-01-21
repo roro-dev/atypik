@@ -17,6 +17,14 @@
         {% endfor %}   
         <br>
         {{ form_start(form) }}
+            {% if app.user.getSiret() is empty %}
+                <div class="form-row">
+                    <div>
+                        <label for="siret" class="required">Entrez votre numéro de SIRET *</label>
+                        <input type="text" required name="siret" id="siret" class="form-control" />
+                    </div>
+                </div>
+            {% endif %}
             <div class="form-group" >
                 {{ form_row(form.id_type) }}
             </div>

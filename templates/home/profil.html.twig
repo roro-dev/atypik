@@ -1,11 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}Mon Profil{% endblock %}
 {% block body %}
-{% for flash_message in app.session.flashBag.get('success') %}
-<div class="alert alert-success">
-  {{ flash_message }}
-</div>
-{% endfor %}
 <div id="formulaire">
   <img src="/img/chair.jpeg">
 </div>
@@ -149,6 +144,15 @@
                       {{ form_widget(form.adresse)}}
                     </div>
                   </div>
+                  {% if 'ROLE_PROPRIO' in app.user.getRoles() %}
+                    <div class="form-group row">
+                      {{ form_label(form.siret)}}
+                      <div class="col-8">
+                        {{ form_errors(form.siret)}}
+                        {{ form_widget(form.siret)}}
+                      </div>
+                    </div>
+                  {% endif %}
                   <div class="form-group now">
                     <div class="col-8">
                       {{ form_widget(form.newsletter)}}&nbsp;&nbsp;J'accepte de recevoir les newsletter d'Atypik'House.

@@ -44,21 +44,6 @@ class ProfilType extends AbstractType
                     'class' => 'col-2 col-form-label'
                 )
             ))
-            /*->add('plainPassword', RepeatedType::class, array(
-                'type' => PasswordType::class,
-                'first_options'  => array(
-                    'label' => 'Mot de passe',
-                    'attr' => array(
-                        'class' => 'form-control'
-                    )
-                ),
-                'second_options' => array(
-                    'label' => 'Répéter mot de passe',
-                    'attr' => array(
-                        'class' => 'form-control'
-                    )
-                ),
-            ))*/
             ->add('telephone', TextType::class, array(
                 'attr' => array(
                     'class' => 'form-control'
@@ -73,6 +58,15 @@ class ProfilType extends AbstractType
                     'class' => 'form-control'
                 ),
                 'label' => 'Adresse *',
+                'label_attr' => array(
+                    'class' => 'col-2 col-form-label'
+                )
+            ))
+            ->add('siret', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control'
+                ),
+                'label' => 'Numéro de siret *',
                 'label_attr' => array(
                     'class' => 'col-2 col-form-label'
                 )

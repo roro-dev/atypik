@@ -142,6 +142,11 @@ class Utilisateur implements UserInterface
      */
     private $roles;
 
+    /**
+     * @ORM\Column(type="string", length=14, nullable=true)
+     */
+    private $siret;
+
     public function __construct() {
         $this->valideUser = 0;
         $this->commentaires = new ArrayCollection();
@@ -457,6 +462,18 @@ class Utilisateur implements UserInterface
         if ($this->roles->contains($role)) {
             $this->roles->removeElement($role);
         }
+
+        return $this;
+    }
+
+    public function getSiret(): ?string
+    {
+        return $this->siret;
+    }
+
+    public function setSiret(?string $siret): self
+    {
+        $this->siret = $siret;
 
         return $this;
     }

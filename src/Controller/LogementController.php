@@ -152,7 +152,14 @@ Class LogementController extends AbstractController {
             }
             if($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($logement);                
+                $em->persist($logement);
+                if(empty($this->getUser()->getSiret()) && !empty($request->request->get('siret'))) {
+                    $user = $this->getUser();
+                    $user->setSiret($request->request->get('siret'));
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($user);
+                    $em->flush();
+                }
                 //ajout des parametres
                 if(!empty($request->request->get('params'))) {
                     $params = $request->request->get('params');
@@ -164,7 +171,8 @@ Class LogementController extends AbstractController {
                         $em->persist($p);
                         $em->flush();
                         $logement->addParametre($p); 
-                        $em->persist($logement);                  
+                        $em->persist($logement);
+                        $em->flush();
                     }
                 }
                 //ajout des photos
