@@ -17,7 +17,7 @@ class Message
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="yes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
      */
     private $destinataire;
