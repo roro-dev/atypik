@@ -1,177 +1,158 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>{% block title %}{% endblock %} &bull; Atypik'House</title>
+    <link rel="icon" type="image/png" href="/img/logo.png" />
+    {% block stylesheet %}
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+        crossorigin=""></script>
+    {% endblock %}
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+    <a id="title" class="navbar-brand" href="/">
+      <img src="/img/logo.png" height="30" width="30" />
+      Atypik'House
+    </a>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+      {% if 'ROLE_ADMIN' in app.user.getRoles() %}
+          | <a class="navbar" href="{{ path('logement_liste') }}">Accès BackOffice</a>    
+      {% endif %}
+    {% endif %}  
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no">
-  <title>{% block title %}{% endblock %} &bull; Atypik'House</title>
-  <link rel="icon" type="image/png" href="/img/logo.png" />
-  {% block stylesheet %}
-  <link rel="stylesheet" href="/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/css/jquery-ui.min.css">
-  <link rel="stylesheet" href="/css/styles.css">
-  <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-      crossorigin="" />
-  <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
-      crossorigin=""></script>
-  {% endblock %}
-</head>
-
-<body>
-  <nav class="navbar navbar-expand-lg navbar-light">
-  <a id="title" class="navbar-brand" href="/">
-    <img src="/img/logo.png" height="30" width="30" />
-    Atypik'House
-  </a>
-  {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    {% if 'ROLE_ADMIN' in app.user.getRoles() %}
-        | <a class="navbar" href="{{ path('logement_liste') }}">Accès BackOffice</a>    
-    {% endif %}
-  {% endif %}  
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="mr-auto"></ul>
-      {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <div class="d-none d-lg-block">
-          <ul class="nav navbar-nav">
-            <li class="nav-item  ajouterBien">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="mr-auto"></ul>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+          <div class="d-none d-lg-block">
+            <ul class="nav navbar-nav">
+              <li class="nav-item  ajouterBien">
+                <a class="btn btn-success" href="{{ path('logement_ajout') }}">Ajouter un bien</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profil#messages"><img id="cloche" src="/img/header/cloche.png"></a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="Utilisateur" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img id="avatarLogin" src="/img/header/avatarLogin.png">Bienvenue {{ app.user.prenom }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/profil#informations">Mes informations</a>
+                  <a class="dropdown-item" href="/profil#reservations">Mes réservations</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/logout">Déconnexion</a>
+                </div>
+              </li>
+          </ul>
+      </div>
+      <div class="d-block d-lg-none">
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link sousMenu" href=""><div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link sousMenu" href="/profil#voyages"><div id="Utilisateur">Mon Profil</div></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link sousMenu" href="/recherche"><div id="Utilisateur">Rechercher un logement</div></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link sousMenu" href="/contact"><div id="Utilisateur">Contact</div></a>
+          </li>
+          <li class="nav-item">
+            <button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'">
+                <p>Deconnexion</p>
+              </button>
+          </li>
+        </ul>
+      </div>
+        {% else %}
+        <ul class="nav navbar-nav"> 
+          <li class="nav-item ajouterBien">
               <a class="btn btn-success" href="{{ path('logement_ajout') }}">Ajouter un bien</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/profil#messages"><img id="cloche" src="/img/header/cloche.png"></a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="Utilisateur" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img id="avatarLogin" src="/img/header/avatarLogin.png">Bienvenue {{ app.user.prenom }}
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/profil#informations">Mes informations</a>
-                <a class="dropdown-item" href="/profil#reservations">Mes réservations</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/logout">Déconnexion</a>
-              </div>
-            </li>
-        </ul>
-    </div>
-    <div class="d-block d-lg-none">
-      <ul class="nav navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link sousMenu" href=""><div id="Utilisateur">Bienvenue {{ app.user.prenom }}</div></a>
-        </li>
-         <li class="nav-item">
-          <a class="nav-link sousMenu" href="/profil#voyages"><div id="Utilisateur">Mon Profil</div></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link sousMenu" href="/recherche"><div id="Utilisateur">Rechercher un logement</div></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link sousMenu" href="/contact"><div id="Utilisateur">Contact</div></a>
-        </li>
-        <li class="nav-item">
-          <button id="btnDeco" class="btn btn-deconnexion" onclick="location.href='/logout'">
-              <p>Deconnexion</p>
-            </button>
-        </li>
-      </ul>
-    </div>
-      {% else %}
-      <ul class="nav navbar-nav"> 
-        <li class="nav-item ajouterBien">
-            <a class="btn btn-success" href="{{ path('logement_ajout') }}">Ajouter un bien</a>
-        </li>       
-        <li class="nav-item">
-          <a class="nav-link" href="/register">Inscription</a>
-        </li>
-        <li class="nav-item">
-          <a class="btn btn-outline-success" href="/login">Connexion</a>
-        </li>
-        </ul>
-
-        {% endif %}
-    </div>
-  </nav>
-  {% block body %}{% endblock %}
-
-  <footer class="page-footer font-small stylish-color-dark pt-4">
-    <div class="container-fluid text-center text-md-left">
-      <div class="row">
-        <div class="col-md-4 mx-auto">
-          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">A PROPOS...</h5>
-          <p>Atypik'House est un site mis en place pour faciliter les démarches entre propriétaires de
-            logements atypiques, et rêveurs qui désirent passer une ou plusieurs nuits dans un endroit hors du commun...
-            En espérant que vous trouverez votre bonheur, nous vous souhaitons une excellente visite.</p>
-        </div>
-        <hr class="w-100 d-md-none">
-
-        <div class="col-md-2 mx-auto">
-          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Top régions</h5>
-          <ul class="list-unstyled">
-            <li><a href="">Nuit et week-end insolites en Ile-de-France</a></li>
-            <li><a href="">Nuit et week-end insolites en Bretagne</a></li>
-            <li><a href="">Nuit et week-end insolites en Auvergne</a></li>
-            <li><a href="">Nuit et Week-end insolites en Provence</a></li>
+          </li>       
+          <li class="nav-item">
+            <a class="nav-link" href="/register">Inscription</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-outline-success" href="/login">Connexion</a>
+          </li>
           </ul>
-        </div>
 
-        <hr class="w-100 d-md-none">
-
-        <div class="col-md-2 mx-auto">
-          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Top hébergement</h5>
-          <ul class="list-unstyled">
-            <li><a href="/categorie-logement/2">Dormir dans une cabane</a></li>
-            <li><a href="/categorie-logement/7">Dormir dans une bulle</a></li>
-            <li><a href="/categorie-logement/1">Dormir dans une yourte</a></li>
-            <li><a href="/categorie-logement/3">Dormir dans une roulotte</a></li>
-          </ul>
-        </div>
-
-
-        <hr class="w-100 d-md-none">
-        <div class="col-md-2 mx-auto">
-          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Liens utiles</h5>
-          <ul class="list-unstyled">
-            <li><a href="">Mentions légales</a></li>
-            <li><a href="{{ path('contact_route') }}">Contactez nous</a></li>
-          </ul>
+          {% endif %}
+      </div>
+    </nav>
+    {% block body %}{% endblock %}
+    <footer class="page-footer font-small stylish-color-dark pt-4">
+      <div class="container-fluid text-center text-md-left">
+        <div class="row">
+          <div class="col-md-4 mx-auto">
+            <h5 class="font-weight-bold text-uppercase mt-3 mb-4">A PROPOS...</h5>
+            <p>Atypik'House est un site mis en place pour faciliter les démarches entre propriétaires de
+              logements atypiques, et rêveurs qui désirent passer une ou plusieurs nuits dans un endroit hors du commun...
+              En espérant que vous trouverez votre bonheur, nous vous souhaitons une excellente visite.</p>
+          </div>
+          <hr class="w-100 d-md-none">
+          <div class="col-md-2 mx-auto">
+            <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Top hébergement</h5>
+            <ul class="list-unstyled">
+              <li><a href="/categorie-logement/2">Dormir dans une cabane</a></li>
+              <li><a href="/categorie-logement/7">Dormir dans une bulle</a></li>
+              <li><a href="/categorie-logement/1">Dormir dans une yourte</a></li>
+              <li><a href="/categorie-logement/3">Dormir dans une roulotte</a></li>
+            </ul>
+          </div>
+          <hr class="w-100 d-md-none">
+          <div class="col-md-2 mx-auto">
+            <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Liens utiles</h5>
+            <ul class="list-unstyled">
+              <li><a href="">Mentions légales</a></li>
+              <li><a href="{{ path('contact_route') }}">Contactez nous</a></li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-    <hr>
-    <ul class="list-unstyled list-inline text-center">
-      <li class="list-inline-item">
-          <a href="https://www.facebook.com/AtypikHouse-339404343453286/" target="_blank">
-            <img alt="Icone Facebook" src="/img/icones/fb.svg" />
+      <hr>
+      <ul class="list-unstyled list-inline text-center">
+        <li class="list-inline-item">
+            <a href="https://www.facebook.com/AtypikHouse-339404343453286/" target="_blank">
+              <img alt="Icone Facebook" src="/img/icones/fb.svg" />
+            </a>
+        </li>
+        <li class="list-inline-item">
+          <a href="https://www.instagram.com/atypik_housefr/" target="_blank">
+            <img alt="Icone Instagram" src="/img/icones/insta.svg" />
           </a>
-      </li>
-      <li class="list-inline-item">
-        <a href="https://www.instagram.com/atypik_housefr/" target="_blank">
-          <img alt="Icone Instagram" src="/img/icones/insta.svg" />
-        </a>
-      </li>
-      <li class="list-inline-item">
-        <a href="https://plus.google.com/u/3/101352761707566084889" target="_blank">
-          <img alt="Icone Google Plus" src="/img/icones/google_plus.svg" />
-        </a>        
-      </li>
-    </ul>
-    <div class="footer-copyright text-center">© 2018 Copyright:
-      <a href=""> Code&Rise</a>
-    </div>
-  </footer>
+        </li>
+        <li class="list-inline-item">
+          <a href="https://plus.google.com/u/3/101352761707566084889" target="_blank">
+            <img alt="Icone Google Plus" src="/img/icones/google_plus.svg" />
+          </a>        
+        </li>
+      </ul>
+      <div class="footer-copyright text-center">© 2018 Copyright:
+        <a href=""> Code&Rise</a>
+      </div>
+    </footer>
 
-  {% block javascripts %}
-  <script type="text/javascript" src="/js/jquery.min.js"></script>
-  <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="/js/gijgo.min.js"></script>
-  <script type="text/javascript" src="/js/slider.js"></script>
-  <script type="text/javascript" src="/js/global.js"></script>
-  {% endblock %}
-</body>
-
+    {% block javascripts %}
+      <script type="text/javascript" src="/js/jquery.min.js"></script>
+      <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+      <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="/js/gijgo.min.js"></script>
+      <script type="text/javascript" src="/js/slider.js"></script>
+      <script type="text/javascript" src="/js/global.js"></script>
+    {% endblock %}
+  </body>
 </html>
