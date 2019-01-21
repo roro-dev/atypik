@@ -85,6 +85,7 @@ class LogementType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control-file'
                 ),
+                "required" => false,
                 'multiple' => true,                
                 'label' => 'Prises de vue, veuillez sélectionner au moins une photo *'
             ))

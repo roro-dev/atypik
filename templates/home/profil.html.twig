@@ -9,9 +9,12 @@
     <div class="col-md-3 navProfil">
       <ul class="nav nav-tabs">
         <li><a id="link_dashboard" data-toggle="tab" href="#dashboard" class="list-group-item list-group-item-action active">Tableau de bord</a></li>
-        <li><a id="link_reservations" data-toggle="tab" href="#reservations" class="list-group-item list-group-item-action">Mes réservations</a></li>
-        <li><a id="link_messages" data-toggle="tab" href="#messages" class="list-group-item list-group-item-action">Mes messages</a></li>
         <li><a id="link_informations" data-toggle="tab" href="#informations" class="list-group-item list-group-item-action">Mon Profil</a></li>
+        <li><a id="link_messages" data-toggle="tab" href="#messages" class="list-group-item list-group-item-action">Mes Messages</a></li>
+        {% if 'ROLE_PROPRIO' in app.user.getRoles() %}
+          <li><a id="link_logements" data-toggle="tab" href="#logements" class="list-group-item list-group-item-action">Mes Logements</a></li>
+        {% endif %}
+        <li><a id="link_reservations" data-toggle="tab" href="#reservations" class="list-group-item list-group-item-action">Mes Réservations</a></li>
       </ul>
     </div>
     <div class="col-md-8 offset-md-1">
@@ -20,19 +23,20 @@
           <div class="row">
             <div class="col-md-12">
               <div class="tab-content">
+                {# Dashboard #}
                 <div class="tab-pane" id="dashboard">
-                 <div class="row">
-                  <div class="col-md-12">
-                    <h4>Tableau de bord</h4>
-                    <hr>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h4>Tableau de bord</h4>
+                      <hr>
+                    </div>
                   </div>
                 </div>
-              </div>
               {# Mes réservations #}
               <div class="tab-pane" id="reservations">
                 <div class="row">
                   <div class="col-md-12">
-                    <h4>Mes réservations</h4>
+                    <h4>Mes Réservations</h4>
                     <hr>
                     <div id="accordion">
                       <div class="card">
@@ -88,14 +92,14 @@
                         </div>
                       </div>
                     </div>
-                  </div>
                 </div>
+              </div>
             </div>
             {# Informations #}
             <div class="tab-pane" id="informations">
              <div class="row">
               <div class="col-md-12">
-                <h4>Mon profil</h4>
+                <h4>Mon Profil</h4>
                 <hr>
                 {% for flash_message in app.session.flashBag.get('error') %}
                     <div class="alert alert-danger">
@@ -167,58 +171,82 @@
           </div>
           {# Messages #}
           <div class="tab-pane" id="messages">
-           <div class="row">
-            <div class="col-md-12">
-              <h4>Messages</h4>
-              <hr>
-              {% if app.user.getMessages() is not empty %}
-                {% for m in app.user.getMessages() %}
-                  <div class="card text">
-                    <div class="card-header">{{ m.getExpediteur() }}</div>
-                    <div class="card-body">
-                      <h5 class="card-title">Bien concerné : <a href="{{ path('logement_index', {'id': m.getLogement().getId() }) }}">{{ m.getLogement().getNom() }}</a></h5><br>
-                      <h5 class="card-title">{{ m.objet }}</h5>
-                      <p class="card-text">{{ m.getContenu() }}</p>
-                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#reponseForm" aria-expanded="false" aria-controls="collapseExample">
-                        Répondre
-                      </button>
+            <div class="row">
+              <div class="col-md-12">
+                <h4>Mes Messages</h4>
+                <hr>
+                {% if app.user.getMessages() is not empty %}
+                  {% for m in app.user.getMessages() %}
+                    <div class="card text">
+                      <div class="card-header">{{ m.getExpediteur() }}</div>
+                      <div class="card-body">
+                        <h5 class="card-title">Bien concerné : <a href="{{ path('logement_index', {'id': m.getLogement().getId() }) }}">{{ m.getLogement().getNom() }}</a></h5><br>
+                        <h5 class="card-title">{{ m.objet }}</h5>
+                        <p class="card-text">{{ m.getContenu() }}</p>
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#reponseForm" aria-expanded="false" aria-controls="collapseExample">
+                          Répondre
+                        </button>
+                      </div>
+                      <div class="card-footer text-muted">Envoyé il y a {{ m.dateEnvoi.diff(date())|date("%d jours") }} - {{m.dateEnvoi|date('d/m/Y') }}</div>
                     </div>
-                    <div class="card-footer text-muted">Envoyé il y a {{ m.dateEnvoi.diff(date())|date("%d jours") }} - {{m.dateEnvoi|date('d/m/Y') }}</div>
+                    <div class="collapse col-sm-12" id="reponseForm">
+                      <div class="card card-body">
+                        <form method="post" action="{{ path('reponse_route', {'id': m.id}) }}">
+                          <div class="form-group row">
+                            <label for="objet" class="col-sm-3 col-form-label">Objet</label>
+                              <div class="col-sm-9">
+                                <input type="text" class="form-control" value="Re: {{ m.objet }}" name="objet" id="objet" readonly />
+                              </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="contenu" class="col-sm-3 col-form-label">Contenu *</label>
+                              <div class="col-sm-9">
+                                <textarea class="form-control" name="contenu" id="contenu"></textarea>
+                              </div>
+                          </div>
+                          <div class="form-group row">
+                            <button type="submit" class="btn btn-success">Envoyer</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  <div class="col-sm-12">
+                    Vous n'avez aucun message
                   </div>
-                  <div class="collapse col-sm-12" id="reponseForm">
-                    <div class="card card-body">
-                      <form method="post" action="{{ path('reponse_route', {'id': m.id}) }}">
-                        <div class="form-group row">
-                          <label for="objet" class="col-sm-3 col-form-label">Objet</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control" value="Re: {{ m.objet }}" name="objet" id="objet" readonly />
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                          <label for="contenu" class="col-sm-3 col-form-label">Contenu *</label>
-                            <div class="col-sm-9">
-                              <textarea class="form-control" name="contenu" id="contenu"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                          <button type="submit" class="btn btn-success">Envoyer</button>
-                        </div>
-                      </form>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          {# Mes Logements #}
+          <div class="tab-pane" id="logements">
+            <div class="row">
+              <div class="col-md-12">
+                <h4>Mes Logements</h4>
+                <hr>
+                {% for logement in app.user.getLogements() %}
+                  <div class="col-md">
+                    <div class="card">
+                      <img class="card-img-top" src="{% if logement.getPhotos() is not empty %}/uploads/logements/{{logement.id ~ '/' ~ logement.getPhotos()[0].photo}} {% else %}/img/types-habitat/{{ logement.getIdType().getPathImg()}} {% endif %}" alt="{{ logement.getNom() }}">
+                      <div class="card-body">
+                        <h4 class="card-title ">{{ logement.nom }}</h4>
+                        <h5 class="card-title">{{ logement.getVille().getNom() }} - {{ logement.prix }}€/nuit </h5>
+                        <p class="card-text">{{ logement.description |slice(0, 40) }} ...
+                        </p>
+                        <button type="button" class="btn btn-consulter"><a href="{{ path('logement_index', {'id': logement.id}) }}" class="a-consulter">Consulter</a></button>
+                        <button type="button" class="btn btn-info"><a href="{{ path('maj_logement', {'id': logement.id}) }}" class="a-consulter">Modifier</a></button>
+                      </div>
                     </div>
                   </div>
                 {% endfor %}
-              {% else %}
-                <div class="col-sm-12">
-                  Vous n'avez aucun message
-                </div>
-              {% endif %}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 </div>
 </div>

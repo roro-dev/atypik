@@ -333,4 +333,25 @@ Class LogementController extends AbstractController {
             return $this->redirectToRoute('logement_index', array('id' => $logement->getId()));
         }
     }
+
+    /**
+     * @Route("/modifier-logement/{id}", name="maj_logement", methods="GET|POST")
+     */
+    public function modifierLogement(Request $request, Logement $logement)
+    {
+        $form = $this->createForm(LogementType::class, $logement);
+        $form->handleRequest($request);        
+        if ($form->isSubmitted()) {
+            if($form->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
+                $this->addFlash('success', 'Logement bien mis à jour.');
+            } else {                
+                $this->addFlash('error', 'La mise à jour du logement a rencontré certains problèmes.');
+            }
+        }
+        return $this->render('logement/modifier-logement.html.twig', [
+            'logement' => $logement,
+            'form' => $form->createView()
+        ]);
+    }
 }
