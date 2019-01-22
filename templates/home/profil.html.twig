@@ -53,10 +53,10 @@
                               <div class="card-body">
                                 <div class="boxReservation">
                                   <img class="img" src="{% if r.getLogement().getPhotos() is not empty %}/uploads/logements/{{ r.getLogement().getId() ~ '/' ~ r.getLogement().getPhotos[0].getPhoto() }}{% else %}/img/types-habitat/{{ r.getLogement().getIdType().getPathImg()}}{% endif %}">
-                                  <h5 class="card-title">{{ r.getLogement().getNom() }} du {{ r.getDateDebut()|date('d/m/Y') }} au {{ r.getDateFin()|date('d/m/Y') }}</h5>
+                                  <h5 class="card-title">{{ r.getLogement().getNom() }} du {{ r.getDateDebut()|date('d/m/Y') }} au {{ r.getDateFin()|date('d/m/Y') }} - {{ r.getPrixTotal() }} €</h5>
                                   <p class="card-text">{{ r.getLogement().getDescription() }}</p>
                                   <p class="card-text"><small class="text-muted">Réservé le {{ r.getDateCreation()|date('d/m/Y') }}</small></p>
-                                <button type="button" onclick="location.href = '/logement/{{ r.getLogement().getId() }}#commentaires'" class="btn btn-primary">Commenter</button>
+                                  <button type="button" onclick="location.href = '/logement/{{ r.getLogement().getId() }}#commentaires'" class="btn btn-primary">Commenter</button>
                                 </div>
                               </div>
                             {% endfor %}
@@ -79,7 +79,7 @@
                             <div class="card-body">
                               <div class="boxReservation">
                                 <img class="img" src="{% if r.getLogement().getPhotos() is not empty %}/uploads/logements/{{ r.getLogement().getId() ~ '/' ~ r.getLogement().getPhotos[0].getPhoto() }}{% else %}/img/types-habitat/{{ r.getLogement().getIdType().getPathImg()}}{% endif %}">
-                                <h5 class="card-title">{{ r.getLogement().getNom() }} du {{ r.getDateDebut()|date('d/m/Y') }} au {{ r.getDateFin()|date('d/m/Y') }}</h5>
+                                <h5 class="card-title">{{ r.getLogement().getNom() }} du {{ r.getDateDebut()|date('d/m/Y') }} au {{ r.getDateFin()|date('d/m/Y') }} - {{ r.getPrixTotal() }} €</h5>
                                 <p class="card-text">{{ r.getLogement().getDescription() }}</p>
                                 <p class="card-text"><small class="text-muted">Réservé le {{ r.getDateCreation()|date('d/m/Y') }}</small></p>
                                 <button type="button" onclick="location.href = '/logement/{{ r.getLogement().getId() }}#commentaires'" class="btn btn-primary">Commenter</button>
