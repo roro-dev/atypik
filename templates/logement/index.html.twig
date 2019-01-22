@@ -1,7 +1,15 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}{{ logement.nom }} {% endblock %}
-
+{% block title %}{{ logement.nom }}{% endblock %}
+{# Ajout des metadonnées #}
+{% block meta %}
+  {{ parent() }}
+  <meta description="{{ logement.description }}">
+  <meta property="og:title" content="{{ logement.nom }}" />
+  <meta property="og:description" content="{{ logement.description }}" />
+  <meta property="og:url" content="{{ app.request.uri }}" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:image" content="{% if photos is not empty %}/uploads/logements/{{logement.id}}/{{photos[0].photo}}{% else %}/img/types-habitat/{{ logement.getIdType().getPathImg() }}{% endif %}" />
+{% endblock %}
 {% block body %}
 {% for flash_message in app.session.flashBag.get('success') %}
 <div class="alert alert-success">
@@ -127,7 +135,7 @@
         };
       </script>
       <div class="row">
-        <div class="comments col-md-11 offset-md-1" id="commentaires">
+        <div class="comments col" id="commentaires">
           <h4 class="sous-titre mb-2"> Avis des voyageurs</h4>
           <hr>
           {% if commentaires is not empty %}
