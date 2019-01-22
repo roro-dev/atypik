@@ -63,7 +63,9 @@ class UtilisateurType extends AbstractType
                 )
             ))
             ->add('cgv', CheckboxType::class)
-            ->add('newsletter', CheckboxType::class)
+            ->add('newsletter', CheckboxType::class, array(
+                'required' => false
+            ))
             ;
     }
 

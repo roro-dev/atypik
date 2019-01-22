@@ -6,12 +6,40 @@ h2.contactTitle {
 	font-weight: bold;
 }
 
+.btn.btn-outline-register {
+	color: #C64300;
+    background-color: transparent;
+    background-image: none;
+	border-color: #C64300;
+	margin-right: 5px;
+}
+
+.btn.btn-outline-register:hover {
+	color: white;
+	cursor: pointer;
+    background-color: #C64300;
+}
+
+.btn.btn-outline-login {
+	color: #8AC651;
+    background-color: transparent;
+    background-image: none;
+	border-color: #8AC651;
+	margin-left: 5px;
+}
+
+.btn.btn-outline-login:hover {
+	color: white;
+	cursor: pointer;
+    background-color: #8AC651;
+}
+
 h3 {
     padding: 1rem 0 1rem 0;
 }
 
 #nightDream {
-    margin-top: 3em;
+    margin-top: 1.5em;
 }
 
 #nightDream img {
@@ -64,13 +92,12 @@ h3 {
     color:black;
 }
 .my-captions{
-    margin-top: -30px;
-    padding-left: 55px;
-    padding-bottom: 0em;
-    }
-    .my-captions h5{
-        padding-top: 30px;
-    }
+	margin-top: -30px;
+	padding-bottom: 0em;
+}
+.my-captions h5{
+	padding-top: 30px;
+}
 
 @media screen and (max-width:768px){
     .block4{max-width:280px;flex:1 0 100%;overflow:hidden}  

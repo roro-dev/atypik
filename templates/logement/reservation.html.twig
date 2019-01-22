@@ -29,10 +29,10 @@
                 </div>
                 <div class="form-group row">
                     <div class="col">
-                        <input type="text" class="form-control" name="dateDebut" id="dateDebut" value="{{ "tomorrow"|date('d/m/Y') }}"/>
+                        <input type="text" class="form-control" name="dateDebut" id="dateDebut" value="{{ data['dateDebut'] }}"/>
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control col" name="dateFin" id="dateFin" value="{{ "+ 2 days"|date("d/m/Y") }}"/>
+                        <input type="text" class="form-control col" name="dateFin" id="dateFin" value="{{ data['dateFin'] }}"/>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col">
-                        <input name="nbPersonne" id="nbPersonne" type="number" class="form-control" value="1" >
+                        <input name="nbPersonne" id="nbPersonne" type="number" class="form-control" value="{{ data['nbPersonne'] }}" >
                     </div>
                 </div>
                 <div class="form-group row">

@@ -101,18 +101,13 @@
           <li>centre équestre</li>
         </ul>
       </div>
-
       <h4>Localisez l'hébergement</h4>
-
       <div class="adresse-location">
         {{ logement.adresse ~ ' ' ~ logement.codePostal }}
         {% if logement.getVille() is not empty %}
         {{ logement.getVille().getNom() }}
         {% endif %}
-
       </div>
-      {#<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5737941.053577054!2d-0.5600409326626958!3d45.39463663443821!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12ab22a7cd2b8547%3A0xe10e3cdc7f734cdc!2sLes+cabanes+dans+les+arbres!5e0!3m2!1sfr!2sfr!4v1544963589952"
-        height="400" frameborder="0" style="border:0; width: 100%" allowfullscreen></iframe>#}
       <div id="map"></div>
       <script type="text/javascript">
         var lat = {{ logement.getVille().getLatitude() }};
@@ -212,12 +207,10 @@
     <div class="col">
       <div class="resa">
         <div class="prix">
-          {{ logement.prix }} €
-          <small>par nuit</small>
+          {{ logement.prix }} € <small>par nuit</small>
         </div>
         <div class="etoile">
           <div class="rating">
-
             <script type="text/javascript">
               var nbEtoile = {{ logement.getNoteMoyenne() }};
               for (var i = 1; i <= nbEtoile; i++) {
@@ -228,8 +221,7 @@
               }
             </script>
           </div>
-        </div>
-
+        </div><br>
         <form action="/logement/{{ logement.id }}/reservation" method="post">
           {% for flash_message in app.session.flashBag.get('error') %}
           <div class="alert alert-danger">
@@ -237,12 +229,15 @@
           </div>
           {% endfor %}
           <div class="form-group">
+            <label for="dateDebut" class="form-label">Date de Début</label>
             <input type="text" class="form-control" name="dateDebut" id="dateDebut" value="{{ "now"|date("d/m/Y") }}" />
           </div>
           <div class="form-group">
+            <label for="dateFin" class="form-label">Date de Fin</label>
             <input type="text" class="form-control" name="dateFin" id="dateFin" value="{{ "tomorrow"|date("d/m/Y") }}" />
           </div>
           <div class="form-group">
+            <label for="nbPersonne" class="form-label">Nombre de personnes</label>
             <input type="number" name="nbPersonne" class="form-control" min="1" max="{{ logement.nbPersonne }}"
               placeholder="Nombre de voyageurs" value="1" />
           </div>

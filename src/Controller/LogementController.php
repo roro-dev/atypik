@@ -43,13 +43,14 @@ Class LogementController extends AbstractController {
     }
 
     /**
-     * @Route("/logement/{id}/reservation", name="logement_reservation")
+     * @Route("/logement/{id}/reservation", name="logement_reservation", methods="post")
      * @Security("has_role('ROLE_USER')")
      */
-    public function reservation(Int $id) {
+    public function reservation(Int $id, Request $request) {
         $logement = $this->getDoctrine()->getRepository(Logement::class)->findOneBy(['id' => $id]);
         return $this->render('logement/reservation.html.twig', [
-            'logement' => $logement
+            'logement' => $logement,
+            'data' => array('nbPersonne' => $request->request->get('nbPersonne'), 'dateDebut' => $request->request->get('dateDebut'),'dateFin' => $request->request->get('dateFin'))
         ]);
     }
 

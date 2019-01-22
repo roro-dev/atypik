@@ -23,9 +23,8 @@
                                 {% for t in types %}                                                      
                                     <div class="block4" id="{{ t.id }}">
                                         <a href="/categorie-logement/{{ t.id }}"><img class="d-block w-100" src="/img/types-habitat/{{ t.pathimg }}" alt="Péniche"></a>
-                                        <div class="my-captions">
-                                            <h5>{{ t.type }}</h5>
-                                            <p>Rechercher des {{ t.type|lower }}.</p>
+                                        <div class="my-captions text-center">
+                                            <h5>Nos {{ t.type }}{% if 's' not in t.type %}s{% endif %}</h5>
                                         </div>
                                     </div>
                                     {% if 8 is divisible by(t.id) and t.id > 2 and t.id < 8 %}
