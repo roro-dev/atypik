@@ -22,7 +22,7 @@ use App\Entity\Message;
 Class LogementController extends AbstractController {
 
     /**
-     * @Route("/logement/{id}", name="logement_index")con
+     * @Route("/logement/{id}", name="logement_index")
      */
     public function index(Int $id, Request $request) {
         $logement = $this->getDoctrine()->getRepository(Logement::class)->findOneBy(['id' => $id]);

@@ -62,16 +62,7 @@ class ProfilType extends AbstractType
                     'class' => 'col-2 col-form-label'
                 )
             ))
-            ->add('siret', TextType::class, array(
-                'attr' => array(
-                    'class' => 'form-control'
-                ),
-                'label' => 'Numéro de siret *',
-                'label_attr' => array(
-                    'class' => 'col-2 col-form-label'
-                )
-            ))
-            ->add('newsletter', CheckboxType::class);
+            ->add('newsletter', CheckboxType::class);            
     }
 
     public function configureOptions(OptionsResolver $resolver)

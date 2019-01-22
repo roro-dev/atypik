@@ -20,12 +20,24 @@ Class ProfilController extends AbstractController {
     public function index(Request $request) {
         
         $form = $this->createForm(ProfilType::class, $this->getUser());
+        if(in_array('ROLE_PROPRIO', $this->getUser()->getRoles())) {
+            $form->add('siret', TextType::class, array(
+                'attr' => array(
+                    'class' => 'form-control'
+                ),
+                'label' => 'Numéro de siret *',
+                'label_attr' => array(
+                    'class' => 'col-2 col-form-label'
+                ),
+                'required' => false
+            ));
+        }
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             if($form->isValid()) {
                 $this->addFlash('success', 'Vos informations ont bien été mises à jour.');
             } else {
-                //$this->addFlash('error', 'Une erreur est survenue. Veuillez contactez l\'administrateur du site.');
+                $this->addFlash('error', 'Une erreur est survenue. Veuillez contactez l\'administrateur du site.');
             }
         }
         return $this->render('home/profil.html.twig', [
