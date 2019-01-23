@@ -78,18 +78,21 @@ class ApiController extends AbstractController
         if(!empty($request->request->get('tokenApi')) && $request->request->get('tokenApi') === $this->getParameter('api_token')) {
             $repoSearch = $this->getDoctrine()->getRepository(Logement::class);
             if(!empty($request->request->get('ville'))) {
-                $ville = $this->getDoctrine()->getRepository(Ville::class)->findOneBy(['nom' => $data['ville']]);
+                $ville = $this->getDoctrine()->getRepository(Ville::class)->findOneBy(['nom' => $request->request->get('ville')]);
                 if(!empty($ville)) {
-                    $logements = $repoSearch->findByCriteresAndVille(array('type' => $request->request->get('type'), 'nb' => $request->request->get('nb'), 'etat' => 1, 'ville' => $ville));
+                    $logements = $repoSearch->findByCriteresApi(array('type' => $request->request->get('type'), 'nb' => $request->request->get('nb'), 'etat' => 1, 'ville' => $ville->getNom()));
                 } else {
-                    $logements = $repoSearch->findByCriteres(array('type' => $request->request->get('type'), 'nb' => $request->request->get('nb'), 'etat' => 1));
+                    $logements = $repoSearch->findByCriteresApi(array('type' => $request->request->get('type'), 'nb' => $request->request->get('nb'), 'etat' => 1));
                 }
             } else {
-                $logements = $repoSearch->findByCriteres(array('type' => $request->request->get('type'), 'nb' => $request->request->get('nb'), 'etat' => 1));
+                $logements = $repoSearch->findByCriteresApi(array('type' => $request->request->get('type'), 'nb' => $request->request->get('nb'), 'etat' => 1));
             }
-            $response->setContent(json_encode($logements));
-            return $response;
+            $response->setContent(json_encode($logements));            
+        } else {
+            $response->setStatusCode(401);
+            $response->setContent(json_encode('Unauthorized'));
         }
+        return $response;
     }
 }
     

@@ -1,22 +1,27 @@
 <form action="/recherche" method="post">
     <div class="form-group">
-        <select class="form-control" id="selectHousingType" name="type">
-            <option disabled {% if data['type'] == 0 %} selected {% endif %}>Sélectionner un logement :</option>
+        <label for="type">Sélectionner un logement :</label>
+        <select class="form-control" id="type" name="type">
+            <option disabled {% if data['type'] == 0 %} selected {% endif %}>Aucun logement sélectionné</option>
         {% for type in types %}
             <option value="{{ type.id }}" {% if data['type'] == type.id %} selected {% endif %}>{{ type.type }}</option>
         {% endfor %}
         </select>
     </div>
     <div class="form-group">
-        <input type="text" class="form-control" name="ville" id="villeAuto" placeholder="Ville"/>
+        <label for="ville">Rechercher une ville :</label>
+        <input type="text" class="form-control" name="ville" id="villeAuto" placeholder="Saisissez une ville ..."/>
     </div>
     <div class="form-group">
+        <label for="depart">Date de début</label>
         <input type="text" class="form-control" id="inputDepartureDate" placeholder="Date de départ" value="{{ data['depart'] }}" name="depart">
     </div>
     <div class="form-group">
+        <label for="arrive">Date de fin</label>
         <input type="text" class="form-control" id="inputArrivalDate" placeholder="Date d'arrivée" value="{{ data['arrivee'] }}" name="arrivee">
     </div>    
     <div class="form-group">
+        <label for="nb">Nombre de personnes</label>
         <input type="number" name="nb" class="form-control" id="selectTravelers" min="1" max="10" placeholder="Nombre de voyageurs" value="{{ data['nb'] }}"/>
     </div>
     <button type="submit" class="btn btn-recherche">Rechercher</button>

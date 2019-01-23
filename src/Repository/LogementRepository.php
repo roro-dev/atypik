@@ -64,4 +64,31 @@ class LogementRepository extends ServiceEntityRepository
         }        
         return $result;
     }
+
+    /**
+     * Permet d'éxécuter la recherche de logement selon des criteres
+     * @param   array   $_data
+     * @return  array
+     */
+    public function findByCriteresApi($_data) {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = "SELECT * FROM logement l 
+        WHERE etat = 1";
+        $params = array();
+        if(array_key_exists('type', $_data) && !empty($_data['type'])) {
+            $sql .= " AND id_type_id = :type ";
+            $params['type'] = $_data['type'];
+        }
+        if(array_key_exists('nb', $_data) && !empty($_data['nb'])) {
+            $sql .= " AND nb_personne >= :nb ";
+            $params['nb'] = $_data['nb'];
+        }
+        if(array_key_exists('ville', $_data) && !empty($_data['ville'])) {
+            $sql .= " AND ville_id = :ville ";
+            $params['ville'] = $_data['ville'];
+        }
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll();
+    }
 }
