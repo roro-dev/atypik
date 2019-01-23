@@ -80,7 +80,7 @@ class ApiController extends AbstractController
             if(!empty($request->request->get('ville'))) {
                 $ville = $this->getDoctrine()->getRepository(Ville::class)->findOneBy(['nom' => $request->request->get('ville')]);
                 if(!empty($ville)) {
-                    $logements = $repoSearch->findByCriteresApi(array('type' => $request->request->get('type'), 'nb' => $request->request->get('nb'), 'etat' => 1, 'ville' => $ville));
+                    $logements = $repoSearch->findByCriteresApi(array('type' => $request->request->get('type'), 'nb' => $request->request->get('nb'), 'etat' => 1, 'ville' => $ville->getNom()));
                 } else {
                     $logements = $repoSearch->findByCriteresApi(array('type' => $request->request->get('type'), 'nb' => $request->request->get('nb'), 'etat' => 1));
                 }

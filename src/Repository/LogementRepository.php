@@ -80,11 +80,12 @@ class LogementRepository extends ServiceEntityRepository
             $params['type'] = $_data['type'];
         }
         if(array_key_exists('nb', $_data) && !empty($_data['nb'])) {
-            $sql .= " AND nb_personne <= :nb ";
+            $sql .= " AND nb_personne >= :nb ";
             $params['nb'] = $_data['nb'];
         }
         if(array_key_exists('ville', $_data) && !empty($_data['ville'])) {
             $sql .= " AND ville_id = :ville ";
+            $params['ville'] = $_data['ville'];
         }
         $stmt = $conn->prepare($sql);
         $stmt->execute($params);
