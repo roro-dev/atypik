@@ -5,7 +5,7 @@
     <div class="row mx-auto my-2">
         <a href="{{ path('logement_liste') }}">Retour</a>
     </div>
-    <h3>Création d'un utilisateur</h3>
+    <h1>Création d'un utilisateur</h1>
     {% for flash_message in app.session.flashBag.get('error') %}
         <div class="alert alert-error">
             {{ flash_message }}

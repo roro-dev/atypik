@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="container">
-    <h3>Liste des utilisateurs</h3>
+    <h1>Liste des utilisateurs</h1>
     {% for flash_message in app.session.flashBag.get('success') %}
         <div class="alert alert-success">
             {{ flash_message }}

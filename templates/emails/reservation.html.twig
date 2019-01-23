@@ -1,4 +1,4 @@
-<h3>Réservation N° {{ resa.getId() }}</h3><br>
+<h1>Réservation N° {{ resa.getId() }}</h1><br>
 Bonjour {{ resa.getUtilisateur().getPrenom() }}!<br>
 Voici un récapitulatif de votre réservation réalisé le {{ resa.getDateCreation()|date('d/m/Y') }}<br>
 <strong>Logement :</strong>{{ resa.getLogement().getNom() }}<br>

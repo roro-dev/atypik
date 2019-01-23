@@ -27,7 +27,7 @@
                 <div class="tab-pane" id="dashboard">
                   <div class="row">
                     <div class="col-md-12">
-                      <h4>Tableau de bord</h4>
+                      <h2>Tableau de bord</h2>
                       <hr>
                     </div>
                   </div>
@@ -36,16 +36,18 @@
               <div class="tab-pane" id="reservations">
                 <div class="row">
                   <div class="col-md-12">
-                    <h4>Mes Réservations</h4>
+                    <h2>Mes Réservations</h2>
                     <hr>
                     <div id="accordion">
                       <div class="card">
                         <div class="card-header" id="headingOne">
-                          <h5 class="mb-0">
+                          <h3
+                           class="mb-0">
                             <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                               Voyages en cours ou à venir
                             </button>
-                          </h5>
+                          </h3
+                          >
                         </div>
                         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                           {% if newResas is not empty %}
@@ -53,7 +55,9 @@
                               <div class="card-body">
                                 <div class="boxReservation">
                                   <img class="img" src="{% if r.getLogement().getPhotos() is not empty %}/uploads/logements/{{ r.getLogement().getId() ~ '/' ~ r.getLogement().getPhotos[0].getPhoto() }}{% else %}/img/types-habitat/{{ r.getLogement().getIdType().getPathImg()}}{% endif %}">
-                                  <h5 class="card-title">{{ r.getLogement().getNom() }} du {{ r.getDateDebut()|date('d/m/Y') }} au {{ r.getDateFin()|date('d/m/Y') }} - {{ r.getPrixTotal() }} €</h5>
+                                  <h3
+                                   class="card-title">{{ r.getLogement().getNom() }} du {{ r.getDateDebut()|date('d/m/Y') }} au {{ r.getDateFin()|date('d/m/Y') }} - {{ r.getPrixTotal() }} €</h3
+                                  >
                                   <p class="card-text">{{ r.getLogement().getDescription() }}</p>
                                   <p class="card-text"><small class="text-muted">Réservé le {{ r.getDateCreation()|date('d/m/Y') }}</small></p>
                                   <button type="button" onclick="location.href = '/logement/{{ r.getLogement().getId() }}#commentaires'" class="btn btn-primary">Commenter</button>
@@ -67,11 +71,11 @@
                       </div>
                       <div class="card">
                         <div class="card-header" id="headingTwo">
-                          <h5 class="mb-0">
+                          <h3 class="mb-0">
                             <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                               Historiques de vos séjours
                             </button>
-                          </h5>
+                          </h3>
                         </div>
                         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                           {% if newResas is not empty %}
@@ -79,7 +83,7 @@
                             <div class="card-body">
                               <div class="boxReservation">
                                 <img class="img" src="{% if r.getLogement().getPhotos() is not empty %}/uploads/logements/{{ r.getLogement().getId() ~ '/' ~ r.getLogement().getPhotos[0].getPhoto() }}{% else %}/img/types-habitat/{{ r.getLogement().getIdType().getPathImg()}}{% endif %}">
-                                <h5 class="card-title">{{ r.getLogement().getNom() }} du {{ r.getDateDebut()|date('d/m/Y') }} au {{ r.getDateFin()|date('d/m/Y') }} - {{ r.getPrixTotal() }} €</h5>
+                                <h3 class="card-title">{{ r.getLogement().getNom() }} du {{ r.getDateDebut()|date('d/m/Y') }} au {{ r.getDateFin()|date('d/m/Y') }} - {{ r.getPrixTotal() }} €</h3>
                                 <p class="card-text">{{ r.getLogement().getDescription() }}</p>
                                 <p class="card-text"><small class="text-muted">Réservé le {{ r.getDateCreation()|date('d/m/Y') }}</small></p>
                                 <button type="button" onclick="location.href = '/logement/{{ r.getLogement().getId() }}#commentaires'" class="btn btn-primary">Commenter</button>
@@ -99,7 +103,7 @@
             <div class="tab-pane" id="informations">
              <div class="row">
               <div class="col-md-12">
-                <h4>Mon Profil</h4>
+                <h2>Mon Profil</h2>
                 <hr>
                 {% for flash_message in app.session.flashBag.get('error') %}
                     <div class="alert alert-danger">
@@ -173,15 +177,19 @@
           <div class="tab-pane" id="messages">
             <div class="row">
               <div class="col-md-12">
-                <h4>Mes Messages</h4>
+                <h2>Mes Messages</h2>
                 <hr>
                 {% if app.user.getMessages() is not empty %}
                   {% for m in app.user.getMessages() %}
                     <div class="card text">
                       <div class="card-header">{{ m.getExpediteur() }}</div>
                       <div class="card-body">
-                        <h5 class="card-title">Bien concerné : <a href="{{ path('logement_index', {'id': m.getLogement().getId() }) }}">{{ m.getLogement().getNom() }}</a></h5><br>
-                        <h5 class="card-title">{{ m.objet }}</h5>
+                        <h3
+                         class="card-title">Bien concerné : <a href="{{ path('logement_index', {'id': m.getLogement().getId() }) }}">{{ m.getLogement().getNom() }}</a></h3
+                        ><br>
+                        <h3
+                         class="card-title">{{ m.objet }}</h3
+                        >
                         <p class="card-text">{{ m.getContenu() }}</p>
                         <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#reponseForm" aria-expanded="false" aria-controls="collapseExample">
                           Répondre
@@ -223,15 +231,17 @@
           <div class="tab-pane" id="logements">
             <div class="row">
               <div class="col-md-12">
-                <h4>Mes Logements</h4>
+                <h2>Mes Logements</h2>
                 <hr>
                 {% for logement in app.user.getLogements() %}
                   <div class="col-md">
                     <div class="card">
                       <img class="card-img-top" src="{% if logement.getPhotos() is not empty %}/uploads/logements/{{logement.id ~ '/' ~ logement.getPhotos()[0].photo}} {% else %}/img/types-habitat/{{ logement.getIdType().getPathImg()}} {% endif %}" alt="{{ logement.getNom() }}">
                       <div class="card-body">
-                        <h4 class="card-title ">{{ logement.nom }}</h4>
-                        <h5 class="card-title">{{ logement.getVille().getNom() }} - {{ logement.prix }}€/nuit </h5>
+                        <h2 class="card-title ">{{ logement.nom }}</h2>
+                        <h3
+                         class="card-title">{{ logement.getVille().getNom() }} - {{ logement.prix }}€/nuit </h3
+                        >
                         <p class="card-text">{{ logement.description |slice(0, 40) }} ...
                         </p>
                         <button type="button" class="btn btn-consulter"><a href="{{ path('logement_index', {'id': logement.id}) }}" class="a-consulter">Consulter</a></button>

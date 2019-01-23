@@ -34,8 +34,12 @@ h2.contactTitle {
     background-color: #8AC651;
 }
 
-h3 {
+h1 {
     padding: 1rem 0 1rem 0;
+}
+
+h1 {
+	font-size: 1.75rem;
 }
 
 #nightDream {
@@ -95,7 +99,12 @@ h3 {
 	margin-top: -30px;
 	padding-bottom: 0em;
 }
-.my-captions h5{
+
+h3{
+	font-size: 1.25rem;
+}
+
+.my-captions h3{
 	padding-top: 30px;
 }
 
@@ -583,7 +592,7 @@ h2.contactTitle {
 	width: 100%;
 }
 
-h3.titreLogement {
+h1.titreLogement {
     margin: 0;
     padding-bottom: 10px;
 }
@@ -610,7 +619,11 @@ h3.titreLogement {
     margin-bottom: 25px;
 }
 
-h4.sous-titre {
+h2{
+	font-size: 1.5rem;
+}
+
+h2.sous-titre {
     margin: 30px 0 15px 0px;
 }
 

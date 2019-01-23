@@ -50,7 +50,7 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-8">
-      <h3 class="titreLogement">{{ logement.nom }}</h3>
+      <h1 class="titreLogement">{{ logement.nom }}</h1>
       <div class="titre_ville">{{ logement.getVille().getNom() }}</div>
 
       <div class="row info-icones">
@@ -66,7 +66,7 @@
         </div>
       </div>
 
-      <h4 class="sous-titre"> Présentation </h4>
+      <h2 class="sous-titre"> Présentation </h2>
       <div class="produit-desc">
         {{ logement.description }}
       </div>
@@ -74,7 +74,7 @@
       <div class="row">
         {% if logement.getCommodites() is not empty %}
           <div class="col">
-            <h4 class="sous-titre"> Commodités </h4>
+            <h2 class="sous-titre"> Commodités </h2>
             <div class="produit-desc">
             {% set commodites = logement.getCommodites()|split(';') %}
               <ul>
@@ -87,7 +87,7 @@
         {% endif %}
         {% if logement.getReglement() is not empty %}
         <div class="col">
-          <h4 class="sous-titre"> Réglement </h4>
+          <h2 class="sous-titre"> Réglement </h2>
           <div class="produit-desc">
             {% set regles = logement.getReglement()|split(';') %}
               <ul>
@@ -100,7 +100,7 @@
         {% endif %}
       </div>
 
-      <h4 class="sous-titre"> Activité à proximité </h4>
+      <h2 class="sous-titre"> Activité à proximité </h2>
       <div class="produit-desc">
         <ul>
           <li>Randonnée</li>
@@ -109,7 +109,7 @@
           <li>centre équestre</li>
         </ul>
       </div>
-      <h4>Localisez l'hébergement</h4>
+      <h2>Localisez l'hébergement</h2>
       <div class="adresse-location">
         {{ logement.adresse ~ ' ' ~ logement.codePostal }}
         {% if logement.getVille() is not empty %}
@@ -136,7 +136,7 @@
       </script>
       <div class="row">
         <div class="comments col" id="commentaires">
-          <h4 class="sous-titre mb-2"> Avis des voyageurs</h4>
+          <h2 class="sous-titre mb-2"> Avis des voyageurs</h2>
           <hr>
           {% if commentaires is not empty %}
             {% for c in commentaires %}
@@ -253,7 +253,7 @@
         </form>
       </div>
       <div class="hote">
-        <h4 class="sous-titre"> Votre hôte </h4>
+        <h2 class="sous-titre"> Votre hôte </h2>
         <img class="icone-proprio" src="/img/picto/proprio.svg" />
         <p class="nom-hote">Nom de l'hôte</p>
         <p class="logement-hote">{{ logement.getIdProprietaire() }}</p>
@@ -262,7 +262,7 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Contacter le propriétaire - {{ logement.getIdProprietaire() }} </h5>
+                <h3 class="modal-title" id="exampleModalLabel">Contacter le propriétaire - {{ logement.getIdProprietaire() }} </h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>

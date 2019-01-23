@@ -13,13 +13,13 @@
   {% if logements is empty %}
   <div class="row">
     <div class="col-sm3">
-      <h3>Aucun résultat</h3>
+      <h1>Aucun résultat</h1>
     </div>
   </div>
   {% else %}
   <div class="row">
     <div class="col-sm3">
-      <h3>Résultats de la recherche :</h3>
+      <h1>Résultats de la recherche :</h1>
     </div>
   </div>
   <div class="row">
@@ -28,8 +28,8 @@
         <div class="card">
           <img class="card-img-top" src="{% if logement.getPhotos() is not empty %}/uploads/logements/{{logement.id ~ '/' ~ logement.getPhotos()[0].photo}} {% else %}/img/types-habitat/{{ logement.getIdType().getPathImg()}} {% endif %}" alt="{{ logement.getNom() }}">
           <div class="card-body">
-            <h4 class="card-title ">{{ logement.nom }}</h4>
-            <h5 class="card-title">{{ logement.getVille().getNom() }} - {{ logement.prix }}€/nuit </h5>
+            <h2 class="card-title ">{{ logement.nom }}</h2>
+            <h3 class="card-title">{{ logement.getVille().getNom() }} - {{ logement.prix }}€/nuit </h3>
             <p class="card-text">{{ logement.description |slice(0, 40) }} ...
             </p>
             <button type="button" class="btn btn-consulter"><a href="{{ path('logement_index', {'id': logement.id}) }}" class="a-consulter">Consulter</a></button>

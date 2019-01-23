@@ -14,7 +14,7 @@
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
-        <h3 class="h3 mb-3 font-weight-normal">Connectez-vous !</h3>
+        <h1 class="h1 mb-3 font-weight-normal">Connectez-vous !</h1>
         <label for="inputEmail">Adresse Email *</label>
         <input type="email" value="{{ last_username }}" name="_username" id="inputEmail" class="form-control" placeholder="Votre adresse e-mail" required autofocus>
         <br>
@@ -27,7 +27,7 @@
         </button>
     </form>
     <br/>
-    <h5>Vous n’avez pas de compte ? <a href="/register">Inscrivez-vous ici</a> !</h5>
+    <h3>Vous n’avez pas de compte ? <a href="/register">Inscrivez-vous ici</a> !</h3>
 
 </div>
 {% endblock %}

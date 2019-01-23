@@ -24,7 +24,7 @@
         <input type="text" class="form-control" name="villeSearch" id="villeSearch"/>
         <input type="hidden" value="" id="villeSearchId" />
         <br>
-        <h4>Paramètres de l'habitat</h4>
+        <h2>Paramètres de l'habitat</h2>
         {% for p in params %}
             <label for="param-{{ p.id }}">{{ p.getParametre().getNom() }}</label>
             <input type="text" name="param[{{ p.id }}]" value="{{ p.valeur }}" class="form-control"/>

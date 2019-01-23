@@ -3,7 +3,7 @@
 {% block title %}Types de Logement{% endblock %}
 
 {% block body %}
-    <h3>Types de Logement</h3>
+    <h1>Types de Logement</h1>
     {% for flash_message in app.session.flashBag.get('success') %}
         <div class="alert alert-success">
             {{ flash_message }}

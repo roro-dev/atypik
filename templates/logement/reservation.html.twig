@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h3>{{ logement.getNom() ~ ' - ' ~ logement.getAdresse() ~ ' - ' ~ logement.getVille().getNom() }}</h3>
+            <h1>{{ logement.getNom() ~ ' - ' ~ logement.getAdresse() ~ ' - ' ~ logement.getVille().getNom() }}</h1>
         </div>
         <div class="col-12">
             {% for flash_message in app.session.flashBag.get('error') %}
@@ -17,7 +17,7 @@
             {% endfor %}
             <form action="{{ path('paiement_route', {'id': logement.id}) }}" method="post" id="paiement-form">
                 {# Logement #}
-                <h4>1. Sélectionnez vos options :</h4>
+                <h2>1. Sélectionnez vos options :</h2>
                 <br>
                 <div class="form-group row">
                     <div class="col">
@@ -60,7 +60,7 @@
                     </div>
                 </div>
                 {# Locataire #}
-                <h3>2. Vos informations :</h3>
+                <h1>2. Vos informations :</h1>
                 <div class="form-group">
                     <label for="logement" class="col">Nom</label>
                     <input type="text" id="nom" name="logement" readonly class="form-control" value="{{ app.user.getNom() }}">
@@ -82,7 +82,7 @@
                     <input type="text" id="adresse" name="logement" readonly class="form-control" value="{{ app.user.getAdresse() }}">
                 </div>
                 {# Méthode de paiement #}
-                <h3>3. Paiement</h3>
+                <h1>3. Paiement</h1>
                 <div class="form-group">
                     <div id="card-errors" class="alert alert-danger" role="alert"></div>
                     <label for="card-element">Rentrez la carte de crédit</label>

@@ -5,7 +5,7 @@
         <img src="/img/chair.jpeg"/>
     </div>
     <div class="container">
-        <h3>{{ logement.getNom() }}</h3>        
+        <h1>{{ logement.getNom() }}</h1>        
         {% for flash_message in app.session.flashBag.get('error') %}
             <div class="alert alert-error">
                 {{ flash_message }}
@@ -53,7 +53,7 @@
                 {{ form_row(form.photosUploads) }}
             </div>
             <br>
-            <h4>Paramètres de l'habitat</h4>
+            <h2>Paramètres de l'habitat</h2>
             <div id="parametres"></div>
             <br>
             <button class="btn btn-success btn-lg ml-auto d-flex">Modifier votre bien</button>
