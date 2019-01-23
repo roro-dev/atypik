@@ -50,10 +50,8 @@
                     <a class="dropdown-item" href="/profil#logements">Mes logements</a>
                   {% endif %}
                   <div class="dropdown-divider"></div>
-                  {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    {% if 'ROLE_ADMIN' in app.user.getRoles() %}
-                      <a class="dropdown-item" href="{{ path('logement_liste') }}">Accès BackOffice</a>    
-                    {% endif %}
+                  {% if 'ROLE_ADMIN' in app.user.getRoles() %}
+                    <a class="dropdown-item" href="{{ path('logement_liste') }}">Accès BackOffice</a>    
                   {% endif %}
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="/logout">Déconnexion</a>
@@ -77,12 +75,10 @@
             <a class="nav-link sousMenu" href="/profil#reservations">Mes Réservations</a>
           </li>
           <div class="dropdown-divider"></div>
-          {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            {% if 'ROLE_ADMIN' in app.user.getRoles() %}            
-              <li class="nav-item">
-                <a class="nav-link sousMenu" href="{{ path('logement_liste') }}">Accès BackOffice</a>
-              </li>
-            {% endif %}
+          {% if 'ROLE_ADMIN' in app.user.getRoles() %}            
+            <li class="nav-item">
+              <a class="nav-link sousMenu" href="{{ path('logement_liste') }}">Accès BackOffice</a>
+            </li>
           {% endif %}
           <div class="dropdown-divider"></div>
           <li class="nav-item">
@@ -90,18 +86,39 @@
           </li>
         </ul>
       </div>
-        {% else %}
-          <ul class="nav navbar-nav"> 
-            <li class="nav-item ajouterBien">
+        {% else %}        
+          <div class="d-none d-lg-block">
+            <ul class="nav navbar-nav"> 
+              <li class="nav-item ajouterBien">
                 <a class="btn btn-success" href="{{ path('logement_ajout') }}">Ajouter un bien</a>
-            </li>       
-            <li class="nav-item">
-              <a class="btn btn-outline-register" href="/register">Inscription</a>
-            </li>
-            <li class="nav-item">
-              <a class="btn btn-outline-login" href="/login">Connexion</a>
-            </li>
-          </ul>
+              </li>       
+              <li class="nav-item">
+                <a class="btn btn-outline-register" href="/register">Inscription</a>
+              </li>
+              <li class="nav-item">
+                <a class="btn btn-outline-success" href="/login">Connexion</a>
+              </li>
+            </ul>
+          </div>
+          <div class="d-block d-lg-none">
+            <ul class="nav navbar-nav">
+              <li class="nav-item">
+                <div class="nav-link sousMenu">
+                    <a class="btn btn-outline-success btn-block" href="/login">Connexion</a>
+                    </div>
+              </li>
+              <li class="nav-item">
+                <div class="nav-link sousMenu">
+                    <a class="btn btn-outline-register btn-block" href="/register">Inscription</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <div class="nav-link sousMenu">
+                    <a class="btn btn-success btn-block" href="{{ path('logement_ajout') }}">Ajouter un bien</a>
+                </div>
+              </li>
+            </ul>
+          </div>
         {% endif %}
       </div>
     </nav>
