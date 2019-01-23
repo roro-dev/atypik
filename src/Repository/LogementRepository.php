@@ -74,14 +74,16 @@ class LogementRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
         $sql = "SELECT * FROM logement l 
         WHERE etat = 1";
+        $params = array();
         if(array_key_exists('type', $_data) && !empty($_data['type'])) {
             $sql .= " AND id_type_id = :type ";
+            $params['type'] = $_data['type'];
         }
         if(array_key_exists('ville', $_data) && !empty($_data['ville'])) {
-            $sql .= " AND ville_id = :type ";
+            $sql .= " AND ville_id = :ville ";
         }
         $stmt = $conn->prepare($sql);
-        $stmt->execute(['type' => $_data['type'], 'ville' => $_data['ville']]);
+        $stmt->execute($params);
         return $stmt->fetchAll();
     }
 }
