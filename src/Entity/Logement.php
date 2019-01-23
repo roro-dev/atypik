@@ -545,7 +545,7 @@ class Logement
      */
     public function getNoteMoyenne() {
         $note  = 0;
-        if(!empty($this->commentaires)) {
+        if(count($this->commentaires) > 0) {
             foreach($this->commentaires as $c) {
                 $note += $c->getNote();
             }
