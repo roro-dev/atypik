@@ -61,13 +61,11 @@ class AdminReservationController extends AbstractController
     {
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('reservation_index', ['id' => $reservation->getId()]);
         }
-
         return $this->render('admin/reservation/reservation-edit.html.twig', [
             'reservation' => $reservation,
             'form' => $form->createView(),

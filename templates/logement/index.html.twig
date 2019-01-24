@@ -78,8 +78,10 @@
             <div class="produit-desc">
             {% set commodites = logement.getCommodites()|split(';') %}
               <ul>
-                {% for c in commodites %}
-                  <li>{{ c }}</li>
+                {% for c in commodites %}                
+                  {% if c is not empty %}
+                    <li>{{ c }}</li>                  
+                  {% endif %}
                 {% endfor %}
               </ul>
             </div>
@@ -92,7 +94,9 @@
             {% set regles = logement.getReglement()|split(';') %}
               <ul>
                 {% for r in regles %}
-                  <li>{{ r }}</li>
+                  {% if r is not empty %}
+                    <li>{{ r }}</li>
+                  {% endif %}
                 {% endfor %}
               </ul>
           </div>

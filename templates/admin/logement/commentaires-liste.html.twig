@@ -1,0 +1,44 @@
+{% extends 'base-bo.html.twig' %}
+
+{% block title %}Liste des commentaires{% endblock %}
+
+{% block body %}
+    <h1>Liste des commentaires</h1>
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+    <div class="row mx-auto my-2">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th rowspan="2">Objet</th>
+                        <th rowspan="2">Message</th>
+                        <th rowspan="2">Utilisateur</th>
+                        <th rowspan="2">Note</th>
+                        <th rowspan="2">Logement</th>
+                        <th rowspan="2"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for commentaire in commentaires %}
+                    <tr>
+                        <td>{{ commentaire.titre }}</td>
+                        <td>{{ commentaire.contenu }}</td>
+                        <td>{{ commentaire.getIdUtilisateur() }}</td>
+                        <td>{{ commentaire.getNote() }}</td>
+                        <td>{{ commentaire.getIdLogement().getNom() }}</td>
+                        <td>
+                            <a href="{{ path('logement_apercu', {'id': commentaire.getIdLogement().getId()}) }}" class="btn btn-warning btn-block" title="Voir le logement"><img src="/img/picto/eye.svg" /></a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="8">Aucun résultat</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+{% endblock %}

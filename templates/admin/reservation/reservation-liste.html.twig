@@ -1,6 +1,6 @@
 {% extends 'base-bo.html.twig' %}
 
-{% block title %}Reservation index{% endblock %}
+{% block title %}Liste des réservations{% endblock %}
 
 {% block body %}
     <h1>Liste des réservations</h1>
@@ -15,21 +15,20 @@
                     <th>Réservée le</th>
                     <th>Nombre de personnes</th>
                     <th>Prix Total
-                    <th>actions</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
             {% for reservation in reservations %}
                 <tr>
-                    <td><a href="{{ path('logement_show', {'id': reservation.getLogement().getId()}) }}">{{ reservation.getLogement().getNom() }}</a></td>
+                    <td>{{ reservation.getLogement().getNom() }}</td>
                     <td>{{ reservation.dateDebut ? reservation.dateDebut|date('d/m/Y') : '' }}</td>
                     <td>{{ reservation.dateFin ? reservation.dateFin|date('d/m/Y') : '' }}</td>
                     <td>{{ reservation.dateCreation ? reservation.dateCreation|date('d/m/Y H:i:s') : '' }}</td>
                     <td>{{ reservation.nbPersonne }}</td>
                     <td>{{ reservation.getPrixResa()}} €</td>
                     <td>
-                        <a href="{{ path('reservation_edit', {'id': logement.id}) }}" class="btn btn-success" title="Modifier le logement">M</a>
-                        <a href="{{ path('reservation_delete', {'id': logement.id}) }}" class="btn btn-danger" title="Supprimer le logement">S</a>
+                        <a href="{{ path('logement_apercu', {'id': reservation.getLogement().getId()}) }}" class="btn btn-warning btn-block" title="Voir le logement"><img src="/img/picto/eye.svg" /></a>
                     </td>
                 </tr>
             {% else %}

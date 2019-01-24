@@ -3,6 +3,7 @@
 namespace App\Controller\admin;
 
 use App\Entity\Logement;
+use App\Entity\Commentaire;
 use App\Form\TypeLogementType;
 use App\Form\LogementType;
 use App\Repository\LogementRepository;
@@ -87,7 +88,7 @@ class AdminLogementController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="logement_apercu", methods="GET")
+     * @Route("/apercu/{id}", name="logement_apercu", methods="GET")
      */
     public function show(Logement $logement): Response
     {
@@ -114,16 +115,6 @@ class AdminLogementController extends AbstractController
             'form' => $form->createView(),
             'params' => $logement->getParametres()
         ]);
-    }
-
-    public function delete(Request $request, Logement $logement): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$logement->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($logement);
-            $em->flush();
-        }
-        return $this->redirectToRoute('logement_index');
     }
 
     /**
@@ -175,5 +166,13 @@ class AdminLogementController extends AbstractController
             $this->addFlash('error', 'Ce logement est déjà validé.');
         }        
         return $this->redirectToRoute('logement_liste');
+    }
+
+    /**
+     * @Route("/commentaires", name="logement_commentaires", methods="GET")
+     */
+    public function listeCommentaires(): Response
+    {
+        return $this->render('admin/logement/commentaires-liste.html.twig', ['commentaires' => $this->getDoctrine()->getRepository(Commentaire::class)->findAll()]);
     }
 }

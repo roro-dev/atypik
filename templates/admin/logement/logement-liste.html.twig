@@ -1,6 +1,6 @@
 {% extends 'base-bo.html.twig' %}
 
-{% block title %}Logements > Liste{% endblock %}
+{% block title %}Liste des logements{% endblock %}
 
 {% block body %}
     <h1>Liste des logements</h1>
@@ -33,17 +33,17 @@
                         <td>{{ logement.getIdType().getType() }}</td>
                         <td>{{ logement.prix }} €</td>
                         <td>
-                            <a href="{{ path('utilisateur_show', {'id': logement.getIdProprietaire().getId()}) }}" class="btn btn-warning" title="Voir le propriétaire du logement">
+                            <a href="{{ path('utilisateur_show', {'id': logement.getIdProprietaire().getId()}) }}" class="btn btn-warning btn-block" title="Voir le propriétaire du logement">
                                 <img src="/img/picto/owner.svg" /></a>
-                            <a href="{{ path('logement_edit', {'id': logement.id}) }}" class="btn btn-info" title="Modifier le logement">
+                            <a href="{{ path('logement_edit', {'id': logement.id}) }}" class="btn btn-info btn-block" title="Modifier le logement">
                                 <img src="/img/picto/pencil.svg" />
                             </a>
                             {% if logement.etat == true %}
-                                <a href="{{ path('logement_desactiver', {'id': logement.id}) }}" class="btn btn-danger" title="Désactiver le logement">
+                                <a href="{{ path('logement_desactiver', {'id': logement.id}) }}" class="btn btn-danger btn-block" title="Désactiver le logement">
                                     <img src="/img/picto/uncheck.svg" />
                                 </a>
                             {% else %}
-                                <a href="{{ path('logement_valider', {'id': logement.id}) }}" class="btn btn-success" title="Valider le logement">
+                                <a href="{{ path('logement_valider', {'id': logement.id}) }}" class="btn btn-success btn-block" title="Valider le logement">
                                     <img src="/img/picto/check.svg" />
                                 </a>
                             {% endif %}

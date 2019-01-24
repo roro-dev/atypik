@@ -7,24 +7,71 @@
         <a href="{{ path('logement_liste') }}">Retour</a>
     </div>
     <h1>{{ logement.nom }}</h1>
-    <a href="" class="btn btn-info">Modifier</a>
-    {{ include('admin/logement/logement-delete-form.html.twig') }}
+    <a href="{{ path('logement_edit', {'id': logement.id}) }}" class="btn btn-info">Modifier</a>
     <br><br>
-    <img src="/img/cabane2.jpg" />
+    {% if logement.getPhotos() is not empty %}
+        {% for p in logement.getPhotos() %}
+            <img width="300" src="/uploads/logements/{{logement.id}}/{{p.getPhoto()}}" />
+        {% endfor %}
+    {% else %}
+        <img width="300" src="/img/types-habitat/{{ logement.getIdType().getPathImg() }}" />
+    {% endif %}
+    <br><br>
     <table class="table">
         <tbody>
             <tr>
+                <th>Propriétaire</th>
+                <td>{{ logement.getIdProprietaire() }}</td>
+            </tr>
+            <tr>
                 <th>Description</th>
-            </tr>
-            <tr>
                 <td>{{ logement.description }}</td>
-            </tr>
-            <tr>
-                <th>Paramètres</th>
             </tr>
             <tr>
                 <th>Prix</th>
                 <td>{{ logement.prix }} € / nuit</td>
+            </tr>
+            <tr>
+                <th>Nombre de personnes max.</th>
+                <td>{{ logement.nbPersonne }}</td>
+            </tr>
+            <tr>
+                <th>Code postal / Ville</th>
+                <td>{{ logement.codePostal ~ ' - ' ~ logement.getVille().getNom() }}</td>
+            </tr>
+            <tr>
+                <th>Note (sur 5)</th>
+                <td>{% if logement.getCommentaires() is not empty %}{{ logement.getNoteMoyenne() }}{% else %} Aucune note saisie {% endif %}</td>
+            </tr>
+            <tr>
+                <th>Règlement</th>
+                <td>
+                {% if logement.getReglement() is not empty %}
+                    {% set regles = logement.getReglement()|split(';') %}
+                        <ul>
+                            {% for r in regles %}
+                                {% if r is not empty %}
+                                    <li>{{ r }}</li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Commodités</th>
+                <td>
+                {% if logement.getCommodites() is not empty %}
+                    {% set commos = logement.getCommodites()|split(';') %}
+                        <ul>
+                            {% for c in commos %}
+                                {% if c is not empty %}
+                                    <li>{{ c }}</li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                {% endif %}
+                </td>
             </tr>
         </tbody>
     </table>

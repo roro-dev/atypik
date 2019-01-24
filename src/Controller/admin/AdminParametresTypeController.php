@@ -29,7 +29,7 @@ class AdminParametresTypeController extends AbstractController
             $data['params'] = $this->getDoctrine()->getRepository(ParametresType::class)->findAll();
         }
         return $this->render(
-            'admin/parametres-type/parametres-type-index.html.twig',
+            'admin/parametres-type/parametres-type-liste.html.twig',
             $data
         );
     }
@@ -63,7 +63,7 @@ class AdminParametresTypeController extends AbstractController
                     }
                 }
                 $this->addFlash('success', 'Paramètre crée avec succès !');
-                return $this->redirectToRoute('parametres_type_index');
+                return $this->redirectToRoute('parametres_type_liste');
             } else {
                 $this->addFlash('error', 'Une erreur est survenue.');
             }
@@ -72,14 +72,6 @@ class AdminParametresTypeController extends AbstractController
             'parametres_type' => $parametresType,
             'form' => $form->createView(),
         ]);
-    }
-
-    /**
-     * @Route("/show/{id}", name="parametres_type_show", methods="GET")
-     */
-    public function show(ParametresType $parametresType): Response
-    {
-        return $this->render('admin/parametres-type/parametres-type-show.html.twig', ['parametres_type' => $parametresType]);
     }
 
     /**
@@ -108,7 +100,7 @@ class AdminParametresTypeController extends AbstractController
                         $em->flush();
                     }
                 }
-                return $this->redirectToRoute('parametres_type_index', array('type' => $parametresType->getType()->getId()));
+                return $this->redirectToRoute('parametres_type_liste', array('type' => $parametresType->getType()->getId()));
             } else {
                 $this->addFlash('error', 'Une erreur est survenue.');
             }
