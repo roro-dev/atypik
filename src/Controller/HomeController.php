@@ -56,7 +56,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/contact", name="contact_route")
      */
-    public function contact(Request $request, \Swift_Mailer $mailer) {        
+    public function contact(Request $request, \Swift_Mailer $mailer) {
         $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
@@ -76,11 +76,14 @@ class HomeController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet d'envoyer un mail à travers le formulaire de contact
+     */
     private function sendMail(\Swift_Mailer $mailer, $_data)
     {
         $message = (new \Swift_Message("Atypik'House - Formulaire de contact"))
-            ->setFrom('contact@atypikhouse.fr')
-            ->setTo('stefane.rodrigues@aefinfo.fr')
+            ->setFrom($_data['email'])
+            ->setTo('contact@atypikhouse.fr')
             ->setBody(
                 $this->renderView(
                     'emails/contact-mail.html.twig',
