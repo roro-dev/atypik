@@ -10,6 +10,7 @@ use App\Entity\Reservation;
 use App\Form\ProfilType;
 use App\Entity\Utilisateur;
 use App\Entity\Message;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 Class ProfilController extends AbstractController {
 

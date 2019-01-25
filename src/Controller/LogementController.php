@@ -115,7 +115,8 @@ Class LogementController extends AbstractController {
         }
         $this->addFlash('error', 'Veuillez rentrez des dates de début et de fin.');
         return $this->render('logement/reservation.html.twig', [
-            'logement' => $logement
+            'logement' => $logement,
+            'data' => array('nbPersonne' => $request->request->get('nbPersonne'), 'dateDebut' => $request->request->get('dateDebut'),'dateFin' => $request->request->get('dateFin'))
         ]);        
     }
 
